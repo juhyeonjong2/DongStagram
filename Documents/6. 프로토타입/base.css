@@ -1,0 +1,86 @@
+@charset 'UTF-8';
+
+*{
+    margin:0; padding: 0; box-sizing: border-box; 
+    font:600 16px/18px 'Open Sans',sans-serif;
+}
+ul, ol{list-style: none;}
+a{text-decoration: none;}
+.clearfix::after{content: ''; display: block; clear: both;}
+
+#nav{
+ position: fixed; width: 200px; border: 1px solid #111; height: 100%; background-color: aliceblue;
+}
+
+/*로고*/
+#logo a{
+  display: inline-block; width: 40px; height: 40px; margin-top: 30px; margin-left: 20px;
+  background: url('./자산\ 4.png') center/contain no-repeat;
+}
+
+
+
+/*탭메뉴 메인에 z인덱스 -2아래로 설정*/
+
+#tabmenu a{width: 150px; height: 50px; display: inline-block; text-decoration: none; color: #aba9af;}
+
+#tabmenu label{
+  color: #aba9af; cursor: pointer; font-size: 16px; border-radius: 10px; width: 150px;
+  display: block; margin-top: 10px; margin-left: 20px; height: 50px; line-height: 50px;
+}
+#tabmenu label:hover{background-color: #c4c0c0; transition: all 0.3s; }
+#tabmenu label:hover img{width: 25px;}
+
+input[type="radio"] {
+  display: none;   
+}
+#tabmenu input:checked + label{
+  color: #111;  
+}
+
+#hdsearch{background-color: #c4c0c0; width: 250px; height: 30px; border: 0px; border-radius: 12px;}
+
+header img{width: 20px; margin-right: 10px;}
+
+#nav1, #nav2, #nav3{
+   border: 1px solid #c4c0c0; width: 380px; height: 100%; position: fixed; top: 0; opacity: 0; z-index: -1; border-radius: 15px; background-color: #fff; 
+   box-shadow: 0 5px 3px rgba(0,0,0,0.2);
+   }
+#tabmenu #tab1:checked ~ #nav1,  
+#tabmenu #tab2:checked ~ #nav2,
+#tabmenu #tab3:checked ~ #nav3{transform: translatex(200px); transition: all 0.5s; opacity: 1;}
+#nav4{
+  border: 1px solid #111; width: 180px; height:102px; position: fixed; opacity: 0; z-index: -1; margin-top: 10px; 
+  border-radius: 15px; margin-left: 10px;}
+#tabmenu #tab7:checked ~ #nav4{ transition: all 0.3s; opacity: 1;}
+
+#hdsearch input{background-color: #c4c0c0; display: block;}
+
+
+
+
+
+
+
+
+
+
+#nav4{border: 0; background-color: #fff;
+  box-shadow: 0 5px 3px rgba(0,0,0,0.2);}
+#nav4 a{color: #111; line-height: 50px; text-align: center; margin-left: 5px;}
+#nav4 li{border-bottom: 1px solid #c4c0c0; width: 160px; margin: 0 auto;}
+#nav4 li:last-child{border-bottom: 0px}
+#nav4 a:hover{background-color: #c4c0c0; transition: all 0.3s; border-radius: 10px;}
+
+
+
+
+
+
+
+
+
+
+/*main*/
+#maindiv{border: 1px solid #111; height: 3000px;}
+.inner{width:700px; margin: 0 auto;}
