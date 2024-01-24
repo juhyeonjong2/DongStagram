@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>동스타그램</title>
   <link rel="stylesheet" href="./base.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <script>  
+  //페이지 이동 시 탭 메뉴가 체크 될 수 있도록 만듬
+  //클릭 시 나에게 checked속성을 집어 넣는다. 실패
+
+
+//      $(document).ready(function(){
+//       $(document).on("click", "#tabmenu > a", function(event){
+//          $(this).attr('checked',true);
+//        });	
+//      });
+
+  </script>
 </head>
 <body>
   <header>
@@ -12,7 +25,7 @@
     <nav id="nav">
           <h1 id="logo"><a href="#"></a></h1>
           <div id="tabmenu">
-            <input type="radio" name="tab_radio" id="tab"/>
+            <input type="radio" name="tab_radio" id="tab">
               <label for="tab" class="tab3"><a href="./base.html"><img src="./자산 4.png">홈</a></label>
 
                 <input type="radio" name="tab_radio" id="tab1"/>
@@ -38,17 +51,55 @@
             
             <section id="nav1">
               <h4>검색</h4>
-              <form action="#">
-                <input type="text" placeholder="검색" id="hdsearch">
+              <form action="#"> <!--하는 사람이 넣을 이벤트 정해서 넣음-->
+                <input type="text" placeholder="  검색" id="hdsearch">
               </form>
+              <hr>
+              <h5>최근 검색 항목</h5>
+              <!--for문으로 div안에 데이터 집어넣음-->
+              <div></div>
             </section>
       
-            <section id="nav2">
-              <div>임시2</div>
+            <section id="nav2" class="clearfix">
+              <div id="nickname">자기 닉네임</div>
+              <a href="#" id="messageLink"><img src="./자산 4.png"></a>
+              <h5>메세지</h5>
+              <!--for문으로 div안에 데이터 집어넣음-->
+
+              <div class="massage">
+                <a href="#">
+                  <img src="./자산 4.png">
+                  <span class="span">###님에게 메세지가 도착하였습니다.
+                    <span class="span2">10분전</span>
+                  </span>
+                </a>
+              </div>
             </section>
       
             <section id="nav3">
-              <div>임시3</div>
+              <h4>알림</h4>
+              <h5>오늘</h5>
+              <!--for문으로 div안에 데이터 집어넣음 처음 이미지는 유저 프로필 다음이미지는 게시글 미리보기-->
+              <div class="notice">
+                <a href="#">
+                  <img src="./자산 4.png">
+                  <span class="span">###님이 댓글을 남겼습니다다다다다다다다다다다다다다다다다
+                    <span class="span2">10분전</span>
+                  </span>
+                  <img src="./자산 4.png" class="img2">
+                </a>
+              </div>
+
+              <div class="notice">
+                <a href="#">
+                  <img src="./자산 4.png">
+                  <span class="span">###님이 댓글을 남겼습니다다다다다다다다다다다다다다다다다
+                    <span class="span2">10분전</span>
+                  </span>
+                  <img src="./자산 4.png" class="img2">
+                </a>
+              </div>
+
             </section>
 
             <section id="nav4">
@@ -62,9 +113,53 @@
   </header> <!--header-->
 
   <main>
-    <div id="maindiv" class="inner clearfix">
+    <div id="maindiv" class="inner clearfix"> <!--메인 전체 하이트는 auto-->
 
-    </div>
+      <div> <!--for문으로 복사될 한 페이지-->
+
+        <div> <!--상단 태그-->
+          <div> <!--왼쪽-->
+            <img src="./자산 4.png">
+            <a href="#">닉네임</a>
+            <span class="span2">2일</span>
+          </div> <!--오른쪽-->
+          <a href="#">게시글 설정 팝업</a>
+        </div> <!--상단 태그-->
+
+        <div> <!--메인 동영상과 사진 슬라이드-->
+          슬라이드
+        </div> <!--메인 동영상과 사진 슬라이드-->
+
+        <div> <!--좋아요나 작성 글 등등-->
+
+            <div>
+              <img src="./자산 4.png"> <!--좋아요-->
+              <a href="#"><img src="./자산 4.png"></a> <!--댓글-->
+              <a href="#"><img src="./자산 4.png"></a> <!--메세지-->
+            </div>
+
+            <div>
+              <a href="#">닉네임</a>
+              <span>작성글 짧게</span>
+              <!--작성글이 길다면 if-->
+              <span>더보기</span> <!--온클릭 이벤트-->
+            </div>
+
+            <div>더보기누르면 display block할 곳</div>
+            <div>
+              <a href="#">댓글 ?(수) 모두보기</a>
+            </div>
+
+            <form> <!--빠르게 댓글 작성 하는 곳-->
+              <input type="text">
+              <input type="submit" value="게시">
+            </form>
+
+        </div> <!--좋아요나 작성 글 등등-->
+
+      </div> <!--for문으로 복사될 한 페이지-->
+
+    </div> <!--메인 전체 하이트는 auto-->
   </main>
 
   <footer></footer>
