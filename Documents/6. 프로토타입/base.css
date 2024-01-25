@@ -1,11 +1,19 @@
 @charset 'UTF-8';
 
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;}
+
+
 *{
     margin:0; padding: 0; box-sizing: border-box; 
     font:600 16px/18px 'Open Sans',sans-serif;
 }
+
 ul, ol{list-style: none;}
-a{text-decoration: none;}
+a{text-decoration: none; color: #000;}
 .clearfix::after{content: ''; display: block; clear: both;}
 
 #nav{
@@ -99,19 +107,20 @@ header img{width: 20px; margin-right: 10px;}
 
 
 
-/*main*/
+/*main*/;
 #maindiv{height: auto;}
 .inner{width:600px; margin: 0 auto;}
 
-.page{height: 870px; border: 1px solid #111; border-bottom: 1px solid #d1d0d0; 
+.page{height: auto;
+  border-bottom: 1px solid #d1d0d0;
   margin-left: auto; margin-right: auto; margin-bottom: 40px;}
 
-.maintop{height: 50px; margin-left: 100px; margin-top: 30px;}
+.maintop{height: 50px; margin-left: 50px; margin-top: 30px; margin-bottom: 15px;}
 .maintop img{width: 30px; height: 30px; margin-top: 10px; margin-right: 10px;}
 .profile{border-radius: 30px; border: 1px solid #c4c0c0;}
 /*의문의 범위가 있어 가운데 정렬 보류*/
-.main1span{font-size: 14px; margin-right: 240px; line-height: 50px; height: 50px; display: inline-block;}
-.main1name{font-size: 14px; line-height: 50px; height: 50px; display: inline-block;}
+.main1span{font-size: 14px; margin-right: 340px; line-height: 50px; height: 50px; display: inline-block; font-family: 'Pretendard-Regular';}
+.main1name{font-size: 16px; line-height: 50px; height: 50px; display: inline-block; font-family: 'Pretendard-Regular'; }
 
 
 
@@ -120,8 +129,8 @@ header img{width: 20px; margin-right: 10px;}
 /*슬라이드*/
 
 #slideShow{
-  width: 400px;
-  height: 500px;
+  width: 500px;
+  height: 600px;
   position: relative;
   margin: 0 auto;
   overflow: hidden;   
@@ -137,22 +146,15 @@ header img{width: 20px; margin-right: 10px;}
   top: 0;
   width: 2500px; /* 슬라이드할 사진과 마진 총 넓이 */
   transition: left 0.5s ease-out; 
-  /*ease-out: 처음에는 느렸다가 점점 빨라짐*/
 }
 
-.slides li{width: 400px; height: 500px; border: 1px solid #111;}
-.slides img{margin:auto; display: block;}
+.slides li{width: 500px; height: 600px; background-color: #111;}
+.slides img{margin:auto; display: block; height: 100%;}
 
-/* 첫 번째 슬라이드 가운데에 정렬하기위해
-첫번째 슬라이드만 margin-left조정 */
- /*.slides li:first-child{
- margin-left: 100px;
-}*/
 
 /* 슬라이드들 옆으로 정렬 */
 .slides li:not(:last-child){
   float: left;
- /* margin-right: 100px;*/
 }
 
 .slides li{
@@ -185,5 +187,34 @@ header img{width: 20px; margin-right: 10px;}
   right: 10px;
 }
 
+.main2{
+  margin-top: 10px; margin-bottom: 8px;
+}
+.main2 .good{width: 30px; height: 30px; margin-left: 50px;}
+.main2 a img{width: 30px; height: 30px; margin-left: 8px;}
 
+.main3{margin-left: 50px; margin-bottom: 8px;}
+.main3 p{font-size: 14px; font-family: 'Pretendard-Regular';}
 
+.main4{margin-left: 50px; margin-bottom: 8px;}
+.main4 a{font-size: 14px; font-family: 'Pretendard-Regular';}
+.main4 span{font-size: 14px; font-family: 'Pretendard-Regular'; font-weight: 300;}
+.tabmore #more:checked ~ .main4block{
+  display: block;
+}
+.more1{font-family: 'Pretendard-Regular'; font-size: 14px; color: #aaa;}
+.main4block {display: none;}
+.main4block2{font-family: 'Pretendard-Regular'; font-size: 14px;  font-weight: 300;}
+.main5 a{font-size: 14px; font-family: 'Pretendard-Regular'; 
+  margin-left: 50px;}
+
+.hotreply{
+  margin-left: 50px; margin-top: 8px;
+}
+.hotreply input[type="text"]{
+  height: 20px; width: 500px; border: 0px; font-family: 'Pretendard-Regular'; margin-bottom: 40px;
+}
+
+.hotreply input[type="submit"]{
+  opacity: 0;
+}
