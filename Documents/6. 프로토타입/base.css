@@ -99,10 +99,20 @@ header img{width: 20px; margin-right: 10px;}
 
 
 
-
 /*main*/
-#maindiv{border: 1px solid #111; height: 3000px;}
-.inner{width:700px; margin: 0 auto;}
+#maindiv{height: auto;}
+.inner{width:600px; margin: 0 auto;}
+
+.page{height: 870px; border: 1px solid #111; border-bottom: 1px solid #d1d0d0; 
+  margin-left: auto; margin-right: auto; margin-bottom: 40px;}
+
+.maintop{height: 50px; margin-left: 100px; margin-top: 30px;}
+.maintop img{width: 30px; height: 30px; margin-top: 10px; margin-right: 10px;}
+.profile{border-radius: 30px; border: 1px solid #c4c0c0;}
+/*의문의 범위가 있어 가운데 정렬 보류*/
+.main1span{font-size: 14px; margin-right: 240px; line-height: 50px; height: 50px; display: inline-block;}
+.main1name{font-size: 14px; line-height: 50px; height: 50px; display: inline-block;}
+
 
 
 
@@ -110,10 +120,10 @@ header img{width: 20px; margin-right: 10px;}
 /*슬라이드*/
 
 #slideShow{
-  width: 500px;
-  height: 300px;
+  width: 400px;
+  height: 500px;
   position: relative;
-  margin: 50px auto;
+  margin: 0 auto;
   overflow: hidden;   
   /*리스트 형식으로 이미지를 일렬로 
   정렬할 것이기 때문에, 500px 밖으로 튀어 나간 이미지들은
@@ -130,16 +140,19 @@ header img{width: 20px; margin-right: 10px;}
   /*ease-out: 처음에는 느렸다가 점점 빨라짐*/
 }
 
+.slides li{width: 400px; height: 500px; border: 1px solid #111;}
+.slides img{margin:auto; display: block;}
+
 /* 첫 번째 슬라이드 가운데에 정렬하기위해
 첫번째 슬라이드만 margin-left조정 */
-.slides li:first-child{
-  margin-left: 100px;
-}
+ /*.slides li:first-child{
+ margin-left: 100px;
+}*/
 
 /* 슬라이드들 옆으로 정렬 */
 .slides li:not(:last-child){
   float: left;
-  margin-right: 100px;
+ /* margin-right: 100px;*/
 }
 
 .slides li{
@@ -148,11 +161,11 @@ header img{width: 20px; margin-right: 10px;}
 
 .controller span{
   position:absolute;
-  background-color: transparent;
+  background-color: #efefef;
   color: black;
   text-align: center;
   border-radius: 50%;
-  padding: 10px 20px;
+  padding: 10px 15px;
   top: 50%;
   font-size: 1.3em;
   cursor: pointer;
@@ -160,26 +173,17 @@ header img{width: 20px; margin-right: 10px;}
 
 /* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
 .controller span:hover{
-  background-color: rgba(128, 128, 128, 0.11);
+  background-color: #4EA685;
+  color: #fff;
 }
 
 .prev{
   left: 10px;
 }
 
-/* 이전 화살표에 마우스 커서가 올라가 있을때 
-이전 화살표가 살짝 왼쪽으로 이동하는 효과*/
-.prev:hover{
-  transform: translateX(-10px);
-}
-
 .next{
   right: 10px;
 }
 
-/* 다음 화살표에 마우스 커서가 올라가 있을때 
-이전 화살표가 살짝 오른쪽으로 이동하는 효과*/
-.next:hover{
-  transform: translateX(10px);
-}
+
 
