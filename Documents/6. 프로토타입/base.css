@@ -62,7 +62,7 @@ header img{width: 20px; margin-right: 10px;}
 #hdsearch{background-color: #efefef; width: 340px; height: 40px; border: 0px; border-radius: 10px; margin-left: 20px; margin-top: 30px;}
 #nav h4{font-size: 24px; font-weight: bold; margin-top: 40px; margin-left: 30px; color: #4EA685;}
 #nav1 input{font-family: 'Pretendard-Regular'; font-weight: 100;}
-#nav1 h5{font-size: 16px; margin-left: 15px;}
+#nav1 h5{font-size: 16px; margin-left: 15px; margin-bottom: 10px;}
 #nav1 hr{height:2px; width: 350px;
   margin:30px 0 30px 15px;
   background:rgba(255,255,255,.2);}
@@ -127,6 +127,8 @@ header img{width: 20px; margin-right: 10px;}
   margin-left: auto; margin-right: auto; margin-bottom: 40px;}
 
 .maintop{height: 50px; margin-top: 30px; margin-bottom: 10px; position: relative;}
+.maintop button{position: absolute; left: 150px; top: 15px; background-color: #fff; border: 0; color: #4EA685; font-size: 15px; font-family: 'Pretendard-Regular';}
+.maintop button:hover{font-size: 18px; transition: all 0.3s;}
 .maintop img{width: 30px; height: 30px; margin-top: 10px; margin-right: 10px;}
 .profile{border-radius: 30px; border: 1px solid #c4c0c0;}
 /*의문의 범위가 있어 가운데 정렬 보류*/
@@ -174,11 +176,10 @@ header img{width: 20px; margin-right: 10px;}
    margin-top: 8px;
 }
 .hotreply input[type="text"]{
-  height: 20px; width: 500px; border: 0px; font-family: 'Pretendard-Regular'; margin-bottom: 20px;
+  height: 20px; width: 450px; border: 0px; font-family: 'Pretendard-Regular'; margin-bottom: 20px;
 }
 
 .hotreply input[type="submit"]{
   opacity: 0;
 }
 
-.aaaa{height: 50px; line-height: 50px;}
