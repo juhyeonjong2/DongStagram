@@ -60,17 +60,27 @@ header img{width: 20px; margin-right: 10px;}
 
 
 #hdsearch{background-color: #efefef; width: 340px; height: 40px; border: 0px; border-radius: 10px; margin-left: 20px; margin-top: 30px;}
-#nav h4{font-size: 24px; font-weight: bold; margin-top: 40px; margin-left: 30px;}
+#nav h4{font-size: 24px; font-weight: bold; margin-top: 40px; margin-left: 30px; color: #4EA685;}
+#nav1 input{font-family: 'Pretendard-Regular'; font-weight: 100;}
 #nav1 h5{font-size: 16px; margin-left: 15px;}
 #nav1 hr{height:2px; width: 350px;
   margin:30px 0 30px 15px;
   background:rgba(255,255,255,.2);}
+#nav1 .search{margin-bottom: 20px; height: 50px; line-height: 50px;}
+#nav1 .search a{width: 340px; margin-left: 30px;}
+#nav1 .search a{position: relative;}
+#nav1 .search a span{position: absolute; top: 15px;}
+#nav1 .search img{width: 30px; height: 30px; margin-top: 10px; display: inline-block;}
+#nav1 .search a:hover{background-color: #efefef; transition: all 0.3s; border-radius: 10px;}
+
+
+
 
 #nav2 #messageLink{float: right; width: 24px; height: 24px; margin-right: 30px; margin-top: 40px;}
 #nav2 #messageLink img{width: 100%;}
-#nickname{display: inline-block; margin-left: 30px; margin-top: 40px; font-size: 21px;}
+#nickname{display: inline-block; margin-left: 30px; margin-top: 40px; font-size: 21px;  color: #4EA685;}
 #nav2 h5{font-size: 16px; margin-left: 30px; margin-top: 40px; margin-bottom: 30px;}
-#nav .massage{margin-bottom: 20px; height: 50px;}
+#nav2 .massage{margin-bottom: 20px; height: 50px;}
 #nav2 .massage a{width: 340px; margin-left: 30px;}
 .span{font-size: 14px; height: 50px; word-wrap: break-word; width: 250px; display: inline-block; color: #111;} /*span css 모음*/
 .span2{font-size: 12px; color: #aaa;}
@@ -80,9 +90,10 @@ header img{width: 20px; margin-right: 10px;}
 
 #nav3 h5{font-size: 16px; margin-left: 30px; margin-top: 40px; margin-bottom: 30px;}
 #nav3 .notice {margin-bottom: 20px;}
-#nav3 .notice a{width: 340px; margin-left: 30px;}
+#nav3 .notice a{width: 340px; margin-left: 30px; position: relative;}
+#nav3 .notice a .span{position: absolute; top: 15px;}
 #nav3 img{width: 30px; height: 30px; margin-top: 10px; display: inline-block;}
-#nav3 .img2{margin-top: 10px; margin-right: 0;}
+#nav3 .img2{margin-top: 10px; margin-right: 0; position: absolute; right: 0;}
 #nav3 .notice a:hover{background-color: #efefef; transition: all 0.3s; border-radius: 10px;}
 
 
@@ -109,18 +120,18 @@ header img{width: 20px; margin-right: 10px;}
 
 /*main*/;
 #maindiv{height: auto;}
-.inner{width:600px; margin: 0 auto;}
+.inner{width:450px; margin: 0 auto;}
 
 .page{height: auto;
   border-bottom: 1px solid #d1d0d0;
   margin-left: auto; margin-right: auto; margin-bottom: 40px;}
 
-.maintop{height: 50px; margin-left: 50px; margin-top: 30px; margin-bottom: 15px;}
+.maintop{height: 50px; margin-top: 30px; margin-bottom: 10px; position: relative;}
 .maintop img{width: 30px; height: 30px; margin-top: 10px; margin-right: 10px;}
 .profile{border-radius: 30px; border: 1px solid #c4c0c0;}
 /*의문의 범위가 있어 가운데 정렬 보류*/
-.main1span{font-size: 14px; margin-right: 340px; line-height: 50px; height: 50px; display: inline-block; font-family: 'Pretendard-Regular';}
-.main1name{font-size: 16px; line-height: 50px; height: 50px; display: inline-block; font-family: 'Pretendard-Regular'; }
+.main1span{font-size: 14px; display: inline-block; font-family: 'Pretendard-Regular'; position: absolute; left: 100px; top: 15px;}
+.main1name{font-size: 16px; line-height: 50px; height: 50px; display: inline-block; font-family: 'Pretendard-Regular'; position: absolute;}
 
 
 
@@ -128,93 +139,46 @@ header img{width: 20px; margin-right: 10px;}
 
 /*슬라이드*/
 
-#slideShow{
-  width: 500px;
-  height: 600px;
-  position: relative;
-  margin: 0 auto;
-  overflow: hidden;   
-  /*리스트 형식으로 이미지를 일렬로 
-  정렬할 것이기 때문에, 500px 밖으로 튀어 나간 이미지들은
-  hidden으로 숨겨줘야됨*/
+.slideShow{
+  width: 450px;
+  height: 550px;
 }
+.bx-wrappe{margin: 0 auto;}
+.bxslider li { list-style: none; width: 450px; height: 550px; margin: 0 auto;background-color: #111;}
+.bxslider li img{height: 100%; margin: 0 auto;}
 
 
-.slides{
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 2500px; /* 슬라이드할 사진과 마진 총 넓이 */
-  transition: left 0.5s ease-out; 
-}
-
-.slides li{width: 500px; height: 600px; background-color: #111;}
-.slides img{margin:auto; display: block; height: 100%;}
-
-
-/* 슬라이드들 옆으로 정렬 */
-.slides li:not(:last-child){
-  float: left;
-}
-
-.slides li{
-  float: left;
-}
-
-.controller span{
-  position:absolute;
-  background-color: #efefef;
-  color: black;
-  text-align: center;
-  border-radius: 50%;
-  padding: 10px 15px;
-  top: 50%;
-  font-size: 1.3em;
-  cursor: pointer;
-}
-
-/* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
-.controller span:hover{
-  background-color: #4EA685;
-  color: #fff;
-}
-
-.prev{
-  left: 10px;
-}
-
-.next{
-  right: 10px;
-}
 
 .main2{
   margin-top: 10px; margin-bottom: 8px;
 }
-.main2 .good{width: 30px; height: 30px; margin-left: 50px;}
+.main2 .good{width: 30px; height: 30px; margin-top: 30px;}
 .main2 a img{width: 30px; height: 30px; margin-left: 8px;}
 
-.main3{margin-left: 50px; margin-bottom: 8px;}
+.main3{ margin-bottom: 8px;}
 .main3 p{font-size: 14px; font-family: 'Pretendard-Regular';}
 
-.main4{margin-left: 50px; margin-bottom: 8px;}
+.main4{ margin-bottom: 8px;}
 .main4 a{font-size: 14px; font-family: 'Pretendard-Regular';}
 .main4 span{font-size: 14px; font-family: 'Pretendard-Regular'; font-weight: 300;}
 .tabmore #more:checked ~ .main4block{
   display: block;
 }
-.more1{font-family: 'Pretendard-Regular'; font-size: 14px; color: #aaa;}
+.more1{font-family: 'Pretendard-Regular'; font-size: 14px; color: #737373; cursor: pointer;}
 .main4block {display: none;}
 .main4block2{font-family: 'Pretendard-Regular'; font-size: 14px;  font-weight: 300;}
 .main5 a{font-size: 14px; font-family: 'Pretendard-Regular'; 
-  margin-left: 50px;}
+   color: #737373; cursor: pointer;}
 
 .hotreply{
-  margin-left: 50px; margin-top: 8px;
+   margin-top: 8px;
 }
 .hotreply input[type="text"]{
-  height: 20px; width: 500px; border: 0px; font-family: 'Pretendard-Regular'; margin-bottom: 40px;
+  height: 20px; width: 500px; border: 0px; font-family: 'Pretendard-Regular'; margin-bottom: 20px;
 }
 
 .hotreply input[type="submit"]{
   opacity: 0;
 }
+
+.aaaa{height: 50px; line-height: 50px;}
