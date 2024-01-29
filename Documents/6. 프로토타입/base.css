@@ -102,7 +102,7 @@ header img{width: 20px; margin-right: 10px;}
   border-radius: 15px; margin-left: 10px;}
 #tabmenu #tab7:checked ~ #nav4{ transition: all 0.3s; opacity: 1;}
 
-
+#nav4 ul{padding: 0;}
 #nav4{border: 0; background-color: #fff;
   box-shadow: 0 5px 3px rgba(0,0,0,0.1);}
 #nav4 a{color: #6a6f8c; line-height: 50px; text-align: center; margin-left: 5px;}
@@ -126,10 +126,10 @@ header img{width: 20px; margin-right: 10px;}
   border-bottom: 1px solid #d1d0d0;
   margin-left: auto; margin-right: auto; margin-bottom: 40px;}
 
-.maintop{height: 50px; margin-top: 30px; margin-bottom: 10px; position: relative;}
-.maintop button{position: absolute; left: 150px; top: 15px; background-color: #fff; border: 0; color: #4EA685; font-size: 15px; font-family: 'Pretendard-Regular';}
-.maintop button:hover{font-size: 18px; transition: all 0.3s;}
-.maintop img{width: 30px; height: 30px; margin-top: 10px; margin-right: 10px;}
+.mainTop{height: 50px; margin-top: 30px; margin-bottom: 10px; position: relative;}
+.mainTop button{position: absolute; left: 150px; top: 15px; background-color: #fff; border: 0; color: #4EA685; font-size: 15px; font-family: 'Pretendard-Regular';}
+.mainTop button:hover{font-size: 18px; transition: all 0.3s;}
+.mainTop img{width: 30px; height: 30px; margin-top: 10px; margin-right: 10px;}
 .profile{border-radius: 30px; border: 1px solid #c4c0c0;}
 /*의문의 범위가 있어 가운데 정렬 보류*/
 .main1span{font-size: 14px; display: inline-block; font-family: 'Pretendard-Regular'; position: absolute; left: 100px; top: 15px;}
@@ -172,14 +172,36 @@ header img{width: 20px; margin-right: 10px;}
 .main5 a{font-size: 14px; font-family: 'Pretendard-Regular'; 
    color: #737373; cursor: pointer;}
 
-.hotreply{
+.hotReply{
    margin-top: 8px;
 }
-.hotreply input[type="text"]{
+.hotReply input[type="text"]{
   height: 20px; width: 450px; border: 0px; font-family: 'Pretendard-Regular'; margin-bottom: 20px;
 }
 
-.hotreply input[type="submit"]{
+.hotReply input[type="submit"]{
   opacity: 0;
 }
 
+
+
+
+
+
+
+
+
+
+footer hr{
+  width: 1920px; height: 1px; background-color: #dfe0e2;
+  margin-bottom: 30px; margin-top: 100px; border: 0; 
+}
+
+#notice a{font-size: 16px; font-weight: bold;}
+#notice{width: 120px; text-align: center; padding-bottom: 20px;}
+
+#ft span{display: block;}
+#ft p{line-height: 1.5; font-size: 14px; color: #666; text-align: center;}
+#f_copy{margin-top: 10px;}
+
+footer{margin-bottom: 30px;}
