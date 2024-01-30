@@ -38,3 +38,11 @@ li{margin: 0; padding: 0;}
   }
 
 .popupviewBottom{border: 1px solid #111; height: 160px;}
+.popupviewBottom img{width: 25px; margin-top: 10px; margin-left: 10px;}
+.popupviewBottom2{margin-top: 10px;}
+.popupviewBottom2 img{margin-top: 0; width: 20px; height: 20px;}
+.popupviewBottomSpan1{font-size: 14px;}
+.popupviewBottomSpan2{font-size: 12px; display: block; margin-left: 12px; margin-top: 5px; color: #737373;}
+.popupviewBottom input[type="text"]{
+    border: 2px solid #111; font-family: 'Pretendard-Regular'; font-weight: 100;
+    margin-top: 10px; height: 30px; width: 480px; margin-left: 8px; border-radius: 15px;}
