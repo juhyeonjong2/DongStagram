@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동스타그램</title>
+  <link rel="stylesheet" href="./base.css">
+  <!--bx슬라이더 라는 라이브러리를 가져옴 (메인의 슬라이더에만 사용)-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+  <script src="./base.js"></script>
+
+  <!--탭 메뉴로 이동시 탭메뉴가 클릭된 상태가 아니게 이동되는데 이 경우 jsp에서 값을 받아와서 해야하기에 여기엔 구현X-->
+
+</head>
+<body>
+  <header>
+
+    <nav id="nav">
+          <h1 id="logo"><a href="#"></a></h1>
+          <div id="tabmenu">
+            <input type="radio" name="tab_radio" id="tab">
+              <label for="tab" class="tab3"><a href="./base.html"><img src="./icon/home.png">홈</a></label>
+
+                <input type="radio" name="tab_radio" id="tab1"/>
+                <label for="tab1" class="tab3"><img src="./icon/search.png">검색</label>
+
+                <input type="radio" name="tab_radio" id="tab2"/>
+                <label for="tab2" class="tab3"><img src="./icon/message.png">메세지</label>
+
+                <input type="radio" name="tab_radio" id="tab3"/>
+                <label for="tab3" class="tab3"><img src="./icon/notice.png">알림</label>
+
+                <input type="radio" name="tab_radio" id="tab4"/>
+                <label for="tab4" class="tab3"><a href="#"><img src="./icon/scan.png">탐색 탭</a></label>
+
+                <input type="radio" name="tab_radio" id="tab5"/>
+                <label for="tab5" class="tab3"><a href="#"><img src="./icon/post.png">만들기</a></label>
+                
+                <input type="radio" name="tab_radio" id="tab6"/>
+                <label for="tab6" class="tab3"><a href="#"><img src="./icon/profile.png">프로필</a></label>
+
+                <input type="radio" name="tab_radio" id="tab7"/>
+                <label for="tab7" class="tab3"><img src="./icon/more.png">더 보기</label>
+            
+            <section id="nav1">
+              <h4>검색</h4>
+              <form action="#"> 
+                <input type="text" placeholder="  검색" id="hdsearch">
+              </form>
+              <hr>
+              <h5>최근 검색 항목</h5>
+              <!--for문으로 div안에 데이터 집어넣음-->
+              <div class="search">
+                <a href="#">
+                  <img src="./icon/hashtag.png" class="profile">
+                  <span class="span">검색 한 것</span>
+                </a>
+              </div>
+            </section>
+      
+            <section id="nav2" class="clearfix">
+              <div id="nickname">자기 닉네임</div>
+              <a href="#" id="messageLink"><img src="./icon/massagewrite.png" ></a>
+              <h5>메세지</h5>
+              <!--for문으로 div안에 데이터 집어넣음-->
+
+              <div class="massage">
+                <a href="#">
+                  <img src="./자산 4.png" class="profile">
+                  <span class="span">###님에게 메세지가 도착하였습니다.
+                    <span class="span2">10분전</span>
+                  </span>
+                </a>
+              </div>
+            </section>
+      
+            <section id="nav3">
+              <h4>알림</h4>
+              <h5>오늘</h5>
+              <!--for문으로 div안에 데이터 집어넣음 처음 이미지는 유저 프로필 다음이미지는 게시글 미리보기-->
+              <div class="notice">
+                <a href="#">
+                  <img src="./자산 4.png" class="profile">
+                  <span class="span">###님이 댓글을 남기셨습니다.
+                    <span class="span2">10분전</span>
+                  </span>
+                  <img src="./자산 4.png" class="img2">
+                </a>
+              </div>
+              <div class="notice">
+                <a href="#">
+                  <img src="./자산 4.png" class="profile">
+                  <span class="span">###님이 댓글을 남겼습니
+                    <span class="span2">10분전</span>
+                  </span>
+                  <img src="./자산 4.png" class="img2">
+                </a>
+              </div>
+
+              <div class="notice">
+                <a href="#">
+                  <img src="./자산 4.png" class="profile">
+                  <span class="span">###님이 댓글을 남겼습니다다다다다다다다다다다다다다다다다
+                    <span class="span2">10분전</span>
+                  </span>
+                  <img src="./자산 4.png" class="img2">
+                </a>
+              </div>
+
+            </section>
+
+            <section id="nav4">
+              <ul>
+                <li><a href="./login.html">로그인</a></li>
+                <li><a href="#">계정 설정</a></li>
+              </ul>
+            </section>
+        </div><!--tabmenu-->
+    </nav> <!--nav-->
+  </header> <!--header-->
+
+  <main>
+    <div id="maindiv" class="inner clearfix"> <!--메인 전체 하이트는 auto-->
+
+      <div class="page"> <!--for문으로 복사될 한 페이지-->
+
+        <div class="mainTop"> <!--상단 태그-->
+            <img src="./자산 4.png" class="profile">
+            <a href="#" class="main1name">닉네임</a>
+            <span class="span2 main1span">2일전</span>
+            <button>팔로우</button>
+           <!-- <a href="#"><img src="./자산 4.png"></a> -->
+        </div> <!--상단 태그-->
+
+        <div class="slideShow"> <!--메인 동영상과 사진 슬라이드-->
+          <ul class="bxslider">
+            <li><img src="./즐겁다 짤.jpg" ></li>
+            <li><img src="./인스타 탑로고.png" ></li>
+            <li><img src="./즐겁다 짤.jpg" ></li>
+        </ul> 
+
+        </div> <!--메인 동영상과 사진 슬라이드-->
+
+        <div> <!--좋아요나 작성 글 등등-->
+
+            <div class="main2">
+              <img src="./icon/heart.png" class="good"> <!--좋아요-->
+              <a href="#"><img src="./icon/reply.png"></a> <!--댓글-->
+            </div>
+
+            <div class="main3">
+              <p>좋아요 ??개</p>
+            </div>
+
+            <div class="main4">
+              <a href="#">닉네임</a>
+              <span>작성글 짧게</span>
+              <!--작성글이 길다면 if-->
+              <div class="tabmore">
+                <input type="radio" name="more" id="more"/><!--id값은 스크립트를 사용해 label의 for와 input의 id가 같도록 설정한다.-->
+                <!--받아온 글이 길다면 if문으로 이게 보이도록 구현-->
+                <label for="more" class="more1">더보기</label> 
+                <section class="main4block">
+                  <div class="main4block2">더보기누르면 display block할 곳</div>
+                </section>
+              </div>
+            </div>
+
+            <div class="main5">
+              <a href="#">댓글 ?(수) 모두보기</a>
+            </div>
+
+            <form class="hotReply" action="#"> <!--빠르게 댓글 작성 하는 곳-->
+              <input type="text" placeholder="댓글 달기..">
+              <input type="submit" value="게시">
+            </form>
+
+        </div> <!--좋아요나 작성 글 등등-->
+
+      </div> <!--for문으로 복사될 한 페이지-->
+
+      <!--임시페이지!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+      <div class="page"> <!--for문으로 복사될 한 페이지-->
+
+        <div class="mainTop"> <!--상단 태그-->
+            <img src="./자산 4.png" class="profile">
+            <a href="#" class="main1name">닉네임</a>
+            <span class="span2 main1span">2일전</span>
+            <button>팔로우</button>
+           <!-- <a href="#"><img src="./자산 4.png"></a> -->
+        </div> <!--상단 태그-->
+
+        <div class="slideShow"> <!--메인 동영상과 사진 슬라이드-->
+          <ul class="bxslider">
+            <li><img src="./즐겁다 짤.jpg" ></li>
+            <li><img src="./인스타 탑로고.png" ></li>
+            <li><img src="./즐겁다 짤.jpg" ></li>
+            <li><img src="./즐겁다 짤.jpg" ></li>
+            <li><img src="./즐겁다 짤.jpg" ></li>
+        </ul> 
+
+        </div> <!--메인 동영상과 사진 슬라이드-->
+
+        <div> <!--좋아요나 작성 글 등등-->
+
+            <div class="main2">
+              <img src="./icon/heart.png" class="good"> <!--좋아요-->
+              <a href="#"><img src="./icon/reply.png"></a> <!--댓글-->
+            </div>
+
+            <div class="main3">
+              <p>좋아요 ??개</p>
+            </div>
+
+            <div class="main4">
+              <a href="#">닉네임</a>
+              <span>작성글 짧게</span>
+              <!--작성글이 길다면 if-->
+              <div class="tabmore">
+                <input type="radio" name="more" id="more"/><!--id-->
+                <!--받아온 글이 길다면 if문으로 이게 보이도록 구현-->
+                <label for="more" class="more1">더보기</label> 
+                <section class="main4block">
+                  <div class="main4block2">더보기누르면 display block할 곳</div>
+                </section>
+              </div>
+            </div>
+
+            <div class="main5">
+              <a href="#">댓글 ?(수) 모두보기</a>
+            </div>
+
+            <form class="hotReply" action="#"> <!--빠르게 댓글 작성 하는 곳-->
+              <input type="text" placeholder="댓글 달기..">
+              <input type="submit" value="게시">
+            </form>
+
+        </div> <!--좋아요나 작성 글 등등-->
+
+      </div> <!--for문으로 복사될 한 페이지-->
+
+      <!--임시페이지!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+      
+
+    </div> <!--메인 전체 하이트는 auto-->
+  </main>
+
+  <footer>
+
+  </footer>
+</body>
+</html>
