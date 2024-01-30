@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="./base.css">
     <link rel="stylesheet" href="./navigation.css">
 
+    <!--bx슬라이더 라는 라이브러리를 가져옴-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+   
+
+
     <script> 
     //클릭시 하트 변하지만 id가 아니라 전부 변한다 jsp에서 아이디를 바꾸거나 해야할듯하다
     $(document).ready(function(){
@@ -28,7 +36,24 @@
 		});
 	});
 
+
+    //대댓글 클릭시 보이도록 (자신만 선택하는 방법 추가 필요(아마 this))
+    $(document).ready(function(){
+        $('.reReply').click(function(){
+          $('.replyblock').css('display','block');
+      }); 
+    });
+
+
+    //팝업 안에서 슬라이드 이미지 리플레쉬
+    $(window).on('load resize', function () {
+    $('.bxslider').bxSlider({
+      captions: true, // 이미지 위에 텍스트를 넣을 수 있음
+    }); 
+});
+    
     </script>
+
 
 
 </head>
@@ -144,7 +169,7 @@
         <div id="scanMain" class="inner clearfix">
             <ul>
                 <!--for문으로 반복될 사진 href에 자기 데이터 넣어서 표시하면 될 듯--> 
-                <li class="scanimg"><a data-toggle="modal" href="#exampleModalCenter"><img src="./자산 4.png"></a></li>
+                <li class="scanimg"><a data-toggle="modal" href="#exampleModalCenter" class="aa"><img src="./자산 4.png"></a></li>
                 <li class="scanimg"><a data-toggle="modal" href="#exampleModalCenter"><img src="./자산 4.png"></a></li>
                 <li class="scanimg"><a data-toggle="modal" href="#exampleModalCenter"><img src="./자산 4.png"></a></li>
                 <li class="scanimg"><a data-toggle="modal" href="#exampleModalCenter"><img src="./자산 4.png"></a></li>
@@ -165,7 +190,18 @@
                         <!--왼쪽-->
                         <div class="popupViewLeft">
                             <!--보내진 이미지 들어오는 곳-->
+                            
+                            <div class="slideShow"> <!--메인 동영상과 사진 슬라이드-->
+                              <ul class="bxslider">
+                                <li><img src="./즐겁다 짤.jpg" ></li>
+                                <li><img src="./인스타 탑로고.png" ></li>
+                                <li><img src="./즐겁다 짤.jpg" ></li>
+                            </ul> 
+                    
+                            </div> <!--메인 동영상과 사진 슬라이드-->
+
                         </div>
+
                         <!--오른쪽-->
                         <div class="popupViewRight">
                             <!--상단 태그-->
@@ -173,117 +209,82 @@
                                 <img src="./자산 4.png" class="profile">
                                 <a href="#" class="main1name">닉네임</a>
                                 <button>팔로우</button>
+                                <a data-toggle="modal" href="#morePopup2" class="popupviewMainSpan2">· · ·</a>
                             </div> <!--상단 태그-->
 
                             <!--댓글 창-->
                             <div class="popupviewMain">
+                              <!--댓글이 없을경우 보여주는 글-->
+                              <div class="notReply">
+                                  <p>아직 댓글이 없습니다.</p>
+                                  <h6>댓글을 남겨보세요</h6>
+                              </div>
+
                                 <!--for문으로 복사 될 페이지-->
                                     <div class="mainTop">
                                         <img src="./자산 4.png" class="profile">
                                         <a href="#" class="main1name">닉네임</a>
                                         <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                        <div class="replyHeart"><img src="./icon/heart.png" class="img1"></div>
                                      </div> <!--상단 태그-->
-                                     <span class="popupviewMainSpan1">수정됨</span>
-                                     <span class="popupviewMainSpan2">6일</span>
-                                     <span class="popupviewMainSpan3">댓글달기</span>
-                                <!--for문으로 복사 될 페이지-->
+                                     <span class="popupviewMainSpan1">6일</span>
+                                     <span class="popupviewMainSpan3">| 댓글달기 |</span>
+                                     <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
 
+                                     <!--만약 대댓글이(태그를 통해) 달릴 경우 보여줄 글 -->
+
+                                      <div class="reReply">---댓글 보기(?개)</div> 
+
+                                        <div class="replyblock">
+                                            <div class="mainTop">
+                                              <img src="./자산 4.png" class="profile">
+                                              <a href="#" class="main1name">닉네임</a>
+                                              <div class="popupViewReply">대댓글입니다.</div>
+                                          </div> <!--상단 태그-->
+                                          <span class="popupviewMainSpan1">6일</span>
+                                          <span class="popupviewMainSpan3">| 댓글달기 |</span>
+                                          <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
+                                        </div>
+                                    <!--for문으로 복사 될 페이지-->
+                                    
+                                    
                                     <!--임시 페이지-->
                                     <div class="mainTop">
                                       <img src="./자산 4.png" class="profile">
                                       <a href="#" class="main1name">닉네임</a>
                                       <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                      <div class="replyHeart"><img src="./icon/heart.png" class="img1"></div>
                                    </div> <!--상단 태그-->
-                                   <span class="popupviewMainSpan1">수정됨</span>
-                                   <span class="popupviewMainSpan2">6일</span>
-                                   <span class="popupviewMainSpan3">댓글달기</span>
+                                   <span class="popupviewMainSpan1">6일</span>
+                                   <span class="popupviewMainSpan3">| 댓글달기 |</span>
+                                   <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
+
+                                   <!--만약 대댓글이(태그를 통해) 달릴 경우 보여줄 글 -->
+
+                                    <div class="reReply">---댓글 보기(?개)</div> 
+
+                                      <div class="replyblock">
+                                          <div class="mainTop">
+                                            <img src="./자산 4.png" class="profile">
+                                            <a href="#" class="main1name">닉네임</a>
+                                            <div class="popupViewReply">대댓글입니다.</div>
+                                        </div> <!--상단 태그-->
+                                        <span class="popupviewMainSpan1">6일</span>
+                                        <span class="popupviewMainSpan3">| 댓글달기 |</span>
+                                        <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
+                                      </div>
                                     <!--임시 페이지-->
-                                    <!--임시 페이지-->
-                                    <div class="mainTop">
-                                      <img src="./자산 4.png" class="profile">
-                                      <a href="#" class="main1name">닉네임</a>
-                                      <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                      <div class="replyHeart"><img src="./icon/heart.png" class="img1"></div>
-                                   </div> <!--상단 태그-->
-                                   <span class="popupviewMainSpan1">수정됨</span>
-                                   <span class="popupviewMainSpan2">6일</span>
-                                   <span class="popupviewMainSpan3">댓글달기</span>
-                                    <!--임시 페이지-->
-                                    <!--임시 페이지-->
-                                    <div class="mainTop">
-                                      <img src="./자산 4.png" class="profile">
-                                      <a href="#" class="main1name">닉네임</a>
-                                      <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                      <div class="replyHeart"><img src="./icon/heart.png" class="img1"></div>
-                                   </div> <!--상단 태그-->
-                                   <span class="popupviewMainSpan1">수정됨</span>
-                                   <span class="popupviewMainSpan2">6일</span>
-                                   <span class="popupviewMainSpan3">댓글달기</span>
-                                    <!--임시 페이지-->
-                                    <!--임시 페이지-->
-                                    <div class="mainTop">
-                                      <img src="./자산 4.png" class="profile">
-                                      <a href="#" class="main1name">닉네임</a>
-                                      <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                      <div class="replyHeart"><img src="./icon/heart.png" class="img1"></div>
-                                   </div> <!--상단 태그-->
-                                   <span class="popupviewMainSpan1">수정됨</span>
-                                   <span class="popupviewMainSpan2">6일</span>
-                                   <span class="popupviewMainSpan3">댓글달기</span>
-                                    <!--임시 페이지-->
-                                    <!--임시 페이지-->
-                                    <div class="mainTop">
-                                      <img src="./자산 4.png" class="profile">
-                                      <a href="#" class="main1name">닉네임</a>
-                                      <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                      <div class="replyHeart"><img src="./icon/heart.png" class="img1"></div>
-                                   </div> <!--상단 태그-->
-                                   <span class="popupviewMainSpan1">수정됨</span>
-                                   <span class="popupviewMainSpan2">6일</span>
-                                   <span class="popupviewMainSpan3">댓글달기</span>
-                                    <!--임시 페이지-->
-                                    <!--임시 페이지-->
-                                    <div class="mainTop">
-                                      <img src="./자산 4.png" class="profile">
-                                      <a href="#" class="main1name">닉네임</a>
-                                      <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                      <div class="replyHeart"><img src="./icon/heart.png" class="img1"></div>
-                                   </div> <!--상단 태그-->
-                                   <span class="popupviewMainSpan1">수정됨</span>
-                                   <span class="popupviewMainSpan2">6일</span>
-                                   <span class="popupviewMainSpan3">댓글달기</span>
-                                    <!--임시 페이지-->
-                                    <!--임시 페이지-->
-                                    <div class="mainTop">
-                                      <img src="./자산 4.png" class="profile">
-                                      <a href="#" class="main1name">닉네임</a>
-                                      <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                      <div class="replyHeart"><img src="./icon/heart.png" class="img1"></div>
-                                   </div> <!--상단 태그-->
-                                   <span class="popupviewMainSpan1">수정됨</span>
-                                   <span class="popupviewMainSpan2">6일</span>
-                                   <span class="popupviewMainSpan3">댓글달기</span>
-                                    <!--임시 페이지-->
-                                    <!--임시 페이지-->
-                                    <div class="mainTop">
-                                      <img src="./자산 4.png" class="profile">
-                                      <a href="#" class="main1name">닉네임</a>
-                                      <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                      <div class="replyHeart"><img src="./icon/heart.png" class="img1"></div>
-                                   </div> <!--상단 태그-->
-                                   <span class="popupviewMainSpan1">수정됨</span>
-                                   <span class="popupviewMainSpan2">6일</span>
-                                   <span class="popupviewMainSpan3">댓글달기</span>
-                                    <!--임시 페이지-->
-                            </div>
+                                    
+                                      <!--댓글이 많다면 보여줄 아이콘-->
+                                      <div class="replyPlus">
+                                        <img src="./icon/replyPlus.png">
+                                      </div>
+
+                                  </div> <!--댓글 창-->
                             <!--하단 태그-->
                             <div class="popupviewBottom">
                                 <img src="./icon/heart.png">
                                 <img src="./icon/reply.png">
                                 <div class="popupviewBottom2">
-                                    <img src="./자산 4.png"><!--작은프로필-->
+                                    <img src="./자산 4.png" class="profile"><!--작은프로필-->
                                     <span class="popupviewBottomSpan1">좋아요 11개</span>
                                     <span class="popupviewBottomSpan2">6일 전</span>
                                 </div>
@@ -295,6 +296,7 @@
                         </div>
                     </div> <!--popupView-->
 
+
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
@@ -303,6 +305,37 @@
                 </div>
             </div>
   <!-- Modal -->
+
+  <!-- Modal2 -->
+      <div class="modal fade" id="morePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="morePopupMain">
+                <div class="morePopupBox1"><a href="#">신고</a></div>
+                <!--삭제는 if문 사용으로 숨기기-->
+                <div class="morePopupBox2"><a href="#">삭제</a></div>
+                <button type="button" class="morePopupBox3" data-dismiss="modal">취소</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <!-- Modal3 -->
+      <div class="modal fade" id="morePopup2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="morePopupMain">
+                <div class="morePopupBox1"><a href="#">신고</a></div>
+                <button type="button" class="morePopupBox3" data-dismiss="modal">취소</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       </main>
 
 

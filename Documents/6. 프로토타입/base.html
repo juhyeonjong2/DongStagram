@@ -14,6 +14,15 @@
 
   <!--탭 메뉴로 이동시 탭메뉴가 클릭된 상태가 아니게 이동되는데 이 경우 jsp에서 값을 받아와서 해야하기에 여기엔 구현X-->
 
+  <script>
+
+        //더보기 클릭 시 보이도록 (자신만 선택하는 방법 추가 필요(아마 this))
+        $(document).ready(function(){
+        $('.more').click(function(){
+          $('.main4block').css('display','block');
+      }); 
+    });
+  </script>
 </head>
 <body>
   <header>
@@ -160,9 +169,8 @@
               <span>작성글 짧게</span>
               <!--작성글이 길다면 if-->
               <div class="tabmore">
-                <input type="radio" name="more" id="more"/><!--id값은 스크립트를 사용해 label의 for와 input의 id가 같도록 설정한다.-->
                 <!--받아온 글이 길다면 if문으로 이게 보이도록 구현-->
-                <label for="more" class="more1">더보기</label> 
+                <div class="more">더보기</div> 
                 <section class="main4block">
                   <div class="main4block2">더보기누르면 display block할 곳</div>
                 </section>
@@ -199,8 +207,6 @@
             <li><img src="./즐겁다 짤.jpg" ></li>
             <li><img src="./인스타 탑로고.png" ></li>
             <li><img src="./즐겁다 짤.jpg" ></li>
-            <li><img src="./즐겁다 짤.jpg" ></li>
-            <li><img src="./즐겁다 짤.jpg" ></li>
         </ul> 
 
         </div> <!--메인 동영상과 사진 슬라이드-->
@@ -221,9 +227,8 @@
               <span>작성글 짧게</span>
               <!--작성글이 길다면 if-->
               <div class="tabmore">
-                <input type="radio" name="more" id="more"/><!--id-->
                 <!--받아온 글이 길다면 if문으로 이게 보이도록 구현-->
-                <label for="more" class="more1">더보기</label> 
+                <div class="more">더보기</div> 
                 <section class="main4block">
                   <div class="main4block2">더보기누르면 display block할 곳</div>
                 </section>

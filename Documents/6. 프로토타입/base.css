@@ -127,13 +127,13 @@ header img{width: 20px; margin-right: 10px;}
   margin-left: auto; margin-right: auto; margin-bottom: 40px;}
 
 .mainTop{height: 50px; margin-top: 30px; margin-bottom: 10px; position: relative;}
-.mainTop button{position: absolute; left: 150px; top: 15px; background-color: #fff; border: 0; color: #4EA685; font-size: 15px; font-family: 'Pretendard-Regular';}
-.mainTop button:hover{font-size: 18px; transition: all 0.3s;}
+.mainTop button{position: absolute; left: 150px; top: 15px; background-color: #fff; border: 0; color: #4EA685; font-size: 15px; font-family: 'Pretendard-Regular'; cursor: pointer;}
 .mainTop img{width: 30px; height: 30px; margin-top: 10px; margin-right: 10px;}
 .profile{border-radius: 30px; border: 1px solid #c4c0c0;}
 /*의문의 범위가 있어 가운데 정렬 보류*/
 .main1span{font-size: 14px; display: inline-block; font-family: 'Pretendard-Regular'; position: absolute; left: 100px; top: 15px;}
 .main1name{font-size: 16px; line-height: 50px; height: 50px; display: inline-block; font-family: 'Pretendard-Regular'; position: absolute;}
+.main1name:hover{color: #4EA685;}
 
 
 
@@ -166,7 +166,7 @@ header img{width: 20px; margin-right: 10px;}
 .tabmore #more:checked ~ .main4block{
   display: block;
 }
-.more1{font-family: 'Pretendard-Regular'; font-size: 14px; color: #737373; cursor: pointer;}
+.more{font-family: 'Pretendard-Regular'; font-size: 14px; color: #737373; cursor: pointer;}
 .main4block {display: none;}
 .main4block2{font-family: 'Pretendard-Regular'; font-size: 14px;  font-weight: 300;}
 .main5 a{font-size: 14px; font-family: 'Pretendard-Regular'; 
