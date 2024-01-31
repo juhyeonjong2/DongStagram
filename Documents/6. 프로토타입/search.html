@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>탐색</title>
+    <title>검색</title>
     <!-- CSS CDN 링크 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
@@ -16,8 +16,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
 
+
     <link rel="stylesheet" href="./base.css">
     <link rel="stylesheet" href="./navigation.css">
+    <link rel="stylesheet" href="./search.css">
 
     <!--bx슬라이더 라는 라이브러리를 가져옴-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
@@ -107,7 +109,7 @@
                       <span class="span2">게시물 500만</span>
                     </a>
                   </div>
-                  
+
                   <div class="search">
                     <a href="./search2.html">
                       <img src="./즐겁다 짤.jpg" class="profile">
@@ -179,7 +181,19 @@
       </header> <!--header-->
 
       <main>
+
         <div id="scanMain" class="inner clearfix">
+
+          <div class="searchField">
+            <div class="searchField2">
+              <img src="./인스타 탑로고.png" class="searchProfile">
+              <span class="searchSpan1">#검색한거</span>
+              <span class="searchSpan2">게시물</span>
+              <span class="searchSpan3">500.5만</span>
+            </div>
+            <p>인기게시물</p>
+          </div>
+
             <ul>
                 <!--for문으로 반복될 사진 href에 자기 데이터 넣어서 표시하면 될 듯--> 
                 <li class="scanimg">
@@ -236,8 +250,6 @@
                     </span>
                   </a>
                 </li>
-
-
             </ul>
         </div>
 

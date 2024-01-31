@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>탐색</title>
+    <title>검색</title>
     <!-- CSS CDN 링크 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
@@ -16,8 +16,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
 
+
     <link rel="stylesheet" href="./base.css">
     <link rel="stylesheet" href="./navigation.css">
+    <link rel="stylesheet" href="./search2.css">
 
     <!--bx슬라이더 라는 라이브러리를 가져옴-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
@@ -107,7 +109,7 @@
                       <span class="span2">게시물 500만</span>
                     </a>
                   </div>
-                  
+
                   <div class="search">
                     <a href="./search2.html">
                       <img src="./즐겁다 짤.jpg" class="profile">
@@ -179,7 +181,36 @@
       </header> <!--header-->
 
       <main>
+
         <div id="scanMain" class="inner clearfix">
+
+          <div class="searchField">
+            <div class="searchField2">
+              <img src="./즐겁다 짤.jpg" class="searchProfile">
+              <span class="searchSpan1">
+                #abc마트
+                <button class="btn btn-primary">팔로우</button>
+                <!-- 팔로우 버튼 누르면 바뀌는 거
+                  <button class="btn btn-secondary">언팔로우</button>
+                -->
+                <a class="btn btn-secondary">메세지 보내기</a>
+                <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
+              </span>
+              <span class="searchSpan2">
+                <span>게시물 5899</span>
+                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2">팔로워 4.9만</a></span>
+                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2">팔로우 16</a></span>
+              </span>
+              <span class="searchSpan3">abc마트</span>
+              <!--span태그 였지만 띄어쓰기때문에 pre태그로 변경-->
+              <pre class="searchSpan4">
+제품/서비스
+세상의 모든 신발
+              </pre>
+              <hr>
+            </div>
+          </div>
+
             <ul>
                 <!--for문으로 반복될 사진 href에 자기 데이터 넣어서 표시하면 될 듯--> 
                 <li class="scanimg">
@@ -236,8 +267,6 @@
                     </span>
                   </a>
                 </li>
-
-
             </ul>
         </div>
 
@@ -399,6 +428,40 @@
           </div>
         </div>
       </div>
+
+        <!-- Modal4 -->
+        <div class="modal fade" id="morePopup3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="morePopupMain">
+                  <div class="morePopupBox1"><a href="#">신고</a></div>
+                  <button type="button" class="morePopupBox3" data-dismiss="modal">취소</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+          <!-- Modal5 -->
+          <div class="modal fade" id="morePopup4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">팔로워</h5>
+                </div>
+                <div class="modal-body">
+                  <span>abc마켓 님만 모든 팔로워를 볼 수 있습니다</span>
+                  <div class="search">
+                      <img src="./인스타 탑로고.png" class="profile">
+                      <span class="span">tester1</span>
+                      <button class="btn btn-primary">팔로우</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
       </main>
 
