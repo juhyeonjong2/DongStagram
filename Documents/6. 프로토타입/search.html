@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색</title>
+    <!-- CSS CDN 링크 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+    crossorigin="anonymous">
+
+
+    <!-- JavaScript CDN 링크 -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+
+
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./navigation.css">
+    <link rel="stylesheet" href="./search.css">
+
+    <!--bx슬라이더 라는 라이브러리를 가져옴-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script src="./base.js"></script>
+   
+
+
+    <script> 
+    //클릭시 하트 변하지만 id가 아니라 전부 변한다 jsp에서 아이디를 바꾸거나 해야할듯하다
+    $(document).ready(function(){
+		$('.replyHeart').click(function(){
+			$('.img1').attr('src', './icon/clickheart.png');
+		});
+	});
+
+
+    //대댓글 클릭시 보이도록 (자신만 선택하는 방법 추가 필요(아마 this))
+    $(document).ready(function(){
+        $('.reReply').click(function(){
+          $('.replyblock').css('display','block');
+      }); 
+    });
+
+
+    //팝업 안에서 슬라이드 이미지 리플레쉬 안됨
+        $(document).ready(function(){
+          var slider = $('.bxslider').bxSlider();
+
+          $('.scanimg').click(function(){
+          slider.reloadSlider();
+          console.log(123)
+          console.log(slider)
+        });
+    });
+    
+    </script>
+
+
+
+</head>
+<body>
+    <!--header-->
+    <header>
+
+        <nav id="nav">
+              <h1 id="logo"><a href="#"></a></h1>
+              <div id="tabmenu">
+                <input type="radio" name="tab_radio" id="tab">
+                  <label for="tab" class="tab3"><a href="./base.html"><img src="./icon/home.png">홈</a></label>
+    
+                    <input type="radio" name="tab_radio" id="tab1"/>
+                    <label for="tab1" class="tab3"><img src="./icon/search.png">검색</label>
+    
+                    <input type="radio" name="tab_radio" id="tab2"/>
+                    <label for="tab2" class="tab3"><img src="./icon/message.png">메세지</label>
+    
+                    <input type="radio" name="tab_radio" id="tab3"/>
+                    <label for="tab3" class="tab3"><img src="./icon/notice.png">알림</label>
+    
+                    <input type="radio" name="tab_radio" id="tab4"/>
+                    <label for="tab4" class="tab3"><a href="./navigation.html"><img src="./icon/scan.png">탐색 탭</a></label>
+    
+                    <input type="radio" name="tab_radio" id="tab5"/>
+                    <label for="tab5" class="tab3"><a href="#"><img src="./icon/post.png">만들기</a></label>
+                    
+                    <input type="radio" name="tab_radio" id="tab6"/>
+                    <label for="tab6" class="tab3"><a href="#"><img src="./icon/profile.png">프로필</a></label>
+    
+                    <input type="radio" name="tab_radio" id="tab7"/>
+                    <label for="tab7" class="tab3"><img src="./icon/more.png">더 보기</label>
+                
+                <section id="nav1">
+                  <h4>검색</h4>
+                  <form action="#"> 
+                    <input type="text" placeholder="  검색" id="hdsearch">
+                  </form>
+                  <hr>
+                  <h5>최근 검색 항목</h5>
+                  <!--for문으로 div안에 데이터 집어넣음-->
+                  <div class="search">
+                    <a href="./search.html">
+                      <img src="./icon/hashtag.png" class="profile">
+                      <span class="span">검색 한 것</span>
+                      <span class="span2">게시물 500만</span>
+                    </a>
+                  </div>
+
+                  <div class="search">
+                    <a href="./search2.html">
+                      <img src="./즐겁다 짤.jpg" class="profile">
+                      <span class="span">abc마트</span>
+                      <span class="span2">abc마트 · 팔로워 24.7만명</span>
+                    </a>
+                  </div>
+                </section>
+          
+                <section id="nav2" class="clearfix">
+                  <div id="nickname">자기 닉네임</div>
+                  <a href="#" id="messageLink"><img src="./icon/massagewrite.png" ></a>
+                  <h5>메세지</h5>
+                  <!--for문으로 div안에 데이터 집어넣음-->
+    
+                  <div class="massage">
+                    <a href="#">
+                      <img src="./자산 4.png" class="profile">
+                      <span class="span">###님에게 메세지가 도착하였습니다.
+                        <span class="span2">10분전</span>
+                      </span>
+                    </a>
+                  </div>
+                </section>
+          
+                <section id="nav3">
+                  <h4>알림</h4>
+                  <h5>오늘</h5>
+                  <!--for문으로 div안에 데이터 집어넣음 처음 이미지는 유저 프로필 다음이미지는 게시글 미리보기-->
+                  <div class="notice">
+                    <a href="#">
+                      <img src="./자산 4.png" class="profile">
+                      <span class="span">###님이 댓글을 남기셨습니다.
+                        <span class="span2">10분전</span>
+                      </span>
+                      <img src="./자산 4.png" class="img2">
+                    </a>
+                  </div>
+                  <div class="notice">
+                    <a href="#">
+                      <img src="./자산 4.png" class="profile">
+                      <span class="span">###님이 댓글을 남겼습니
+                        <span class="span2">10분전</span>
+                      </span>
+                      <img src="./자산 4.png" class="img2">
+                    </a>
+                  </div>
+    
+                  <div class="notice">
+                    <a href="#">
+                      <img src="./자산 4.png" class="profile">
+                      <span class="span">###님이 댓글을 남겼습니다다다다다다다다다다다다다다다다다
+                        <span class="span2">10분전</span>
+                      </span>
+                      <img src="./자산 4.png" class="img2">
+                    </a>
+                  </div>
+    
+                </section>
+    
+                <section id="nav4">
+                  <ul>
+                    <li><a href="./login.html">로그인</a></li>
+                    <li><a href="#">계정 설정</a></li>
+                  </ul>
+                </section>
+            </div><!--tabmenu-->
+        </nav> <!--nav-->
+      </header> <!--header-->
+
+      <main>
+
+        <div id="scanMain" class="inner clearfix">
+
+          <div class="searchField">
+            <div class="searchField2">
+              <img src="./인스타 탑로고.png" class="searchProfile">
+              <span class="searchSpan1">#검색한거</span>
+              <span class="searchSpan2">게시물</span>
+              <span class="searchSpan3">500.5만</span>
+            </div>
+            <p>인기게시물</p>
+          </div>
+
+            <ul>
+                <!--for문으로 반복될 사진 href에 자기 데이터 넣어서 표시하면 될 듯--> 
+                <li class="scanimg">
+                  <a data-toggle="modal" href="#exampleModalCenter"><img src="./자산 4.png">
+                    <span class="scanimgHover">
+                      <span>
+                        <img src="./icon/whiteHeart.png">11
+                        <img src="./icon/whiteMessage.png">9
+                      </span>
+                    </span>
+                  </a>
+                </li>
+
+                <li class="scanimg">
+                  <a data-toggle="modal" href="#exampleModalCenter"><img src="./자산 4.png">
+                    <span class="scanimgHover">
+                      <span>
+                        <img src="./icon/whiteHeart.png">11
+                        <img src="./icon/whiteMessage.png">9
+                      </span>
+                    </span>
+                  </a>
+                </li>
+
+                <li class="scanimg">
+                  <a data-toggle="modal" href="#exampleModalCenter"><img src="./자산 4.png">
+                    <span class="scanimgHover">
+                      <span>
+                        <img src="./icon/whiteHeart.png">11
+                        <img src="./icon/whiteMessage.png">9
+                      </span>
+                    </span>
+                  </a>
+                </li>
+
+                <li class="scanimg">
+                  <a data-toggle="modal" href="#exampleModalCenter"><img src="./자산 4.png">
+                    <span class="scanimgHover">
+                      <span>
+                        <img src="./icon/whiteHeart.png">11
+                        <img src="./icon/whiteMessage.png">9
+                      </span>
+                    </span>
+                  </a>
+                </li>
+
+                <li class="scanimg">
+                  <a data-toggle="modal" href="#exampleModalCenter"><img src="./자산 4.png">
+                    <span class="scanimgHover">
+                      <span>
+                        <img src="./icon/whiteHeart.png">11
+                        <img src="./icon/whiteMessage.png">9
+                      </span>
+                    </span>
+                  </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">게시글 보기</h5>
+                    </div>
+                    <div class="modal-body">
+
+                    <div class="popupView">
+                        <!--왼쪽-->
+                        <div class="popupViewLeft">
+                            <!--보내진 이미지 들어오는 곳-->
+                            
+                            <div class="slideShow"> <!--메인 동영상과 사진 슬라이드-->
+                              <ul class="bxslider">
+                                <li><img src="./즐겁다 짤.jpg" ></li>
+                                <li><img src="./인스타 탑로고.png" ></li>
+                                <li><img src="./즐겁다 짤.jpg" ></li>
+                            </ul> 
+                    
+                            </div> <!--메인 동영상과 사진 슬라이드-->
+
+                        </div>
+
+                        <!--오른쪽-->
+                        <div class="popupViewRight">
+                            <!--상단 태그-->
+                            <div class="mainTop">
+                                <img src="./자산 4.png" class="profile">
+                                <a href="#" class="main1name">닉네임</a>
+                                <button>팔로우</button>
+                                <a data-toggle="modal" href="#morePopup2" class="popupviewMainSpan2">· · ·</a>
+                            </div> <!--상단 태그-->
+
+                            <!--댓글 창-->
+                            <div class="popupviewMain">
+                              <!--댓글이 없을경우 보여주는 글-->
+                              <div class="notReply">
+                                  <p>아직 댓글이 없습니다.</p>
+                                  <h6>댓글을 남겨보세요</h6>
+                              </div>
+
+                                <!--for문으로 복사 될 페이지-->
+                                    <div class="mainTop">
+                                        <img src="./자산 4.png" class="profile">
+                                        <a href="#" class="main1name">닉네임</a>
+                                        <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
+                                     </div> <!--상단 태그-->
+                                     <span class="popupviewMainSpan1">6일</span>
+                                     <span class="popupviewMainSpan3">| 댓글달기 |</span>
+                                     <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
+
+                                     <!--만약 대댓글이(태그를 통해) 달릴 경우 보여줄 글 -->
+
+                                      <div class="reReply">---댓글 보기(?개)</div> 
+
+                                        <div class="replyblock">
+                                            <div class="mainTop">
+                                              <img src="./자산 4.png" class="profile">
+                                              <a href="#" class="main1name">닉네임</a>
+                                              <div class="popupViewReply">대댓글입니다.</div>
+                                          </div> <!--상단 태그-->
+                                          <span class="popupviewMainSpan1">6일</span>
+                                          <span class="popupviewMainSpan3">| 댓글달기 |</span>
+                                          <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
+                                        </div>
+                                    <!--for문으로 복사 될 페이지-->
+                                    
+                                    
+                                    <!--임시 페이지-->
+                                    <div class="mainTop">
+                                      <img src="./자산 4.png" class="profile">
+                                      <a href="#" class="main1name">닉네임</a>
+                                      <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
+                                   </div> <!--상단 태그-->
+                                   <span class="popupviewMainSpan1">6일</span>
+                                   <span class="popupviewMainSpan3">| 댓글달기 |</span>
+                                   <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
+
+                                   <!--만약 대댓글이(태그를 통해) 달릴 경우 보여줄 글 -->
+
+                                    <div class="reReply">---댓글 보기(?개)</div> 
+
+                                      <div class="replyblock">
+                                          <div class="mainTop">
+                                            <img src="./자산 4.png" class="profile">
+                                            <a href="#" class="main1name">닉네임</a>
+                                            <div class="popupViewReply">대댓글입니다.</div>
+                                        </div> <!--상단 태그-->
+                                        <span class="popupviewMainSpan1">6일</span>
+                                        <span class="popupviewMainSpan3">| 댓글달기 |</span>
+                                        <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
+                                      </div>
+                                    <!--임시 페이지-->
+                                    
+                                      <!--댓글이 많다면 보여줄 아이콘-->
+                                      <div class="replyPlus">
+                                        <img src="./icon/replyPlus.png">
+                                      </div>
+
+                                  </div> <!--댓글 창-->
+                            <!--하단 태그-->
+                            <div class="popupviewBottom">
+                                <img src="./icon/heart.png">
+                                <img src="./icon/reply.png">
+                                <div class="popupviewBottom2">
+                                    <img src="./자산 4.png" class="profile"><!--작은프로필-->
+                                    <span class="popupviewBottomSpan1">좋아요 11개</span>
+                                    <span class="popupviewBottomSpan2">6일 전</span>
+                                </div>
+                                <form action="#">
+                                    <input type="text" placeholder="   댓글달기...">
+                                </form>
+
+                            </div>
+                        </div>
+                    </div> <!--popupView-->
+
+
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+  <!-- Modal -->
+
+  <!-- Modal2 -->
+      <div class="modal fade" id="morePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="morePopupMain">
+                <div class="morePopupBox1"><a href="#">신고</a></div>
+                <!--삭제는 if문 사용으로 숨기기-->
+                <div class="morePopupBox2"><a href="#">삭제</a></div>
+                <button type="button" class="morePopupBox3" data-dismiss="modal">취소</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <!-- Modal3 -->
+      <div class="modal fade" id="morePopup2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="morePopupMain">
+                <div class="morePopupBox1"><a href="#">신고</a></div>
+                <button type="button" class="morePopupBox3" data-dismiss="modal">취소</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+
+      </main>
+
+
+
+
+      <!--푸터 코드-->
+            <footer>
+                <hr>
+                <div class="inner clearfix">
+                    <div id="ft">
+                        <p>업체명 :동스타그램 | 대표 :동물 | 주소 : 전라북도 전주시 덕진구 백제대로 572
+                        <span>
+                            개인정보관리책임자 : 동물 | 이메일 : aaa_bbbbb@gmail.com
+                        </span></p>
+                        <div id="f_copy">
+                            <p>Copyright 2024. 동물. All rights reversed.</p>
+                        </div>
+                    </div> <!--ft-->
+            </div>
+            </footer>
+     <!--푸터 코드-->
+</body>
+</html>

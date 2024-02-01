@@ -9,14 +9,15 @@ li{margin: 0; padding: 0;}
 .modal-dialog{max-width: 1300px;} /*넓이는 여기서*/
 .popupView{height: 800px; position: relative;} /*높이는 여기서*/
 
-.popupViewLeft{border: 1px solid #111; width: 750px; height: 100%; display: inline-block; margin-right: 10px;}
-.popupViewRight{border: 1px solid #111; width: 500px; height: 100%; display: inline-block; position: absolute;}
+.popupViewLeft{ width: 750px; height: 100%; display: inline-block; margin-right: 10px;}
+.popupViewRight{ width: 500px; height: 100%; display: inline-block; position: absolute;}
 
 .mainTop button{left: 90px;}
-.mainTop{margin-left: 10px;}
+.mainTop{margin-left: 10px; margin-top: 20px;}
 .mainTop{border-bottom:1px solid #d1d0d0; margin-right: 10px;}
+.mainTop .popupviewMainSpan2{position: absolute; right: 10px; top: 10px;}
 
-.popupviewMain{height: 550px; overflow: scroll; }
+.popupviewMain{height: 570px; overflow: scroll; }
 /*스크롤바 제거*/
 .popupviewMain {
     -ms-overflow-style: none; /* 익스플로러, 앳지 */
@@ -26,18 +27,26 @@ li{margin: 0; padding: 0;}
 .popupviewMain .mainTop .main1name{font-size: 14px;}
 .popupviewMain .mainTop .profile{width: 25px; height: 25px; margin-top: 12px;}
 .popupViewReply{
-    display: inline-block; position: absolute; left: 100px; top: 14px; width: 300px;
+    display: inline-block; position: absolute; left: 100px; top: 12px; width: 300px;
     font-size: 14px; font-family: 'Pretendard-Regular'; font-weight: 300;}
-.replyHeart{position: absolute; display: inline-block; left: 420px; top: 5px;}
-.replyHeart img{width: 20px; height: 20px;}
 .popupviewMain .popupviewMainSpan1{margin-left: 45px; font-size: 12px; color:#737373;}
 .popupviewMain .popupviewMainSpan2{margin-left: 5px; font-size: 12px; color:#737373;}
 .popupviewMain .popupviewMainSpan3{margin-left: 5px; font-size: 14px; color:#6a6f8c; cursor: pointer;}
 .scroll::-webkit-scrollbar {
     display: none;
   }
+.notReply{width: 500px; text-align: center;}
+.notReply h6{font-size: 14px; margin-bottom: 120px;}
+.notReply p{font-size: 24px; margin-top: 120px;}
 
-.popupviewBottom{border: 1px solid #111; height: 160px;}
+.reReply{margin-left: 45px; font-size: 14px; margin-top: 8px; cursor: pointer; font-family: 'Pretendard-Regular'; font-weight: 600;}
+
+.replyblock {display: none; margin-left: 80px;}
+
+.replyPlus{width: 30px; margin: 0 auto;}
+.replyPlus img{width: 30px; height: 30px; margin: 0 auto;}
+
+.popupviewBottom{border-top: 1px solid #d1d0d0; height: 140px;}
 .popupviewBottom img{width: 25px; margin-top: 10px; margin-left: 10px;}
 .popupviewBottom2{margin-top: 10px;}
 .popupviewBottom2 img{margin-top: 0; width: 20px; height: 20px;}
@@ -46,3 +55,61 @@ li{margin: 0; padding: 0;}
 .popupviewBottom input[type="text"]{
     border: 2px solid #111; font-family: 'Pretendard-Regular'; font-weight: 100;
     margin-top: 10px; height: 30px; width: 480px; margin-left: 8px; border-radius: 15px;}
+
+
+
+/*작은 팝업*/
+
+#morePopup .modal-dialog{max-width: 435px;} /*넓이는 여기서*/
+#morePopup .morePopupMain{height: auto; position: relative;} /*높이는 여기서*/
+#morePopup .morePopupBox1{width: 400px; height: 50px; text-align: center; line-height: 50px;}
+#morePopup .morePopupBox2{width: 400px; height: 50px; border-bottom: 1px solid #d1d0d0; border-top: 1px solid #d1d0d0; text-align: center; line-height: 50px;}
+#morePopup .morePopupBox3{width: 400px; height: 50px; border: 0px; background-color: #fff;}
+
+#morePopup .morePopupBox1 a{color: red;}
+#morePopup .morePopupBox2 a{color: red;}
+
+/*작은 팝업2*/
+#morePopup2 .modal-dialog{max-width: 435px;} /*넓이는 여기서*/
+#morePopup2 .morePopupMain{height: auto; position: relative;} /*높이는 여기서*/
+#morePopup2 .morePopupBox1{width: 400px; height: 50px; text-align: center; line-height: 50px; border-bottom: 1px solid #d1d0d0;}
+#morePopup2 .morePopupBox3{width: 400px; height: 50px; border: 0px; background-color: #fff;}
+
+#morePopup2 .morePopupBox1 a{color: red;}
+
+/*작은 팝업6*/
+#morePopup5 .modal-dialog{max-width: 435px;} /*넓이는 여기서*/
+#morePopup5 .morePopupMain{height: auto; position: relative;} /*높이는 여기서*/
+#morePopup5 .morePopupBox1{width: 400px; height: 50px; text-align: center; line-height: 50px;}
+#morePopup5 .morePopupBox2{width: 400px; height: 50px; border-bottom: 1px solid #d1d0d0; border-top: 1px solid #d1d0d0; text-align: center; line-height: 50px;}
+#morePopup5 .morePopupBox3{width: 400px; height: 50px; border: 0px; background-color: #fff;}
+
+#morePopup5 .morePopupBox1 a{color: red;}
+#morePopup5 .morePopupBox2 a{color: red;}
+
+/*슬라이드*/
+
+.slideShow{
+    width: 650px;
+    height: 750px;
+    margin: 0 auto;
+}
+.bx-wrappe{margin: 0 auto;}
+.bxslider li { list-style: none; width: 650px; height: 750px; margin: 0 auto;background-color: #111;}
+.bxslider li img{height: 100%; margin: 0 auto;}
+
+
+/*게시글 호버시 효과*/
+#scanMain .scanimg{position: relative;}
+#scanMain .scanimg .scanimgHover{
+    display: inline-block; background-color: rgba(0, 0, 0, 0.7);
+    width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; 
+    transition: all .4s ;
+}
+#scanMain .scanimg:hover .scanimgHover{opacity: 1;}
+#scanMain .scanimg .scanimgHover > span{
+    color: #fff; font-size: 20px; 
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+}
+#scanMain .scanimg .scanimgHover > span img{width: 20px; height: 20px;}
+#scanMain .scanimg .scanimgHover > span img:last-child{margin-left: 15px;}
