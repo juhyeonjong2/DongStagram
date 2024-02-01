@@ -158,7 +158,7 @@ header img{width: 20px; margin-right: 10px;}
   margin-top: 10px; margin-bottom: 8px;
 }
 .main2 .good{width: 30px; height: 30px; margin-top: 30px;}
-.main2 a img{width: 30px; height: 30px; margin-left: 8px;}
+.main2 a img{width: 30px; height: 30px; margin-left: 8px; margin-top: 30px;}
 
 .main3{ margin-bottom: 8px;}
 .main3 p{font-size: 14px; font-family: 'Pretendard-Regular';}
@@ -186,10 +186,37 @@ header img{width: 20px; margin-right: 10px;}
   opacity: 0;
 }
 
+/*이미지 위로는 가야하지만 팝업보단 뒤로가야해서 여기서 변경*/
+.bx-wrapper .bx-controls-direction a {
+  z-index: 99;
+}
+
+/*이미지 등록 팝업*/
+.modal-dialog{max-width: 1300px; } /*넓이는 여기서*/
+.modal-body{height: 900px; position: relative;} /*높이는 여기서*/
 
 
+/*input 타입 파일 숨기기
+.modal-body input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}*/
 
+.postPlus{
+  margin-left: 151px; cursor: pointer;
+}
+#postPopup .modal-header{display: block; text-align: center;}
+.modal-body input[type="submit"]{
+  position: absolute; border: 0px; background-color: #fff; color: #4EA685;
+  top: -57px; right: -850px;
+}
 
+.dropFile{border: 1px solid #111; height: 850px; width: 600px; display: inline-block; position: absolute;}
+.dropFile2 img{width: 350px; margin-top: 350px; margin-left: 120px;}
 
 
 
