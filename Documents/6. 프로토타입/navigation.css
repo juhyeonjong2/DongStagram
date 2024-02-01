@@ -77,7 +77,15 @@ li{margin: 0; padding: 0;}
 
 #morePopup2 .morePopupBox1 a{color: red;}
 
+/*작은 팝업6*/
+#morePopup5 .modal-dialog{max-width: 435px;} /*넓이는 여기서*/
+#morePopup5 .morePopupMain{height: auto; position: relative;} /*높이는 여기서*/
+#morePopup5 .morePopupBox1{width: 400px; height: 50px; text-align: center; line-height: 50px;}
+#morePopup5 .morePopupBox2{width: 400px; height: 50px; border-bottom: 1px solid #d1d0d0; border-top: 1px solid #d1d0d0; text-align: center; line-height: 50px;}
+#morePopup5 .morePopupBox3{width: 400px; height: 50px; border: 0px; background-color: #fff;}
 
+#morePopup5 .morePopupBox1 a{color: red;}
+#morePopup5 .morePopupBox2 a{color: red;}
 
 /*슬라이드*/
 
