@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 
 //import java.sql.*;
 
-public class DBManager {
+public class DBManager implements AutoCloseable{
 	/// 필드 멤버
 	// DB 접속용 데이터
 	private String host;	// 서버주소, 포트, DB이름, 세팅들
@@ -18,9 +18,12 @@ public class DBManager {
 	private Connection conn=null;
 	private PreparedStatement psmt = null;
 	private ResultSet result = null;
-	
-	// 내부 카운터
+	private boolean useTx = false;
+	// 내부용
 	private int orderCount = 1; // psmt setInt등에 쓰임
+	private boolean oldAutoCommitState = true;
+	
+	
 	
 	/// 메소드
 	// 생성자
@@ -67,26 +70,43 @@ public class DBManager {
 	
 	// DB 연결 메소드
 	public boolean connect() {
+		return connect(false);
+	}
+	
+	
+	public boolean connect(boolean useTx) {
 		try {
 			// 드라이버 로드
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			// 연결
 			this.conn =DriverManager.getConnection(host,userID,userPW);
+			this.oldAutoCommitState = conn.getAutoCommit();
+			this.useTx = useTx; 
+			if(this.useTx ) {
+				this.conn.setAutoCommit(false);
+			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 		return true;
-		
 	}
+	
 	// DB 종료 메소드
 	public boolean disconnect() {
 		try {
 			
 			release();
-			
-			if(conn != null) 
-				conn.close();
+		
+			if(conn != null) {
+				
+				if(useTx ) {
+					conn.setAutoCommit(oldAutoCommitState);
+				}
+				
+				conn.close();	
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,10 +115,47 @@ public class DBManager {
 		return true;
 	}
 	
+	public DBManager txCommit()
+	{
+		if(conn == null)
+			return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
+		
+		try {
+			if(useTx) {
+				conn.commit();
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
+		}
+	
+		
+		return this;
+	}
+	
+	public boolean txRollback()
+	{
+		if(conn == null)
+			return false;
+		
+		if(!useTx) {
+			return false;
+		}
+		
+		try {
+			
+			conn.rollback();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	
 	public DBManager prepare(String sql) {
 		if(conn == null)
-			return null;
+			return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 		
 		try {
 			release(); // rs, state 모두 초기화.
@@ -107,7 +164,7 @@ public class DBManager {
 			orderCount = 1;
 		}catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 		}
 		
 		return this;
@@ -154,13 +211,13 @@ public class DBManager {
 				psmt.setBoolean(orderCount, v);
 			}catch(Exception e) {
 				e.printStackTrace();
-				return null;
+				return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 			}
 			orderCount++;
 			return this;
 		}
 		
-		return null;
+		return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 	}
 	
 	public DBManager setInt(int val) {
@@ -171,13 +228,13 @@ public class DBManager {
 				psmt.setInt(orderCount, val);
 			}catch(Exception e) {
 				e.printStackTrace();
-				return null;
+				return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 			}
 			orderCount++;
 			return this;
 		}
 		
-		return null;
+		return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 	}
 	
 	public DBManager setString(String s) {
@@ -188,13 +245,13 @@ public class DBManager {
 				psmt.setString(orderCount, s);
 			}catch(Exception e) {
 				e.printStackTrace();
-				return null;
+				return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 			}
 			orderCount++;
 			return this;
 		}
 		
-		return null;
+		return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 	}
 	
 	public DBManager setTimestamp(java.sql.Timestamp ts) {
@@ -205,25 +262,38 @@ public class DBManager {
 				psmt.setTimestamp(orderCount, ts);
 			}catch(Exception e) {
 				e.printStackTrace();
-				return null;
+				return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 			}
 			orderCount++;
 			return this;
 		}
 		
-		return null;
+		return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 	}
 	
 	public int update()
 	{
-		try {
+		return update(false);
+	}
+	
+	// autoRollback이 true인경우 오류가 나거나 업데이트결과가 0인경우 롤백.
+	// 보통 tx는 update에서 필요하므로 update에서 처리한다.
+	public int update(boolean autoRollback) 
+	{
+		int result = 0;
+		try 
+		{
 			if(psmt!=null) {
-				return psmt.executeUpdate();
+				result = psmt.executeUpdate();
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+		
+		if(result == 0 && autoRollback) {
+			txRollback();
+		}
+		return result;
 	}
 	
 	public boolean read()
@@ -241,6 +311,21 @@ public class DBManager {
 			return false;
 		}
 		return true;
+	}
+	
+	// util : mysql의 last_insert_id 흉내내기 (향후 오라클/ mysql에 따라 분기할수 있음)
+	public int last_insert_id(String tableName, String columnName )
+	{
+		//sql = "select last_insert_id() as nno from notification"; // DB샘에 알려준 mysql전용방법
+		String sql = "SELECT MAX(" + columnName + ") as " +columnName + " FROM "+ tableName; // 담임샘이 알려준 방법. (마지막 넣은 index가져오기. 이번에는 이걸로 써야함.)
+		int index = 0;
+		// null이 아닌경우 성공
+		if(prepare(sql) != null) {
+			if(read()) {
+				index = getInt("columnName");
+			}
+		}
+		return index; // 0인경우 오류 처리 할것. (실패)
 	}
 	
 	public boolean release()
@@ -263,7 +348,7 @@ public class DBManager {
 	
 	
 	// result next() 실행할 메소드
-	public boolean getNext() {
+	public boolean next() {
 		if(result == null)
 			return false;
 		
@@ -303,12 +388,54 @@ public class DBManager {
 			return null;
 		}
 	}
+
+	//try-with-resources 로 생성한경우 disconnect호출하지 않아도 됨.
+	@Override
+	public void close() throws Exception {
+		disconnect();
+	}
 	
-	// 예외처리 메소드 - '를 처리하는 메소드
-	protected String _R(String value) {
-		//return value.replace("'","''").replace(" ",""));
-		return value.replace("'","''");
+}
+
+
+// null 객체 추가
+class NullDBManager extends DBManager {
+	
+	@Override
+	public DBManager prepare(String sql) {
+		Log("prepare - null object use");
+		return this;
 	}
 	
 	
+	@Override
+	public DBManager txCommit() {
+		Log("txCommit - null object use");
+		return this;
+	}
+	@Override
+	public DBManager setBoolean(boolean v) {
+		Log("setBoolean - null object use");
+		return this;
+	}
+	@Override
+	public DBManager setInt(int val) {
+		Log("setInt - null object use");
+		return this;
+	}
+	@Override
+	public DBManager setString(String s) {
+		Log("setString - null object use");
+		return this;
+	}
+	@Override
+	public DBManager setTimestamp(java.sql.Timestamp ts) {
+		Log("setTimestamp - null object use");
+		return this;
+	}
+	
+	
+	private void Log(String msg) {
+		System.out.println(msg);
+	}
 }
