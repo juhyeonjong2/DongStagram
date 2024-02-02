@@ -18,9 +18,11 @@ public class DBManager {
 	private Connection conn=null;
 	private PreparedStatement psmt = null;
 	private ResultSet result = null;
-	
-	// 내부 카운터
+	private boolean useTx = false;
+	// 내부용
 	private int orderCount = 1; // psmt setInt등에 쓰임
+	private boolean oldAutoCommitState = true;
+	
 	
 	/// 메소드
 	// 생성자
@@ -67,26 +69,47 @@ public class DBManager {
 	
 	// DB 연결 메소드
 	public boolean connect() {
+		return connect(false);
+	}
+	
+	public boolean connect(boolean useTx) {
 		try {
 			// 드라이버 로드
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			// 연결
 			this.conn =DriverManager.getConnection(host,userID,userPW);
+			this.oldAutoCommitState = conn.getAutoCommit();
+			this.useTx = useTx; 
+			if(this.useTx ) {
+				this.conn.setAutoCommit(false);
+			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 		return true;
-		
 	}
+	
+	
 	// DB 종료 메소드
 	public boolean disconnect() {
 		try {
 			
 			release();
 			
-			if(conn != null) 
-				conn.close();
+			if(this.useTx ) {
+				this.conn.setAutoCommit(false);
+			}
+			
+			if(conn != null) {
+				
+				if(useTx ) {
+					conn.setAutoCommit(oldAutoCommitState);
+				}
+				
+				conn.close();	
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,6 +118,43 @@ public class DBManager {
 		return true;
 	}
 	
+	public DBManager txCommit()
+	{
+		if(conn == null)
+			return null;
+		
+		try {
+			if(useTx) {
+				conn.commit();
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	
+		
+		return this;
+	}
+	
+	public boolean txRollback()
+	{
+		if(conn == null)
+			return false;
+		
+		if(!useTx) {
+			return false;
+		}
+		
+		try {
+			
+			conn.commit();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	
 	public DBManager prepare(String sql) {
 		if(conn == null)
@@ -216,14 +276,27 @@ public class DBManager {
 	
 	public int update()
 	{
-		try {
+		return update(false);
+	}
+	
+	// autoRollback이 true인경우 오류가 나거나 업데이트결과가 0인경우 롤백.
+	// 보통 tx는 update에서 필요하므로 update에서 처리한다.
+	public int update(boolean autoRollback) 
+	{
+		int result = 0;
+		try 
+		{
 			if(psmt!=null) {
-				return psmt.executeUpdate();
+				result = psmt.executeUpdate();
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+		
+		if(result == 0 && autoRollback) {
+			txRollback();
+		}
+		return result;
 	}
 	
 	public boolean read()
