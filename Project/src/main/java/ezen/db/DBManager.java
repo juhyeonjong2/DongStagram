@@ -24,6 +24,7 @@ public class DBManager implements AutoCloseable{
 	private boolean oldAutoCommitState = true;
 	
 	
+	
 	/// 메소드
 	// 생성자
 	public DBManager() {
@@ -92,7 +93,6 @@ public class DBManager implements AutoCloseable{
 		return true;
 	}
 	
-	
 	// DB 종료 메소드
 	public boolean disconnect() {
 		try {
@@ -118,7 +118,7 @@ public class DBManager implements AutoCloseable{
 	public DBManager txCommit()
 	{
 		if(conn == null)
-			return null;
+			return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 		
 		try {
 			if(useTx) {
@@ -126,7 +126,7 @@ public class DBManager implements AutoCloseable{
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 		}
 	
 		
@@ -155,7 +155,7 @@ public class DBManager implements AutoCloseable{
 	
 	public DBManager prepare(String sql) {
 		if(conn == null)
-			return null;
+			return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 		
 		try {
 			release(); // rs, state 모두 초기화.
@@ -164,7 +164,7 @@ public class DBManager implements AutoCloseable{
 			orderCount = 1;
 		}catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 		}
 		
 		return this;
@@ -211,13 +211,13 @@ public class DBManager implements AutoCloseable{
 				psmt.setBoolean(orderCount, v);
 			}catch(Exception e) {
 				e.printStackTrace();
-				return null;
+				return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 			}
 			orderCount++;
 			return this;
 		}
 		
-		return null;
+		return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 	}
 	
 	public DBManager setInt(int val) {
@@ -228,13 +228,13 @@ public class DBManager implements AutoCloseable{
 				psmt.setInt(orderCount, val);
 			}catch(Exception e) {
 				e.printStackTrace();
-				return null;
+				return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 			}
 			orderCount++;
 			return this;
 		}
 		
-		return null;
+		return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 	}
 	
 	public DBManager setString(String s) {
@@ -245,13 +245,13 @@ public class DBManager implements AutoCloseable{
 				psmt.setString(orderCount, s);
 			}catch(Exception e) {
 				e.printStackTrace();
-				return null;
+				return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 			}
 			orderCount++;
 			return this;
 		}
 		
-		return null;
+		return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 	}
 	
 	public DBManager setTimestamp(java.sql.Timestamp ts) {
@@ -262,13 +262,13 @@ public class DBManager implements AutoCloseable{
 				psmt.setTimestamp(orderCount, ts);
 			}catch(Exception e) {
 				e.printStackTrace();
-				return null;
+				return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 			}
 			orderCount++;
 			return this;
 		}
 		
-		return null;
+		return new NullDBManager(); // null 대신 null 객체를 반환해서 크래시를 막는다. ( 객체풀에서 가져올수 있지만 그냥 new로 넘긴다.)
 	}
 	
 	public int update()
@@ -395,4 +395,47 @@ public class DBManager implements AutoCloseable{
 		disconnect();
 	}
 	
+}
+
+
+// null 객체 추가
+class NullDBManager extends DBManager {
+	
+	@Override
+	public DBManager prepare(String sql) {
+		Log("prepare - null object use");
+		return this;
+	}
+	
+	
+	@Override
+	public DBManager txCommit() {
+		Log("txCommit - null object use");
+		return this;
+	}
+	@Override
+	public DBManager setBoolean(boolean v) {
+		Log("setBoolean - null object use");
+		return this;
+	}
+	@Override
+	public DBManager setInt(int val) {
+		Log("setInt - null object use");
+		return this;
+	}
+	@Override
+	public DBManager setString(String s) {
+		Log("setString - null object use");
+		return this;
+	}
+	@Override
+	public DBManager setTimestamp(java.sql.Timestamp ts) {
+		Log("setTimestamp - null object use");
+		return this;
+	}
+	
+	
+	private void Log(String msg) {
+		System.out.println(msg);
+	}
 }

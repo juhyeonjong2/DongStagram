@@ -3,11 +3,12 @@ package ezen.db;
 public class DBTest {
 
 	// try-with-resources read 테스트 ( 자바7 부터 가능)
-	public void read_try_with_(){
+	public void read_try_with_resources(){
 		
 		try(DBManager db = new DBManager();)
 		{
-			if(db.connect()) {
+			if(db.connect()) 
+			{
 				String sql = "SELECT * FROM board";
 				
 				if(db.prepare(sql).read()) {
@@ -26,6 +27,31 @@ public class DBTest {
 			e.printStackTrace();
 		}
 	}
+	
+	public void read_nullobject(){
+		
+		try(DBManager db = new DBManager();)
+		{
+			//db.connect();  // 컨넥트안하면 prepare에서 null객체가 반환됨.
+			
+			String sql = "SELECT * FROM board";
+			if(db.prepare(sql).read()) // prepare에서 null 객체가 리턴되어서 read호출에도 문제가 없음 단, 콘솔로그가 찍힘. 
+			{
+				if(db.next()) {
+					int bno = db.getInt("bno");
+					String title = db.getString("btitle");
+					String contents = db.getString("bcontent");
+					String rdate = db.getString("rdate");
+				}
+			}	
+			
+			//db.disconnect(); // disconnect 안해도 close에서 끊어줌.
+		}
+		catch(Exception e) { 
+			e.printStackTrace();
+		}
+	}
+	
 
 	public void read() {
 		
