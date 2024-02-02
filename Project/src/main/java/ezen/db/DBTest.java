@@ -2,7 +2,31 @@ package ezen.db;
 
 public class DBTest {
 
-	
+	// try-with-resources read 테스트 ( 자바7 부터 가능)
+	public void read_try_with_(){
+		
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) {
+				String sql = "SELECT * FROM board";
+				
+				if(db.prepare(sql).read()) {
+					
+					if(db.next()) {
+						int bno = db.getInt("bno");
+						String title = db.getString("btitle");
+						String contents = db.getString("bcontent");
+						String rdate = db.getString("rdate");
+					}
+				}	
+				//db.disconnect(); // disconnect 안해도 close에서 끊어줌.
+			}
+		}
+		catch(Exception e) { 
+			e.printStackTrace();
+		}
+	}
+
 	public void read() {
 		
 		DBManager db = new DBManager();
@@ -139,5 +163,8 @@ public class DBTest {
 			}
 			
 			db.disconnect(); // disconnect에서 autocommit을 기존값으로 되돌려놓음. (disconnect는 반드시 해야함)
+		}
 	}
+	
+	
 }

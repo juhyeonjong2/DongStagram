@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 
 //import java.sql.*;
 
-public class DBManager {
+public class DBManager implements AutoCloseable{
 	/// 필드 멤버
 	// DB 접속용 데이터
 	private String host;	// 서버주소, 포트, DB이름, 세팅들
@@ -387,6 +387,12 @@ public class DBManager {
 		}catch(Exception e) {
 			return null;
 		}
+	}
+
+	//try-with-resources 로 생성한경우 disconnect호출하지 않아도 됨.
+	@Override
+	public void close() throws Exception {
+		disconnect();
 	}
 	
 }
