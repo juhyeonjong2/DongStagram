@@ -60,7 +60,7 @@ public class DBTest {
 		{
 			boolean isSuccess = true;
 			
-			String sql = "INSERT INTO notification(ntitle, ncontent, rdate, nhit, delyn) VALUES(?, ?, now(), 0, 'n') ";
+			String sql = "INSERT INTO board (btitle, bcontent, rdate, bhit, mno, delyn) VALUES (?, ?, now(), 222, 2, 'n') ";
 			
 			// update시에 true를 준경우 update에 결과값이 0이면 rollback을 자동으로 수행한다.
 			if(db.prepare(sql).setString(title).setString(content).update(true) <= 0){
@@ -109,7 +109,7 @@ public class DBTest {
 		{
 			boolean isSuccess = true;
 			
-			String sql = "INSERT INTO notification(ntitle, ncontent, rdate, nhit, delyn) VALUES(?, ?, now(), 0, 'n') ";
+			String sql = "INSERT INTO board (btitle, bcontent, rdate, bhit, mno, delyn) VALUES (?, ?, now(), 222, 2, 'n') ";
 			
 			// update시에 true를 준경우 update에 결과값이 0이면 rollback을 자동으로 수행한다.
 			if(db.prepare(sql).setString(title).setString(content).update() <= 0){
