@@ -23,6 +23,7 @@ body {
     border-radius: 8px;
   }
   
+  /*옮길때 잔상*/
   .draggable.dragging {
     opacity: 0.5;
   }

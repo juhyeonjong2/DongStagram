@@ -1,4 +1,11 @@
 
+/*이미지 등록 팝업*/
+.modal-dialog{max-width: 1300px; } /*넓이는 여기서*/
+.modal-body{height: 900px; position: relative;} /*높이는 여기서*/
+
+#postPopup .modal-header{display: block; text-align: center;}
+
+
 .container {
   width: clamp(0px, 100%, 512px);
   margin: 32px auto;
@@ -32,6 +39,9 @@
   border: 1px solid #111; width: 300px; height: 850px; display: inline-block; 
   position: absolute; top: 30px; left: 0;}
 
+.container-img{margin-bottom: 10px; border: 1px solid #111;}
+
+
 .postRight{
   border: 1px solid #111; width: 400px; height: 850px; display: inline-block; 
   position: absolute; top: 30px; right: 0;}
@@ -43,20 +53,29 @@
 }
 
 .preview {
-  display: grid;
+  /*새로나열을 위해 그리드 속성 주석처리;*/
+  /*display: grid;*/
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   padding: 16px;
-  margin-bottom: 16px;
   border-radius: 8px;
   align-items: center;
   background-color: var(--bgColor);
 }
 
 .embed-img{
-  width: 100%;
-  height: 128px;
+  width: 50px;
+  height: 50px;
+  display: block;
   object-position: center;
   object-fit: cover;
   border-radius: 8px;
 }
+
+.postPlus{
+  cursor: pointer;
+}
+
+
+.draggable{background-color: aliceblue;}
+.dragging{background-color: #111;}

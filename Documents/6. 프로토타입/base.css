@@ -191,32 +191,15 @@ header img{width: 20px; margin-right: 10px;}
   z-index: 99;
 }
 
-/*이미지 등록 팝업*/
-.modal-dialog{max-width: 1300px; } /*넓이는 여기서*/
-.modal-body{height: 900px; position: relative;} /*높이는 여기서*/
 
-
-/*input 타입 파일 숨기기
-.modal-body input[type="file"] {
-  position: absolute;
-  width: 0;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-}*/
-
-.postPlus{
-  margin-left: 151px; cursor: pointer;
-}
-#postPopup .modal-header{display: block; text-align: center;}
-.modal-body input[type="submit"]{
+/*필요없다라 생각하지만 혹시 몰라서 주석처리함*/
+/*.modal-body input[type="submit"]{
   position: absolute; border: 0px; background-color: #fff; color: #4EA685;
   top: -57px; right: -850px;
 }
 
 .dropFile{border: 1px solid #111; height: 850px; width: 600px; display: inline-block; position: absolute;}
-.dropFile2 img{width: 350px; margin-top: 350px; margin-left: 120px;}
+.dropFile2 img{width: 350px; margin-top: 350px; margin-left: 120px;}*/
 
 
 
