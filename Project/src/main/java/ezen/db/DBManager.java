@@ -72,6 +72,7 @@ public class DBManager {
 		return connect(false);
 	}
 	
+	
 	public boolean connect(boolean useTx) {
 		try {
 			// 드라이버 로드
@@ -97,11 +98,7 @@ public class DBManager {
 		try {
 			
 			release();
-			
-			if(this.useTx ) {
-				this.conn.setAutoCommit(false);
-			}
-			
+		
 			if(conn != null) {
 				
 				if(useTx ) {
@@ -147,7 +144,7 @@ public class DBManager {
 		
 		try {
 			
-			conn.commit();
+			conn.rollback();
 				
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -316,6 +313,21 @@ public class DBManager {
 		return true;
 	}
 	
+	// util : mysql의 last_insert_id 흉내내기 (향후 오라클/ mysql에 따라 분기할수 있음)
+	public int last_insert_id(String tableName, String columnName )
+	{
+		//sql = "select last_insert_id() as nno from notification"; // DB샘에 알려준 mysql전용방법
+		String sql = "SELECT MAX(" + columnName + ") as " +columnName + " FROM "+ tableName; // 담임샘이 알려준 방법. (마지막 넣은 index가져오기. 이번에는 이걸로 써야함.)
+		int index = 0;
+		// null이 아닌경우 성공
+		if(prepare(sql) != null) {
+			if(read()) {
+				index = getInt("columnName");
+			}
+		}
+		return index; // 0인경우 오류 처리 할것. (실패)
+	}
+	
 	public boolean release()
 	{
 		try {
@@ -336,7 +348,7 @@ public class DBManager {
 	
 	
 	// result next() 실행할 메소드
-	public boolean getNext() {
+	public boolean next() {
 		if(result == null)
 			return false;
 		
@@ -376,12 +388,5 @@ public class DBManager {
 			return null;
 		}
 	}
-	
-	// 예외처리 메소드 - '를 처리하는 메소드
-	protected String _R(String value) {
-		//return value.replace("'","''").replace(" ",""));
-		return value.replace("'","''");
-	}
-	
 	
 }
