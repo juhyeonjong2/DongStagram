@@ -322,7 +322,7 @@ public class DBManager implements AutoCloseable{
 		// null이 아닌경우 성공
 		if(prepare(sql) != null) {
 			if(read()) {
-				index = getInt("columnName");
+				index = getInt(columnName);
 			}
 		}
 		return index; // 0인경우 오류 처리 할것. (실패)
