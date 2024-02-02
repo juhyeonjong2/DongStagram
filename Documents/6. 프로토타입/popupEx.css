@@ -1,4 +1,4 @@
-.modal-dialog{max-width: 800px;} /*넓이는 여기서*/
+.modal-dialog{max-width: 800px; } /*넓이는 여기서*/
 .popupupload{height: 650px;} /*높이는 여기서*/
 /*미리보기*/
 .preview{width: 396px ; height: 484px; background-color: aquamarine; margin: 0 auto; margin-top: 40px; margin-bottom: 80px;}

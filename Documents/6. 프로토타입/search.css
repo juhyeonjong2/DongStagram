@@ -1,0 +1,8 @@
+.searchProfile{width: 150px; height: 150px; border-radius: 150px; border: 1px solid #4EA685; margin-left: 75px;}
+.searchField2{position: relative; }
+.searchField2 .searchSpan1{position: absolute; top: 20px; left: 350px; font-size: 24px;}
+.searchField2 .searchSpan2{position: absolute; top: 50px; left: 350px; font-size: 15px; font-weight: 500;}
+.searchField2 .searchSpan3{position: absolute; top: 75px; left: 350px; font-size: 15px; font-weight: 500;}
+
+
+.searchField p{margin-top: 40px; margin-bottom: 60px; margin-left: 60px; font-size: 18px;}
