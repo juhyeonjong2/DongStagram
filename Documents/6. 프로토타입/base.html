@@ -45,6 +45,7 @@
               let file = event.target.files[0]; //파일을 배열에 저장
               console.log(file)
           }
+
   </script>
 </head>
 <body>
@@ -292,6 +293,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">새 게시글 만들기</h5>
+                <button id="btn-share" type="button" disabled>공유</button>
               </div>
               <div class="modal-body">
 
@@ -313,6 +315,19 @@
 
                   <div class="postRight">
                     
+                    <div class="RightTop">
+                      <div>
+                        <img>
+                        <span>닉네임</span>
+                      </div>
+
+                      <textarea></textarea>
+                      <span>0/2200</span> <!--스크립트 html textarea 글자 수 검색 마이크로-->
+                    </div>
+                    <div>
+                      <h4>설정</h4>  
+                    </div>
+
                   </div>
                   <script src="./post.js"></script>
                 </form>

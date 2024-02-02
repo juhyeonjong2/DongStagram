@@ -1,11 +1,13 @@
 var input = document.getElementById("input"); //input file
-
+var submit = false;
 // addEventListener 이벤트가 작동할 때마다 호출할 함수 작성 
 //  
 
 input.addEventListener("change", (event) => { // change가 작동 시 event에 =>(연산자)(=과 같은거인데 오른쪽으로 집어넣는거 인듯) 
   const files = changeEvent(event); //함수에서 받아온 파일들을 변수 files에 집어 넣어준다.
-  handleUpdate(files); 
+  handleUpdate(files);
+  console.log(input)
+  submit = true; 
 });
 
 
@@ -29,7 +31,7 @@ document.addEventListener("drop", (event) => {
   }
 });
 
-// ...‘three dots’는 나머지 모든 배열을 가져오고 싶을 때 or 첫번째 요소를 제외하고 배열값을 가져오고 싶을 때
+// ...(전개연산자)
 
 function changeEvent(event){
   const { target } = event; //여기에 중괄호는 뭘 의미하는지는 아직 잘 모르겠다.
@@ -54,6 +56,8 @@ function handleUpdate(fileList){
     });
     reader.readAsDataURL(file); //위에 값이 읽기가 완료되면 result 속성(attribute)에 담아지게된다. (위 작업들은 값을 넣는게 아닌건가? 이 부분은 잘 모르겠음)
   });
+
+  document.getElementById("btn-share").removeAttribute("disabled");
 };
 // ?는 앞에 문이 true라면 document.createDocumentFragment() 실행 false라면 document.createElement(nodeName) 실행
 // createDocumentFragment() : 다른 노드를 담아두는 임시 컨테이너  같은거
@@ -61,6 +65,21 @@ function handleUpdate(fileList){
 // Object의 entries() 메소드는 받아온 모든 프로퍼티와 값을 배열로 반환해줌
 // .forEach(([key, value]) : 받아온 배열값의 키와 벨류를 읽음
 // in 연산자 : (속성 in 객체명)  명시된 속성이 명시된 객체에 존재하면 true를 반환
+
+//   아래 두개는 같은거
+//function test(){
+
+//}
+//const test = () =>{
+
+//}
+
+//{ 
+//     key              value
+//  className: "container-img draggable", 
+//  draggable: "true" 
+//}
+
 function el(nodeName, attributes, ...children) {
   const node =
     nodeName === "fragment"

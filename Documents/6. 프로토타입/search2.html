@@ -49,9 +49,10 @@
 
     //팝업 안에서 슬라이드 이미지 리플레쉬 안됨
         $(document).ready(function(){
-          var slider = $('.bxslider').bxSlider();
+          
 
           $('.scanimg').click(function(){
+            var slider = $('.bxslider').bxSlider();
           slider.reloadSlider();
           console.log(123)
           console.log(slider)
