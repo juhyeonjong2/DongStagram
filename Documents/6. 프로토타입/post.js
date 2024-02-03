@@ -214,8 +214,6 @@ preview.addEventListener("mouseover", () => {
 });
 
 
-// 사진없다면 고유하기 못 누르도록
-
 
 
 
