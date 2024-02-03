@@ -293,7 +293,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">새 게시글 만들기</h5>
-                <button id="btn-share" type="button" disabled>공유</button>
+               <!--<button id="btn-share" type="button" disabled>공유</button>-->
               </div>
               <div class="modal-body">
 
@@ -315,20 +315,40 @@
 
                   <div class="postRight">
                     
-                    <div class="RightTop">
-                      <div>
-                        <img>
-                        <span>닉네임</span>
+                    <div class="rightTop">
+                      <div class="rightTop2">
+                        <img src="./즐겁다 짤.jpg" class="profile">
+                        <span class="nickname">tester123</span>
                       </div>
-
-                      <textarea></textarea>
-                      <span>0/2200</span> <!--스크립트 html textarea 글자 수 검색 마이크로-->
+                      <textarea class="replyTextarea" id="replyTextarea" placeholder="문구를 입력하세요..." onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
+                      <span class="replyTextareaCount" id="replyTextareaCount">0
+                      </span>
+                      <span class="replyTextareaCount2">/2200</span>
                     </div>
-                    <div>
-                      <h4>설정</h4>  
+
+                    <div class="rightBottom">
+                      <h4>설정</h4>
+                      <ul class="righrToggle">
+                        <li>
+                          <span>게시물 공개</span>
+                          <input type='checkbox' id='toggle' class='tgl' />
+                          <label for='toggle'></label>
+                        </li>
+                        <li>
+                          <span>좋아요 공개</span>
+                          <input type='checkbox' id='toggle2' class='tgl' />
+                          <label for='toggle2'></label>
+                        </li>
+                        <li>
+                          <span>댓글 기능 허용</span>
+                          <input type='checkbox' id='toggle3' class='tgl' />
+                          <label for='toggle3'></label>
+                        </li>
+                      </ul>
                     </div>
 
                   </div>
+                  <input type="submit" value="공유하기" class="dropBoxSubmit" id="dropBoxSubmit" disabled/>
                   <script src="./post.js"></script>
                 </form>
 

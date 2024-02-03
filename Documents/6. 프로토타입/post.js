@@ -1,13 +1,24 @@
-var input = document.getElementById("input"); //input file
-var submit = false;
+let input = document.getElementById("input"); //input file
+let preview = document.getElementById("preview");
 // addEventListener 이벤트가 작동할 때마다 호출할 함수 작성 
-//  
 
-input.addEventListener("change", (event) => { // change가 작동 시 event에 =>(연산자)(=과 같은거인데 오른쪽으로 집어넣는거 인듯) 
+
+input.addEventListener("change", (event) => { // change가 작동 시 event에 
   const files = changeEvent(event); //함수에서 받아온 파일들을 변수 files에 집어 넣어준다.
   handleUpdate(files);
-  console.log(input)
-  submit = true; 
+
+
+    // 공유버튼 활성화
+    let cnt = files.length
+
+    if(cnt != 0){
+      document.getElementById("dropBoxSubmit").removeAttribute("disabled");
+      document.getElementById("dropBoxSubmit").style.color ="#4EA685"
+    }else{
+      document.getElementById("dropBoxSubmit").setAttribute("disabled", true);
+      document.getElementById("dropBoxSubmit").style.color ="#aaa"
+    }
+  
 });
 
 
@@ -39,7 +50,6 @@ function changeEvent(event){
 };
 
 function handleUpdate(fileList){
-  const preview = document.getElementById("preview");
   
   // forEach: 배열의 처음부터 끝까지 반복하여 실행
   // FileReader() FileReader라는 객체를 만드는데 이건 파일들(input에 들어오거나 드래그 앤 드롭 해서 저장시킨거) 이벤트 주는 용도 (비동기로 실행)
@@ -48,16 +58,18 @@ function handleUpdate(fileList){
     const reader = new FileReader();
     reader.addEventListener("load", (event) => { //fileList에서 가져온 값이 하나하나 로딩이 될 경우인듯?
       const img = el("img", {
-        className: "embed-img",
+        className: "embedImg",
         src: event.target?.result, //여기서 ?는 값이 없어서 error가 나오는 경우 error대신 undefind를 출력해줌 , target은 받아온 값을 가리킴, result는 FileReader()이거 메소드인데 파일의 내용을 반환함
       });
-      const imgContainer = el("div", { className: "container-img draggable", draggable: "true" }, img);
+      const button1 = el("button", {className:"imgChange"}, value='변경' )
+      const button2 = el("button", {className:"imgDelete"}, value='제거' )
+      const imgContainer = el("div", { className: "containerImg draggable", draggable: "true" }, img, button1, button2);
       preview.append(imgContainer); //input file에 저장된 값들을 preview에 넣음
     });
     reader.readAsDataURL(file); //위에 값이 읽기가 완료되면 result 속성(attribute)에 담아지게된다. (위 작업들은 값을 넣는게 아닌건가? 이 부분은 잘 모르겠음)
   });
 
-  document.getElementById("btn-share").removeAttribute("disabled");
+
 };
 // ?는 앞에 문이 true라면 document.createDocumentFragment() 실행 false라면 document.createElement(nodeName) 실행
 // createDocumentFragment() : 다른 노드를 담아두는 임시 컨테이너  같은거
@@ -116,11 +128,14 @@ function el(nodeName, attributes, ...children) {
 }
 
 
-//preview 파일들 드래그로 옮기는 코드
+// 드래그앤 드롭 코드
 
-const draggables = document.querySelectorAll(".draggable");
-const containers = document.querySelectorAll(".preview");
-console.log(draggables)
+
+//마우스 올릴경우 실행
+
+preview.addEventListener("mouseover", () => {
+  const draggables = document.querySelectorAll(".draggable");
+  const containers = document.querySelectorAll(".preview");
 // 드래그시 dragging라는 클래스 주입 
 draggables.forEach(draggable => {
   draggable.addEventListener("dragstart", () => {
@@ -133,10 +148,11 @@ draggables.forEach(draggable => {
   });
 });
 
+
 containers.forEach(container => {
   container.addEventListener("dragover", e => {
     e.preventDefault();
-    const afterElement = getDragAfterElement(container, e.clientX);
+    const afterElement = getDragAfterElement(container, e.clientY); //clientY y값으로 변경
     const draggable = document.querySelector(".dragging");
     if (afterElement === undefined) {
       container.appendChild(draggable);
@@ -145,8 +161,11 @@ containers.forEach(container => {
     }
   });
 });
+});
 
-function getDragAfterElement(container, x) {
+
+
+function getDragAfterElement(container, y) {
   const draggableElements = [
     ...container.querySelectorAll(".draggable:not(.dragging)"),
   ];
@@ -154,8 +173,8 @@ function getDragAfterElement(container, x) {
   return draggableElements.reduce(
     (closest, child) => {
       const box = child.getBoundingClientRect();
-      const offset = x - box.left - box.width / 2;
-      // console.log(offset);
+      console.log(box)
+      const offset = y - box.top - box.width / 2; //box.left -> box.top로 변경
       if (offset < 0 && offset > closest.offset) {
         return { offset: offset, element: child };
       } else {
@@ -167,8 +186,35 @@ function getDragAfterElement(container, x) {
 }
 
 
+//글자 수 세주는 코드
+ function calc(){
+  document.getElementById('replyTextareaCount').innerHTML =
+  document.getElementById('replyTextarea').value.length;
+ }
 
 
+//프리뷰 페이지의 사진 클릭시 미리보기 창 띄우기
+
+preview.addEventListener("mouseover", () => {
+  let imgCnt =input.value.length
+  console.log(imgCnt)
+  let changeImg = document.querySelectorAll(".embedImg"); //늦게 찾아짐
+  const previewClick = document.querySelectorAll(".draggable");
+  console.log(changeImg)
+  console.log(previewClick)
+
+  for (const pre of previewClick) {
+    pre.addEventListener("click", function () { 
+      // reader.readAsDataURL(input) 경로찾기 연습
+        document.getElementById('dropBox').style.backgroundImage = "url(./즐겁다 짤.jpg)"; //
+        // document.getElementById('dropBox').style.backgroundColor="black"
+        console.log(123)
+      });
+    }
+});
+
+
+// 사진없다면 고유하기 못 누르도록
 
 
 
