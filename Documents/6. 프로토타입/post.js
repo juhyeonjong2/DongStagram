@@ -2,11 +2,22 @@ let input = document.getElementById("input"); //input file
 let preview = document.getElementById("preview");
 // addEventListener 이벤트가 작동할 때마다 호출할 함수 작성 
 
+//input 에서 파일을 넣으면 input에 파일1개가 들어가는데 또 넣으면 2개가아니라 파일1개넣은 input이 2개가 되는거같다(멀티플 속성은 그냥 여러개 한번에 넣을 수 있는 것)
+//제이쿼리 함수
+$("#input").change(function(){
+   console.log($("#input").length)
+  // console.log(Object.keys(input[0]))
+   let preCnt = preview.childElementCount
+   console.log(preCnt)
+});
+
+
 
 input.addEventListener("change", (event) => { // change가 작동 시 event에 
   const files = changeEvent(event); //함수에서 받아온 파일들을 변수 files에 집어 넣어준다.
   handleUpdate(files);
-
+  const aa = event.target.files
+  console.log(files)
 
     // 공유버튼 활성화
     let cnt = files.length
@@ -92,6 +103,7 @@ function handleUpdate(fileList){
 //  draggable: "true" 
 //}
 
+
 function el(nodeName, attributes, ...children) {
   const node =
     nodeName === "fragment"
@@ -101,7 +113,7 @@ function el(nodeName, attributes, ...children) {
   Object.entries(attributes).forEach(([key, value]) => {
     if (key === "events") {
       Object.entries(value).forEach(([type, listener]) => {
-        node.addEventListener(type, listener); //아직 이게 왜 필요한지는 모르겠음
+        node.addEventListener(type, listener);
       });
     } else if (key in node) { 
       try {
@@ -174,7 +186,7 @@ function getDragAfterElement(container, y) {
     (closest, child) => {
       const box = child.getBoundingClientRect();
       console.log(box)
-      const offset = y - box.top - box.width / 2; //box.left -> box.top로 변경
+      const offset = y - box.top - box.width / 3; //box.left -> box.top로 변경 box.width 3으로 바꿔 감도 변경
       if (offset < 0 && offset > closest.offset) {
         return { offset: offset, element: child };
       } else {
@@ -193,26 +205,47 @@ function getDragAfterElement(container, y) {
  }
 
 
-//프리뷰 페이지의 사진 클릭시 미리보기 창 띄우기
+//프리뷰 페이지의 사진 클릭시 미리보기 창 띄우기 
 
 preview.addEventListener("mouseover", () => {
   let imgCnt =input.value.length
   console.log(imgCnt)
-  let changeImg = document.querySelectorAll(".embedImg"); //늦게 찾아짐
+  const changeImg = document.querySelectorAll(".embedImg"); //늦게 찾아짐
   const previewClick = document.querySelectorAll(".draggable");
   console.log(changeImg)
   console.log(previewClick)
 
-  for (const pre of previewClick) {
+  for (const pre of changeImg) {
     pre.addEventListener("click", function () { 
       // reader.readAsDataURL(input) 경로찾기 연습
-        document.getElementById('dropBox').style.backgroundImage = "url(./즐겁다 짤.jpg)"; //
-        // document.getElementById('dropBox').style.backgroundColor="black"
-        console.log(123)
+       // document.getElementById('dropBox').style.backgroundImage = "url(./즐겁다 짤.jpg)"; //
+         document.getElementById('dropBox').style.backgroundColor="black"
+        console.log('배경 미리보기 변경')
       });
     }
-});
 
+  const imgDelete = document.querySelectorAll(".imgDelete");
+  for (const imgDe of imgDelete) {
+    imgDe.addEventListener("click", function () {
+
+      //input안의 파일 삭제 코드 인데 잘 작동되는건 아닌거같다
+      const dataTransfer = new DataTransfer();
+        let trans = $('#input')[0].files;
+        let filearray = Array.from(trans);
+        filearray.splice(1, 1);
+        filearray.forEach(file => {
+            dataTransfer.items.add(file);
+        });
+        $('#input')[0].files = dataTransfer.files
+       //input안의 파일 삭제 코드 인데 잘 작동되는건 아닌거같다
+
+       imgDe.parentElement.remove()
+        console.log('파일 삭제')
+      });
+    }
+
+
+});
 
 
 

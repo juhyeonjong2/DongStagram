@@ -1,7 +1,7 @@
 
 /*이미지 등록 팝업*/
-.modal-dialog{max-width: 1300px; } /*넓이는 여기서*/
-.modal-body{height: 900px; position: relative;} /*높이는 여기서*/
+#postPopup .modal-dialog{max-width: 1300px; } /*넓이는 여기서*/
+#postPopup .modal-body{height: 900px; position: relative;} /*높이는 여기서*/
 
 #postPopup .modal-header{display: block; text-align: center;}
 
@@ -145,3 +145,13 @@
 .dropBoxSubmit{border: 0; position: absolute; top: -40px; right: 60px; color: #aaa; background-color: #fff;}
 
 .dragging{background-color: #aaa;}
+
+/*수정 창*/
+#modifyPopup .modal-dialog{max-width: 1300px; } /*넓이는 여기서*/
+#modifyPopup .modal-body{height: 900px; position: relative;} /*높이는 여기서*/
+#modifyPopup .slideShow{width: 800px; margin-top: 40px;}
+#modifyPopup .bxslider li {list-style: none; width: 800px; height: 750px; margin: 0 auto;background-color: #111;}
+
+#modifyPopup .modal-header{display: block; text-align: center;}
+#modifyPopup .dropBox{width: 1000px; left: 0; background-color: #111; background-image: none;}
+.dropBoxSubmit2{border: 0; position: absolute; top: -40px; right: 60px; color: #4EA685; background-color: #fff;}

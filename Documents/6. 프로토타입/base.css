@@ -56,7 +56,7 @@ header img{width: 20px; margin-right: 10px;}
 }
 #tabmenu #tab1:checked ~ #nav1,  
 #tabmenu #tab2:checked ~ #nav2,
-#tabmenu #tab3:checked ~ #nav3{transform: translatex(200px); transition: all 0.5s; opacity: 1; z-index: 1;}
+#tabmenu #tab3:checked ~ #nav3{transform: translatex(200px); transition: all 0.5s; opacity: 1; z-index: 100;}
 
 
 #hdsearch{background-color: #efefef; width: 340px; height: 40px; border: 0px; border-radius: 10px; margin-left: 20px; margin-top: 30px;}
