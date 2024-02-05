@@ -1,4 +1,3 @@
-
 header #settingTab a{width: 250px;}
 
 #settingTab input{font-family: 'Pretendard-Regular'; font-weight: 100;}
@@ -15,25 +14,23 @@ header #settingTab a{width: 250px;}
 .settingTop{ margin-top: 30px;}
 .settingTop p{font-size: 13px; color: #aaa; margin-left: 30px; margin-top: 10px;}
 .settingTop .settingBt{
-  border: 3px dashed #111; display: inline-block; width: 250px; height: 50px; line-height: 50px; position: relative;
+  border: 3px dashed #111; display: inline-block; width: 250px; height: 50px; line-height: 50px; text-align: center;
   border-radius: 10px; margin-left: 30px; margin-top: 10px; color: #111;}
-.settingTop .settingBt img{position: absolute; width: 40px; top: 2px; left: 20px;}
-.settingTop .settingBt span{position: absolute; left: 80px; top: 15px; font-size: 17px;}
+.settingTop .settingBt span{font-size: 17px;}
 
 
 .settingBottom{ margin-top: 30px;}
 .settingBottom p{font-size: 13px; color: #aaa; margin-left: 30px; margin-top: 10px;}
 .settingBottom .settingBt{
-  border: 3px dashed #111; display: inline-block; width: 250px; height: 50px; line-height: 50px; position: relative;
-  border-radius: 10px; margin-left: 30px; margin-top: 10px; color: #111;}
-.settingBottom .settingBt img{position: absolute; width: 40px; top: 2px; left: 20px;}
-.settingBottom .settingBt span{position: absolute; left: 80px; top: 15px; font-size: 17px;}
+  border: 3px dashed #111; display: inline-block; width: 250px; height: 50px; line-height: 50px;
+  border-radius: 10px; margin-left: 30px; margin-top: 10px; color: #111; text-align: center;}
+.settingBottom .settingBt span{font-size: 17px;}
 
 .settingBt:hover{background-color: #efefef; cursor: pointer;}
 
 
 .inner2{width: 1000px; margin-left: 600px; }
-.inner2 h3{font-size: 25px; margin-left: 120px; margin-top: 60px; margin-bottom: 40px;}
+.inner2 h3{margin-left: 120px; margin-top: 60px; margin-bottom: 40px; font: 600 25px 'Open Sans',sans-serif;}
 .inner2 .settingMain{border: 3px solid #111; border-radius: 30px ;width: 800px; margin-left: 120px; position: relative; height: 100px;}
 .inner2 .settingMain img{position: absolute; width: 80px; height: 80px; top: 8px; left: 30px;}
 .inner2 .settingMain .span{position: absolute; top: 25px; left: 130px; font-size: 18px;}
@@ -53,3 +50,33 @@ header #settingTab a{width: 250px;}
 .settingMain3 .settingOp{margin-left: 120px; width: 800px; height: 50px; border-radius: 15px;}
 .settingSubmit{margin-left: 780px; margin-top: 50px; width: 150px; height: 50px; background-color: #0d6efd; border: 0; color: #fff; border-radius: 10px;}
 .settingSubmit2{margin-left: 780px; margin-top: 50px; width: 150px; height: 50px; background-color: #aaa; border: 0; color: #fff; border-radius: 10px;}
+
+
+
+.labelBtn{border: 0; background-color: #aaa;}
+.inner2 .settingMain{border: 0;}
+.inner2 .settingMain img{border-radius: 80px;}
+.inner2 h6{margin-left: 120px; margin-bottom: 30px; color: #aaa; margin-top: 60px;}
+
+/*adminSetting2*/
+.blockBtn{
+    background-color: orange; color: #fff; width: 100px; height: 30px; line-height: 30px; text-align: center; 
+    border-radius: 5px; display: inline-block; cursor: pointer; position: absolute; left: 600px; top: 30px; border: 0;
+  }
+.inner2 .settingMain .span3{position: absolute; top: 10px; left: 220px; color: #0d6efd; width: 200px;}
+
+/*adminSetting3*/
+#scanMain ul{margin-left: 100px; margin-top: 80px; width: 1000px;}
+#exampleModalCenter .modal-dialog{max-width: 1300px;} /*넓이는 여기서*/
+#exampleModalCenter a{text-decoration: none; color: #111;}
+#exampleModalCenter a:hover{color: #4EA685;}
+
+.scanimgHover .blockNone{width: 130px; height: 40px; border-radius: 15px; background-color: #aaa; color: #fff;}
+.scanimgHover .blockNone:hover{background-color: #111;}
+
+/*adminSetting4*/
+#scanMain .scanimg .scanimgHover > span .accusationImg{width: 50px; height: 50px; margin-bottom: 10px;}
+#scanMain .scanimg .scanimgHover > span > span{font-size: 18px; margin-left: 20px;}
+#scanMain .scanimg .scanimgHover > span{margin-top: 30px;}
+.scanimgHover .blockNone2{width: 130px; height: 40px; border-radius: 15px; background-color: red; color: #fff;}
+.scanimgHover .blockNone2:hover{background-color: #111;}

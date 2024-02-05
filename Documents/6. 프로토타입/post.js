@@ -2,22 +2,13 @@ let input = document.getElementById("input"); //input file
 let preview = document.getElementById("preview");
 // addEventListener 이벤트가 작동할 때마다 호출할 함수 작성 
 
-//input 에서 파일을 넣으면 input에 파일1개가 들어가는데 또 넣으면 2개가아니라 파일1개넣은 input이 2개가 되는거같다(멀티플 속성은 그냥 여러개 한번에 넣을 수 있는 것)
-//제이쿼리 함수
-$("#input").change(function(){
-   console.log($("#input").length)
-  // console.log(Object.keys(input[0]))
-   let preCnt = preview.childElementCount
-   console.log(preCnt)
-});
+
 
 
 
 input.addEventListener("change", (event) => { // change가 작동 시 event에 
   const files = changeEvent(event); //함수에서 받아온 파일들을 변수 files에 집어 넣어준다.
   handleUpdate(files);
-  const aa = event.target.files
-  console.log(files)
 
     // 공유버튼 활성화
     let cnt = files.length
@@ -56,7 +47,7 @@ document.addEventListener("drop", (event) => {
 // ...(전개연산자)
 
 function changeEvent(event){
-  const { target } = event; //여기에 중괄호는 뭘 의미하는지는 아직 잘 모르겠다.
+  const { target } = event; 
   return [...target.files]; //받아온 값을 target안에 집어넣어서 target의 모든 파일들을 리턴시켜줌
 };
 
@@ -67,7 +58,7 @@ function handleUpdate(fileList){
   // FileReade -> load는 파일 읽기 작업이 완료되면 작동
   fileList.forEach((file) => { //받아온 fileList를 전부 반복실행해서 file안에 집어넣는다.
     const reader = new FileReader();
-    reader.addEventListener("load", (event) => { //fileList에서 가져온 값이 하나하나 로딩이 될 경우인듯?
+    reader.addEventListener("load", (event) => { 
       const img = el("img", {
         className: "embedImg",
         src: event.target?.result, //여기서 ?는 값이 없어서 error가 나오는 경우 error대신 undefind를 출력해줌 , target은 받아온 값을 가리킴, result는 FileReader()이거 메소드인데 파일의 내용을 반환함
@@ -185,7 +176,6 @@ function getDragAfterElement(container, y) {
   return draggableElements.reduce(
     (closest, child) => {
       const box = child.getBoundingClientRect();
-      console.log(box)
       const offset = y - box.top - box.width / 3; //box.left -> box.top로 변경 box.width 3으로 바꿔 감도 변경
       if (offset < 0 && offset > closest.offset) {
         return { offset: offset, element: child };
@@ -224,23 +214,34 @@ preview.addEventListener("mouseover", () => {
       });
     }
 
+  // 파일 삭제 버튼 코드
   const imgDelete = document.querySelectorAll(".imgDelete");
-  for (const imgDe of imgDelete) {
+  for (let i =0; i< imgDelete.length; i++) {
+    const imgDe = imgDelete[i];
     imgDe.addEventListener("click", function () {
 
-      //input안의 파일 삭제 코드 인데 잘 작동되는건 아닌거같다
+      //input안의 파일 삭제 코드
       const dataTransfer = new DataTransfer();
         let trans = $('#input')[0].files;
         let filearray = Array.from(trans);
-        filearray.splice(1, 1);
+        filearray.splice(i, 1);
         filearray.forEach(file => {
             dataTransfer.items.add(file);
         });
         $('#input')[0].files = dataTransfer.files
-       //input안의 파일 삭제 코드 인데 잘 작동되는건 아닌거같다
+       //input안의 파일 삭제 코드
 
-       imgDe.parentElement.remove()
+       imgDe.parentElement.remove() //미리보기 창도 지워줌
         console.log('파일 삭제')
+        console.log(filearray.length) //왠지 모르겠는데 이거 지우면 아래 공유버튼 비활성화가 잘 안됨
+
+
+        //전부 지우면 공유버튼 비활성화
+        if(filearray.length == 0){
+          document.getElementById("dropBoxSubmit").setAttribute("disabled", true);
+          document.getElementById("dropBoxSubmit").style.color ="#aaa"
+        }
+
       });
     }
 

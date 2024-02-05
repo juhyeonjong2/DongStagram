@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>설정</title>
   <link rel="stylesheet" href="./base.css">
-  <link rel="stylesheet" href="./setting.css">
+  <link rel="stylesheet" href="./adminSetting.css">
   <script src="./post.js"></script>
 
 </head>
@@ -125,21 +125,21 @@
             <section id="settingTab">
               <h4>설정</h4>
               <div class="settingTop">
-                <p>내 Donstaram 사용 방식</p>
-                <a class="settingBt" href="./setting.html">
-                  <img src="./icon/profile.png">
-                  <span>프로필 편집</span>
+                <p>사용자 관리</p>
+                <a class="settingBt" href="./adminSetting.html">
+                  <span>블랙리스트</span>
+                </a>
+                <a class="settingBt" href="./adminSetting2.html">
+                  <span>신고된 계정</span>
                 </a>
                 </div>
               <div class="settingBottom">
-                <p>내 콘텐츠를 볼 수 있는 사람</p>
-                <a class="settingBt"  href="./setting2.html">
-                  <img src="./icon/lock.png">
-                  <span>계정 공개 범위</span>
+                <p>게시물 관리</p>
+                <a class="settingBt" href="./adminSetting3.html">
+                  <span>차단된 게시물</span>
                 </a>
-                <a class="settingBt" href="./setting3.html">
-                  <img src="./icon/block.png">
-                  <span>차단된 계정</span>
+                <a class="settingBt" href="./adminSetting4.html">
+                  <span>신고된 게시물</span>
                 </a>
               </div>
             </section>
@@ -151,40 +151,31 @@
   <main>
 
     <div class="inner2 clearfix">
-      <h3>프로필 편집</h3>
-      <form action="#">
-        <div class="settingMain">
-            <img src="./자산 4.png" class="profile">
-            <span class="span">abcabcs123
-              <span class="span2">abc마트</span>
-            </span>
-            <label class="labelBtn " id="label" for="settingInput">사진변경</label>
-            <input type="file" hidden="true" id="settingInput">
-        </div>
+      <h3>차단된 계정</h3>
+      <!--for문으로 복사할 페이지-->
+      <div class="settingMain">
+        <img src="./자산 4.png" class="profile">
+        <span class="span">abcabcs123
+          <span class="span2">abc마트</span>
+          <span class="span3">신고횟수·11회</span>
+        </span>
+        <button class="blockBtn " id="label">차단</button>
+      </div>
+      <!--for문으로 복사할 페이지-->
+      <!--for문으로 복사할 페이지-->
+      <div class="settingMain">
+        <img src="./자산 4.png" class="profile">
+        <span class="span">abcabcs123
+          <span class="span2">abc마트</span>
+          <span class="span3">신고횟수·11회</span>
+        </span>
+        <button class="blockBtn " id="label">차단</button>
+      </div>
+      <!--for문으로 복사할 페이지-->
+      
 
-        <div class="settingMain2">
-          <h5>소개</h5>
-          <div class="textarea">
-            <textarea class="replyTextarea" id="replyTextarea" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()">소개 문구가 여기에 입력되어있다.</textarea>
-          </div>
-          <div class="textCnt">
-            <span class="replyTextareaCount" id="replyTextareaCount">0</span>
-            <span class="replyTextareaCount2">/150</span>
-          </div>
-        </div>
 
-        <div class="settingMain3">
-          <h5>성별</h5>
-          <select class="settingOp">
-            <option>밝히고 싶지 않음</option>
-            <option>남자</option>
-            <option>여자</option>
-          </select>
-        </div>
-        <button type="submit" class="settingSubmit">제출</button>
-        <!--제출의 회색버전은 class에 settingSubmit2로 바꿔주면 됨-->
-        <!--<button type="submit" class="settingSubmit2">제출</button>-->
-      </form>
+  
     </div>
 
   </main>

@@ -39,12 +39,6 @@
       }); 
     });
 
-       //파일 포스트 팝업의 드래그앤 드롭 코드
-        var dropFile = function(event) {
-              event.preventDefault();
-              let file = event.target.files[0]; //파일을 배열에 저장
-              console.log(file)
-          }
 
   </script>
 </head>
@@ -157,7 +151,7 @@
             <section id="nav4">
               <ul>
                 <li><a href="./login.html">로그인</a></li> <!--일단 로그인 가는 경로가 없어 수정 안함-->
-                <li><a href="./setting.html">설정</a></li>
+                <li><a href="./setting.html">설정</a></li> <!--만약 관리자라면 href를 adminSetting로 변경-->
               </ul>
             </section>
         </div><!--tabmenu-->
