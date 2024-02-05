@@ -55,7 +55,7 @@
                 <label for="tab1" class="tab3"><img src="./icon/search.png">검색</label>
 
                 <input type="radio" name="tab_radio" id="tab2"/>
-                <label for="tab2" class="tab3"><img src="./icon/message.png">메세지</label>
+                <label for="tab2" class="tab3"><a href="./message.html"><img src="./icon/message.png">메세지</a></label>
 
                 <input type="radio" name="tab_radio" id="tab3"/>
                 <label for="tab3" class="tab3"><img src="./icon/notice.png">알림</label>
@@ -99,7 +99,7 @@
       
             <section id="nav2" class="clearfix">
               <div id="nickname">자기 닉네임</div>
-              <a href="#" id="messageLink"><img src="./icon/massagewrite.png" ></a>
+              <a data-toggle="modal" href="#messagePopup" id="messageLink"><img src="./icon/massagewrite.png" ></a>
               <h5>메세지</h5>
               <!--for문으로 div안에 데이터 집어넣음-->
 
@@ -287,7 +287,6 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">새 게시글 만들기</h5>
-               <!--<button id="btn-share" type="button" disabled>공유</button>-->
               </div>
               <div class="modal-body">
 

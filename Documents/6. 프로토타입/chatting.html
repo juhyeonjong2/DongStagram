@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>설정</title>
-  <link rel="stylesheet" href="./base.css">
-  <link rel="stylesheet" href="./adminSetting.css">
-  <script src="./post.js"></script>
-
+  <title>메세지</title>
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./message.css">
+    <link rel="stylesheet" href="./chatting.css">
+    
 </head>
 <body>
   <header>
@@ -21,8 +21,8 @@
                 <input type="radio" name="tab_radio" id="tab1"/>
                 <label for="tab1" class="tab3"><img src="./icon/search.png">검색</label>
 
-                <input type="radio" name="tab_radio" id="tab2"/>
-                <label for="tab2" class="tab3"><img src="./icon/message.png">메세지</label>
+                <input type="radio" name="tab_radio" id="tab2" checked/>
+                <label for="tab2" class="tab3"><a href="./message.html"><img src="./icon/message.png">메세지</a></label>
 
                 <input type="radio" name="tab_radio" id="tab3"/>
                 <label for="tab3" class="tab3"><img src="./icon/notice.png">알림</label>
@@ -66,7 +66,7 @@
       
             <section id="nav2" class="clearfix">
               <div id="nickname">자기 닉네임</div>
-              <a href="#" id="messageLink"><img src="./icon/massagewrite.png" ></a>
+              <a data-toggle="modal" href="#messagePopup" id="messageLink"><img src="./icon/massagewrite.png" ></a>
               <h5>메세지</h5>
               <!--for문으로 div안에 데이터 집어넣음-->
 
@@ -118,60 +118,80 @@
             <section id="nav4">
               <ul>
                 <li><a href="./login.html">로그인</a></li> <!--일단 로그인 가는 경로가 없어 수정 안함-->
-                <li><a href="./setting.html">설정</a></li>
+                <li><a href="./setting.html">설정</a></li> <!--만약 관리자라면 href를 adminSetting로 변경-->
               </ul>
             </section>
-
-            <section id="settingTab">
-              <h4>설정</h4>
-              <div class="settingTop">
-                <p>사용자 관리</p>
-                <a class="settingBt" href="./adminSetting.html">
-                  <span>블랙리스트</span>
-                </a>
-                <a class="settingBt" href="./adminSetting2.html">
-                  <span>신고된 계정</span>
-                </a>
-                </div>
-              <div class="settingBottom">
-                <p>게시물 관리</p>
-                <a class="settingBt" href="./adminSetting3.html">
-                  <span>차단된 게시물</span>
-                </a>
-                <a class="settingBt" href="./adminSetting4.html">
-                  <span>신고된 게시물</span>
-                </a>
-              </div>
-            </section>
-
         </div><!--tabmenu-->
     </nav> <!--nav-->
   </header> <!--header-->
 
   <main>
-
-    <div class="inner2 clearfix">
-      <h3>블랙리스트</h3>
-      <!--for문으로 복사할 페이지-->
-      <div class="settingMain">
-        <img src="./자산 4.png" class="profile">
-        <span class="span">abcabcs123
-          <span class="span2">abc마트</span>
-        </span>
-        <button class="labelBtn " id="label" for="settingInput">차단해제</button>
-      </div>
-      <!--for문으로 복사할 페이지-->
-      <div class="settingMain">
-        <img src="./자산 4.png" class="profile">
-        <span class="span">abcabcs123
-          <span class="span2">abc마트</span>
-        </span>
-        <button class="labelBtn " id="label">차단해제</button>
-      </div>
-
-  
+    <div class="chatTop">
+      <img src="./인스타 탑로고.png" class="profile">
+      <span>tester111 · 테스터</span>
+      <a href="./search2.html">프로필 보기</a>
+      <button>차단</button>
     </div>
+    <div class="chatMain">
+      <!--for문으로 복사될 페이지-->
+      <!--마지막 날짜 들어가는 span태그는 채팅 마지막에 붙여줘야 할듯 css에서 위 글이 길고 아래글이 짧아도 넓이가 둘 다 길어져 버림 -->
+      <div class="otherChat">
+        <div class="chatName">
+          <img src="./인스타 탑로고.png" class="profile">
+          <span>tester111</span>
+        </div>
+        <div class="chatBox">
+          <div class="aa">
+            <span>안녕하세요</span>
+          </div>
+          <div class="aa">
+            <span>안녕하세요1321321321</span>
+          </div>
+          <div class="aa">
+            <span>안녕하세요</span>
+            <span class="chatDate">2024-01-28 14:01</span>
+          </div>
+        </div>
+      </div>
+       <!--for문으로 복사될 페이지-->
 
+       <!--임시페이지-->
+      <div class="otherChat">
+        <div class="chatName">
+          <img src="./인스타 탑로고.png" class="profile">
+          <span>tester111</span>
+        </div>
+        <div class="chatBox">
+          <div class="aa">
+            <span>안녕하세요dddddddddddddddddddddddddddddddddd</span>
+          </div>
+          <div class="aa">
+            <span>안녕</span>
+          </div>
+          <div class="aa">
+            <span>안녕하세요9999999999</span>
+            <span class="chatDate">2024-01-28 14:01</span>
+          </div>
+        </div>
+      </div>
+       <!--임시페이지-->
+      
+
+      <div class="myChat">
+
+      </div>
+
+    </div>
+    <div class="chatBottom">
+      <div class="chattingtext">
+        <form action="#">
+          <input type="text" placeholder="메세지 입력...">
+          <input type="submit" class="noneBtn"> <!--안보이게 숨김-->
+        </form>
+      </div>
+    </div>
   </main>
+
+
 </body>
 </html>

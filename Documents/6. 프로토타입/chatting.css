@@ -1,0 +1,36 @@
+.chatTop{margin-left: 580px; height: 90px; position: relative; border-bottom: 0.5px solid #d1d0d0; margin-bottom: 30px;}
+.chatTop img{width: 50px; height: 50px;  position: absolute;left: 40px; top: 20px;}
+.chatTop span{position: absolute; top: 35px; left: 110px;}
+.chatTop a{
+    background-color: #aaa; color: #fff; width: 100px; height: 30px; line-height: 30px; text-align: center; 
+    border-radius: 5px; display: inline-block; cursor: pointer; position: absolute; left: 900px; top: 30px; font-size: 14px;}
+
+.chatTop button{
+    background-color: orange; color: #fff; width: 100px; height: 30px; line-height: 30px; text-align: center; font-size: 14px; 
+    border-radius: 5px; display: inline-block; cursor: pointer; border: 0; position: absolute; left: 1030px; top: 30px;}
+
+
+
+
+.chatMain{margin-left: 580px; border-bottom: 0.5px solid #d1d0d0; ;height: 800px; overflow: auto;}
+.chatMain .otherChat{margin-left: 60px;}
+.chatMain .otherChat .chatName{position: relative;}
+.chatMain .otherChat .chatName span{position: absolute; top: 15px;}
+.chatMain .otherChat .chatName img{width: 50px; height: 50px; margin-right: 10px;}
+.chatMain .chatBox{display: inline-block;}
+.chatMain .chatBox p{background-color: #d1d0d0; padding: 10px; border-radius: 10px; margin-bottom: 3px; margin-left: 50px;}
+.chatMain .chatBox .aa span{background-color: #d1d0d0; padding: 10px; border-radius: 10px; margin-bottom: 3px; margin-left: 50px;}
+.chatMain .chatBox .aa{height: 45px;}
+.chatMain .chatBox .aa .chatDate{background-color: #fff; font-size: 11px; color: #aaa; margin-left: 5px;}
+
+
+
+
+
+
+
+.chatBottom{margin-left: 580px; margin-top: 30px;}
+.chatBottom .chattingtext{border: 1px solid #111; width: 1280px; height: 60px; border-radius: 30px; margin-left: 5px;}
+.chatBottom input[type="text"]{width: 1230px; height: 50px; margin-top: 4px; margin-left: 20px; border: 0;}
+.chatBottom input[type="text"]:focus{outline: none;}
+.chatBottom .noneBtn{opacity: 0;}

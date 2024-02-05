@@ -3,10 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>설정</title>
-  <link rel="stylesheet" href="./base.css">
-  <link rel="stylesheet" href="./adminSetting.css">
-  <script src="./post.js"></script>
+  <title>메세지</title>
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./message.css">
+    <!-- CSS CDN 링크 -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+   integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+       crossorigin="anonymous">
+     
+     
+   <!-- JavaScript CDN 링크 -->
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    
 
 </head>
 <body>
@@ -21,8 +32,8 @@
                 <input type="radio" name="tab_radio" id="tab1"/>
                 <label for="tab1" class="tab3"><img src="./icon/search.png">검색</label>
 
-                <input type="radio" name="tab_radio" id="tab2"/>
-                <label for="tab2" class="tab3"><img src="./icon/message.png">메세지</label>
+                <input type="radio" name="tab_radio" id="tab2" checked/>
+                <label for="tab2" class="tab3"><a href="./message.html"><img src="./icon/message.png">메세지</a></label>
 
                 <input type="radio" name="tab_radio" id="tab3"/>
                 <label for="tab3" class="tab3"><img src="./icon/notice.png">알림</label>
@@ -66,7 +77,7 @@
       
             <section id="nav2" class="clearfix">
               <div id="nickname">자기 닉네임</div>
-              <a href="#" id="messageLink"><img src="./icon/massagewrite.png" ></a>
+              <a data-toggle="modal" href="#messagePopup" id="messageLink"><img src="./icon/massagewrite.png" ></a>
               <h5>메세지</h5>
               <!--for문으로 div안에 데이터 집어넣음-->
 
@@ -118,60 +129,60 @@
             <section id="nav4">
               <ul>
                 <li><a href="./login.html">로그인</a></li> <!--일단 로그인 가는 경로가 없어 수정 안함-->
-                <li><a href="./setting.html">설정</a></li>
+                <li><a href="./setting.html">설정</a></li> <!--만약 관리자라면 href를 adminSetting로 변경-->
               </ul>
             </section>
-
-            <section id="settingTab">
-              <h4>설정</h4>
-              <div class="settingTop">
-                <p>사용자 관리</p>
-                <a class="settingBt" href="./adminSetting.html">
-                  <span>블랙리스트</span>
-                </a>
-                <a class="settingBt" href="./adminSetting2.html">
-                  <span>신고된 계정</span>
-                </a>
-                </div>
-              <div class="settingBottom">
-                <p>게시물 관리</p>
-                <a class="settingBt" href="./adminSetting3.html">
-                  <span>차단된 게시물</span>
-                </a>
-                <a class="settingBt" href="./adminSetting4.html">
-                  <span>신고된 게시물</span>
-                </a>
-              </div>
-            </section>
-
         </div><!--tabmenu-->
     </nav> <!--nav-->
   </header> <!--header-->
 
   <main>
-
-    <div class="inner2 clearfix">
-      <h3>블랙리스트</h3>
-      <!--for문으로 복사할 페이지-->
-      <div class="settingMain">
-        <img src="./자산 4.png" class="profile">
-        <span class="span">abcabcs123
-          <span class="span2">abc마트</span>
-        </span>
-        <button class="labelBtn " id="label" for="settingInput">차단해제</button>
-      </div>
-      <!--for문으로 복사할 페이지-->
-      <div class="settingMain">
-        <img src="./자산 4.png" class="profile">
-        <span class="span">abcabcs123
-          <span class="span2">abc마트</span>
-        </span>
-        <button class="labelBtn " id="label">차단해제</button>
-      </div>
-
-  
+    <div class="messageMain">
+        <img src="./icon/message.png">
+        <p class="p1">내 메세지</p>
+        <p class="p2">비공개 메세지를 보내보세요</p>
+        <a data-toggle="modal" href="#messagePopup">메세지 보내기</a>
     </div>
 
+      <!-- Modal -->
+      <div class="modal fade" id="messagePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5>새로운 매세지</h5>
+            </div>
+            <div class="modal-header">
+                <form class="messageSearch">
+                    <span>받는사람 :</span>
+                    <input type="text" placeholder="검색...">
+                </form>
+            </div>
+            <div class="modal-body">
+                <h6>추천</h6>
+                <div class="messageSc">
+                    <!--for문으로 복사될 페이지-->
+                    <div class="messageBox">
+                        <img src="./인스타 탑로고.png" class="profile">
+                        <span>tester111</span>
+                        <input type="radio" name="messageSc" />
+                    </div>
+                    <!--for문으로 복사될 페이지-->
+                    <div class="messageBox">
+                        <img src="./인스타 탑로고.png" class="profile">
+                        <span>tester111</span>
+                        <input type="radio" name="messageSc" />
+                    </div>
+
+                </div>
+                <div class="chattingBox">
+                    <a href="./chatting.html" class="chatting">채팅</a>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </main>
+
+
 </body>
 </html>
