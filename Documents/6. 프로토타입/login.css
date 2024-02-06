@@ -182,7 +182,7 @@ body{
 .login-wrap .sign-up-htm .group input[type="password"]{width: 100%;}
 .login-wrap .sign-up-htm .group .long{width: 98px;}
 .login-wrap .sign-up-htm .group .textname{width: 100%;}
-.login-wrap .sign-up-htm .group .checkBox{font-size: 12px; text-align: center;}
+.login-wrap .sign-up-htm .group .checkBox{font-size: 12px; text-align: center; height: 18px;}
 .none{height: 3px;}
 
 
