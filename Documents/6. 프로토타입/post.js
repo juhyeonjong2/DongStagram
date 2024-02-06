@@ -208,8 +208,7 @@ preview.addEventListener("mouseover", () => {
   for (const pre of changeImg) {
     pre.addEventListener("click", function () { 
       // reader.readAsDataURL(input) 경로찾기 연습
-       // document.getElementById('dropBox').style.backgroundImage = "url(./즐겁다 짤.jpg)"; //
-         document.getElementById('dropBox').style.backgroundColor="black"
+       document.getElementById('dropBox').style.backgroundImage = "url('즐겁다 짤.jpg')"; //
         console.log('배경 미리보기 변경')
       });
     }

@@ -27,7 +27,7 @@ li{margin: 0; padding: 0;}
 .popupviewMain .mainTop .main1name{font-size: 14px;}
 .popupviewMain .mainTop .profile{width: 25px; height: 25px; margin-top: 12px;}
 .popupViewReply{
-    display: inline-block; position: absolute; left: 100px; top: 12px; width: 300px;
+    display: inline-block; position: absolute; left: 100px; top: 15px; width: 300px;
     font-size: 14px; font-family: 'Pretendard-Regular'; font-weight: 300;}
 .popupviewMain .popupviewMainSpan1{margin-left: 45px; font-size: 12px; color:#737373;}
 .popupviewMain .popupviewMainSpan2{margin-left: 5px; font-size: 12px; color:#737373;}

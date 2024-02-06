@@ -93,11 +93,16 @@ header img{width: 20px; margin-right: 10px;}
 
 #nav3 h5{font-size: 16px; margin-left: 30px; margin-top: 40px; margin-bottom: 30px;}
 #nav3 .notice {margin-bottom: 20px;}
-#nav3 .notice a{width: 340px; margin-left: 30px; position: relative;}
-#nav3 .notice a .span{position: absolute; top: 8px;}
+#nav3 .notice .atag{width: 340px; margin-left: 30px; position: relative;}
+#nav3 .notice .atag .span{position: absolute; top: 8px; width: 230px;}
 #nav3 img{width: 30px; height: 30px; margin-top: 10px; display: inline-block;}
-#nav3 .img2{margin-top: 10px; margin-right: 0; position: absolute; right: 0;}
-#nav3 .notice a:hover{background-color: #efefef; transition: all 0.3s; border-radius: 10px;}
+#nav3 .atag2{
+  margin-top: 10px; margin-right: 0; position: absolute; right: 10px; height: 30px; font-size: 14px; width: 60px; line-height: 30px;text-align: center;
+  color: #fff; background-color: #0d6efd; border-radius: 5px;}
+#nav3 .atag3{
+  margin-top: 10px; margin-right: 0; position: absolute; right: 10px; height: 30px; font-size: 14px; width: 60px; line-height: 30px;text-align: center;
+  color: #fff; background-color: #aaa; border-radius: 5px;}
+#nav3 .notice .atag:hover{background-color: #efefef; transition: all 0.3s; border-radius: 10px;}
 
 
 #nav4{
