@@ -141,7 +141,7 @@ CREATE TABLE memberAttach(
 );
 
 CREATE TABLE cert (
-	hash char(32) not null comment '해시',
+	hash char(64) not null comment '해시',
     expiretime timestamp not null comment '만료기간',
     mno int unsigned not null comment '회원번호',
     foreign key(mno) references member(mno)

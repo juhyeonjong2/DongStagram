@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2024-02-01 11:53:54</creation_date>
-			<updated_date>2024-02-06 13:54:10</updated_date>
+			<updated_date>2024-02-06 14:11:13</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -446,7 +446,7 @@
 		</word>
 		<word>
 			<id>17</id>
-			<length>32</length>
+			<length>64</length>
 			<decimal>null</decimal>
 			<array>false</array>
 			<array_dimension>null</array_dimension>
@@ -455,7 +455,7 @@
 			<binary>false</binary>
 			<args></args>
 			<char_semantics>false</char_semantics>
-			<description></description>
+			<description>sha256 해시</description>
 			<logical_name>해시</logical_name>
 			<physical_name>hash</physical_name>
 			<type>character(n)</type>
