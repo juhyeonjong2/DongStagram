@@ -39,6 +39,63 @@
       }); 
     });
 
+    function addImg(){
+      // 추가 버튼은 맨 아래 자식에만 존재해야 함.
+      let childCnt = $("#preview div").length;
+      
+      // 추가 버튼을 포함하여 맨 아래에 추가
+      let html = '<div>';
+      html += ' <input type="file" required="true" onchange="thumbnail()" name="productFile_' + (childCnt) + '">';
+      html += ' <Button type="button" class="imgDelete" onclick="removeImg(this)">제거</Button>';
+      html += '</div>';
+      
+      $("#preview").append(html);
+
+      //공유버튼 활성화
+      let childCnt2 = $("#preview div").length;
+      if(childCnt2 != 0){
+        document.getElementById("dropBoxSubmit").removeAttribute("disabled");
+        document.getElementById("dropBoxSubmit").style.color ="#4EA685"
+      }else{
+        document.getElementById("dropBoxSubmit").setAttribute("disabled", true);
+        document.getElementById("dropBoxSubmit").style.color ="#aaa"
+      }
+      
+    }
+
+    function removeImg(e){
+      $(e).parent().remove();
+	
+      //이름 재배정 해주는 코드
+      $("#preview div input[type=file]").each(function (index, item){  //item은 imageList div input[type=file]의 현재 요소, index는 인덱스 요소(위부터)
+          $(item).attr("name", "productFile_" + (index) );
+        });
+
+      let childCnt2 = $("#preview div").length;
+      console.log(childCnt2)
+      if(childCnt2 != 0){
+        document.getElementById("dropBoxSubmit").removeAttribute("disabled");
+        document.getElementById("dropBoxSubmit").style.color ="#4EA685"
+      }else{
+        document.getElementById("dropBoxSubmit").setAttribute("disabled", true);
+        document.getElementById("dropBoxSubmit").style.color ="#aaa"
+      }
+        
+    };
+
+    function thumbnail(){
+    //업로드가 끝나면 <img scr>파일을 만들어 준다.
+    //그걸 e.target.result에서 찾은 값을 집어 넣는다.
+    const preview = document.getElementById('preview');
+    const file = event.target.files[0];
+     const reader = new FileReader();
+     reader.onload = (e) => {
+          preview.src = e.target.result;
+     };
+
+     reader.readAsDataURL(file);
+    }
+
 
   </script>
 </head>
@@ -305,9 +362,9 @@
                   <!--올린거 여기다가 아래 div는 포지션으로 정렬 프리뷰는 옮기면 안돼-->
                   <div class="postLeft">
                     <div class="preview" id="preview"></div>
-                    <label for="input">
+                    <button onclick="addImg()" class="plusBtn">
                       <img src="./icon/post.png" class="postPlus">
-                    </label>
+                    </button>
                   </div>
 
                   <div class="postRight">

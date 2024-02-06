@@ -38,6 +38,7 @@
 .postLeft{
   width: 300px; height: 850px; display: inline-block; 
   position: absolute; top: 30px; left: 0;}
+.postLeft .plusBtn{border: 0; background-color: #fff;}
 
 .containerImg{margin-bottom: 15px; text-align: left; }
 .imgChange{ 
@@ -67,6 +68,8 @@
   background-color: var(--bgColor);
   border-top: 1px solid rgb(222, 226, 230);
 }
+.preview > div{margin-bottom: 20px;}
+.preview > div > input[type="file"]{width: 170px; font-size: 12px;}
 
 .embedImg{
   width: 50px;
