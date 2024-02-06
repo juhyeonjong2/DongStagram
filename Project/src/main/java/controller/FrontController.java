@@ -55,7 +55,9 @@ public class FrontController extends HttpServlet {
 			
 		}
 		else {
-
+				// 로그인상태면 로그인 만료시간 갱신
+			
+			
 			/*
 			 * String command = request.getRequestURI() .substring(request.getContextPath()
 			 * .length()+1);
@@ -74,6 +76,7 @@ public class FrontController extends HttpServlet {
 			 * rd.forward(request, response);
 			 */
 			
+			// 모르는경로가 나오는경우 무조건 /로 리다이렉트.
 		}
 		
 		
