@@ -1,0 +1,89 @@
+
+header #settingTab a{width: 250px;}
+
+#settingTab input{font-family: 'Pretendard-Regular'; font-weight: 100;}
+#settingTab h5{font-size: 16px; margin-left: 15px; margin-bottom: 10px;}
+#settingTab h4{font-size: 24px; font-weight: bold; margin-top: 40px; margin-left: 30px; color: #4EA685;}
+#settingTab hr{height:2px; width: 350px;
+  margin:30px 0 30px 15px;
+  background:rgba(255,255,255,.2);}
+
+#settingTab {  
+  border: 0.5px solid #efefef; width: 380px; height: 100%; position: fixed; top: 0; border-radius: 15px; background-color: #fff; 
+  box-shadow: 0 5px 3px rgba(0,0,0,0.3); margin-left: 200px;}
+
+.settingTop{ margin-top: 30px;}
+.settingTop p{font-size: 13px; color: #aaa; margin-left: 30px; margin-top: 10px;}
+.settingTop .settingBt{
+  border: 3px dashed #111; display: inline-block; width: 250px; height: 50px; line-height: 50px; position: relative;
+  border-radius: 10px; margin-left: 30px; margin-top: 10px; color: #111;}
+.settingTop .settingBt img{position: absolute; width: 40px; top: 2px; left: 20px;}
+.settingTop .settingBt span{position: absolute; left: 80px; top: 15px; font-size: 17px;}
+
+
+.settingBottom{ margin-top: 30px;}
+.settingBottom p{font-size: 13px; color: #aaa; margin-left: 30px; margin-top: 10px;}
+.settingBottom .settingBt{
+  border: 3px dashed #111; display: inline-block; width: 250px; height: 50px; line-height: 50px; position: relative;
+  border-radius: 10px; margin-left: 30px; margin-top: 10px; color: #111;}
+.settingBottom .settingBt img{position: absolute; width: 40px; top: 2px; left: 20px;}
+.settingBottom .settingBt span{position: absolute; left: 80px; top: 15px; font-size: 17px;}
+
+.settingBt:hover{background-color: #efefef; cursor: pointer;}
+
+
+.inner2{width: 1000px; margin-left: 600px; }
+.inner2 h3{font-size: 25px; margin-left: 120px; margin-top: 60px; margin-bottom: 60px;}
+.inner2 #settingTop{margin-bottom: 60px; margin-left: 120px;}
+.inner2 #settingTop span{font-size: 21px; margin-right: 400px;}
+.inner2 .textBoxP{width: 680px; margin-left: 120px; margin-bottom: 30px;}
+.inner2 .textBoxP p{color: #aaa; font-size: 18px; font-weight: 500; margin-bottom: 10px;}
+
+
+
+/*토글버튼 css*/
+.tgl {
+  display: none;
+}
+.tgl + label {
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  user-select: none;
+  outline: 0;
+  width: 4em; /* 버튼 전체 가로 길이 설정 */
+  height: 2em; /* 버튼 전체 세로 길이 설정 (width의 2분의 1) */
+  background-color: #f0f0f0; /* 동그라미 좌측일때 배경 색상 */
+  border-radius: 2em; /* 외곽 모서리 설정 (height와 같은 값으로) */
+  padding: 2px; /* 동그라미 크기 관련 (?) */
+  transition: all 0.4s ease; /* 배경 색상 바뀌는 동작 설정 */
+  cursor: pointer;
+  top: 10px;
+}
+
+.tgl + label::after,
+.tgl + label::before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%; /* 동그라미 가로 길이 */
+  height: 100%; /* 동그라미 세로 길이 */
+}
+
+.tgl + label::after {
+  border-radius: 50%; /* 50% = 동그라미, 0% = 사각형 */
+  background-color: #fff; /* 동그라미 색깔 */
+  transition: all 0.2s ease; /* 동그라미 동작 설정 */
+  left: 0%; /* 동그라미 좌측일때 위치 조정 */
+}
+
+.tgl + label::before {
+  display: none;
+}
+
+.tgl:checked + label {
+  background-color: #4EA685; /* 동그라미 우측일때 배경 색상 */
+}
+.tgl:checked + label:after {
+  left: 50%; /* 동그라미 우측일때 위치 조정 */
+}

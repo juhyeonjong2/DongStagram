@@ -29,6 +29,7 @@ function getDragAfterElement(container, x) {
     ...container.querySelectorAll(".draggable:not(.dragging)"),
   ];
 
+
   return draggableElements.reduce(
     (closest, child) => {
       const box = child.getBoundingClientRect();

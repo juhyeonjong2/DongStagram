@@ -1,0 +1,25 @@
+header{margin-top: 30px;}
+.messageMain{ position: relative; left: 1100px; width: 250px; text-align: center; top: 350px;}
+.messageMain img{width: 100px; height: 100px; margin-left: 40px; margin-bottom: 20px; margin: 0 auto;}
+.messageMain .p1{font-size: 20px;  margin: 0 auto; width: 200px; margin-top: 20px; margin-bottom: 20px;}
+.messageMain .p2{font-size: 16px; margin-bottom: 25px; margin: 0 auto; margin-bottom: 20px;}
+.messageMain a{
+    color: #fff; background-color: #0d6efd; width: 150px; height: 30px; line-height: 30px; text-align: center;
+    border-radius: 5px; display: inline-block; cursor: pointer; margin: 0 auto; text-decoration: none;}
+.messageMain a:hover{color: #fff;}
+
+
+#messagePopup .modal-dialog{max-width: 500px; } /*넓이는 여기서*/
+#messagePopup .modal-body{height: 500px; position: relative;} /*높이는 여기서*/
+#messagePopup .modal-header h5{margin: auto;}
+#messagePopup .messageSearch input[type="text"]{width: 350px; height: 30px; border: 0;}
+#messagePopup .messageSc{ height: 400px; overflow: auto;}
+#messagePopup h6{font-size: 16px;}
+#messagePopup .messageBox{position: relative; margin-bottom: 15px;}
+#messagePopup .messageSc input[type="radio"]{display: inline-block; border: 0px; height:30px; width: 30px; position: absolute; top: 7px; left: 400px;}
+#messagePopup .messageSc .profile{width: 50px; height: 50px; margin-left: 30px; margin-right: 20px;}
+#messagePopup .chatting{
+    color: #fff; background-color: #0d6efd; width: 150px; height: 40px; line-height: 40px; text-align: center;
+    border-radius: 5px; display: inline-block; cursor: pointer; text-decoration: none; margin-top: 10px;
+}
+#messagePopup .chattingBox{width: 466px; text-align: center;}

@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;}
+
+.searchProfile{width: 150px; height: 150px; border-radius: 150px; border: 1px solid #4EA685; margin-top: 30px;}
+.searchField2{position: relative; margin-bottom: 40px;}
+
+.searchField hr{background-color: 1px solid #d1d0d0; width: 1100px; position: absolute; right: -90px;}
+.searchField2 .searchSpan1{position: absolute; top: 0px; left: 350px; font-size: 30px;}
+.searchSpan1 .btn{width: 128px;}
+.searchSpan1 .btn:first-child{margin-left: 40px; margin-right: 5px;}
+.searchSpan1 .popupviewMainSpan2{margin-left: 20px;}
+
+.searchField2 .searchSpan2{position: absolute; top: 50px; left: 350px; font-size: 15px; margin-left: 10px;}
+.searchField2 .searchSpan2 span{margin-right: 50px;}
+.searchField2 .searchSpan2 a:hover{color: #4EA685;}
+.searchField2 .searchSpan3{position: absolute; top: 90px; left: 350px; font-size: 17px; font-weight: 600;}
+.searchField2 .searchSpan4{position: absolute; top: 125px; left: 350px; font-size: 15px; font-weight: 500; font-family: 'Pretendard-Regular';}
+
+
+/*작은 팝업4*/
+#morePopup3 .modal-dialog{max-width: 500px;} /*넓이는 여기서*/
+#morePopup3 .modal-body{height: auto; position: relative; height: 600px; overflow: scroll;} /*높이는 여기서*/
+#morePopup3 .modal-body{    
+  -ms-overflow-style: none; /* 익스플로러, 앳지 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+#morePopup3 .modal-header{display: block; text-align: center;}
+#morePopup3 .modal-body span{font-size: 14px; margin: 0 auto;}
+#morePopup3 .modal-body .spanBox{text-align: center;}
+#morePopup3 .modal-body .search{height: 70px; position: relative;}
+#morePopup3 .modal-body .search .profile{width: 50px; height: 50px; position: absolute; top: 10px; left: 25px;}
+#morePopup3 .modal-body .search .span{position: absolute; top: 24px; left: 100px; font-size: 16px;}
+#morePopup3 .modal-body .search .btn{position: absolute; top: 17px; left: 350px;}
+
+/*작은 팝업5*/
+#morePopup4 .modal-dialog{max-width: 500px;} /*넓이는 여기서*/
+#morePopup4 .modal-body{height: auto; position: relative; height: 600px; overflow: scroll;} /*높이는 여기서*/
+#morePopup4 .modal-body{    
+  -ms-overflow-style: none; /* 익스플로러, 앳지 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+#morePopup4 .modal-header{display: block; text-align: center;}
+#morePopup4 .modal-body span{font-size: 14px; margin: 0 auto;}
+#morePopup4 .modal-body .spanBox{text-align: center;}
+#morePopup4 .modal-body .search{height: 70px; position: relative;}
+#morePopup4 .modal-body .search .profile{width: 50px; height: 50px; position: absolute; top: 10px; left: 25px;}
+#morePopup4 .modal-body .search .span{position: absolute; top: 24px; left: 100px; font-size: 16px;}
+#morePopup4 .modal-body .search .btn{position: absolute; top: 17px; left: 350px;}
+

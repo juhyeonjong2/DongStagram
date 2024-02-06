@@ -28,7 +28,7 @@
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script src="./base.js"></script>
    
-
+    <link rel="stylesheet" href="./post.css">
 
     <script> 
     //클릭시 하트 변하지만 id가 아니라 전부 변한다 jsp에서 아이디를 바꾸거나 해야할듯하다
@@ -71,28 +71,28 @@
               <h1 id="logo"><a href="#"></a></h1>
               <div id="tabmenu">
                 <input type="radio" name="tab_radio" id="tab">
-                  <label for="tab" class="tab3"><a href="./base.html"><img src="./icon/home.png">홈</a></label>
-    
-                    <input type="radio" name="tab_radio" id="tab1"/>
-                    <label for="tab1" class="tab3"><img src="./icon/search.png">검색</label>
-    
-                    <input type="radio" name="tab_radio" id="tab2"/>
-                    <label for="tab2" class="tab3"><img src="./icon/message.png">메세지</label>
-    
-                    <input type="radio" name="tab_radio" id="tab3"/>
-                    <label for="tab3" class="tab3"><img src="./icon/notice.png">알림</label>
-    
-                    <input type="radio" name="tab_radio" id="tab4"/>
-                    <label for="tab4" class="tab3"><a href="./navigation.html"><img src="./icon/scan.png">탐색 탭</a></label>
-    
-                    <input type="radio" name="tab_radio" id="tab5"/>
-                    <label for="tab5" class="tab3"><a href="#"><img src="./icon/post.png">만들기</a></label>
-                    
-                    <input type="radio" name="tab_radio" id="tab6"/>
-                    <label for="tab6" class="tab3"><a href="#"><img src="./icon/profile.png">프로필</a></label>
-    
-                    <input type="radio" name="tab_radio" id="tab7"/>
-                    <label for="tab7" class="tab3"><img src="./icon/more.png">더 보기</label>
+                <label for="tab" class="tab3"><a href="./base.html"><img src="./icon/home.png">홈</a></label>
+  
+                  <input type="radio" name="tab_radio" id="tab1"/>
+                  <label for="tab1" class="tab3"><img src="./icon/search.png">검색</label>
+  
+                  <input type="radio" name="tab_radio" id="tab2"/>
+                  <label for="tab2" class="tab3"><img src="./icon/message.png">메세지</label>
+  
+                  <input type="radio" name="tab_radio" id="tab3"/>
+                  <label for="tab3" class="tab3"><img src="./icon/notice.png">알림</label>
+  
+                  <input type="radio" name="tab_radio" id="tab4"/>
+                  <label for="tab4" class="tab3"><a href="./navigation.html"><img src="./icon/scan.png">탐색 탭</a></label>
+  
+                  <input type="radio" name="tab_radio" id="tab5"/>
+                  <label for="tab5" class="tab3"><a data-toggle="modal" href="#postPopup"><img src="./icon/post.png">만들기</a></label>
+                  
+                  <input type="radio" name="tab_radio" id="tab6"/>
+                  <label for="tab6" class="tab3"><a href="./search3.html"><img src="./icon/profile.png">프로필</a></label>
+  
+                  <input type="radio" name="tab_radio" id="tab7"/>
+                  <label for="tab7" class="tab3"><img src="./icon/more.png">더 보기</label>
                 
                 <section id="nav1">
                   <h4>검색</h4>
@@ -412,7 +412,77 @@
         </div>
       </div>
 
+    <!--header post popup-->
+    <!-- Modal -->
+    <div class="modal fade" id="postPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">새 게시글 만들기</h5>
+           <!--<button id="btn-share" type="button" disabled>공유</button>-->
+          </div>
+          <div class="modal-body">
 
+
+            <form class="container">
+              <label class="label" id="label" for="input">
+                <!--이 안에 drop해야함 or 클릭-->
+                <div class="dropBox" id="dropBox"></div>
+              </label>
+              <input id="input" class="input" accept="image/*" type="file" required="true" multiple="true" hidden="true">
+              <!--저장된 모든 값은 이 input file에 모두 저장되는 듯?-->
+              <!--올린거 여기다가 아래 div는 포지션으로 정렬 프리뷰는 옮기면 안돼-->
+              <div class="postLeft">
+                <div class="preview" id="preview"></div>
+                <label for="input">
+                  <img src="./icon/post.png" class="postPlus">
+                </label>
+              </div>
+
+              <div class="postRight">
+                
+                <div class="rightTop">
+                  <div class="rightTop2">
+                    <img src="./즐겁다 짤.jpg" class="profile">
+                    <span class="nickname">tester123</span>
+                  </div>
+                  <textarea class="replyTextarea" id="replyTextarea" placeholder="문구를 입력하세요..." onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
+                  <span class="replyTextareaCount" id="replyTextareaCount">0
+                  </span>
+                  <span class="replyTextareaCount2">/2200</span>
+                </div>
+
+                <div class="rightBottom">
+                  <h4>설정</h4>
+                  <ul class="righrToggle">
+                    <li>
+                      <span>게시물 공개</span>
+                      <input type='checkbox' id='toggle' class='tgl' />
+                      <label for='toggle'></label>
+                    </li>
+                    <li>
+                      <span>좋아요 공개</span>
+                      <input type='checkbox' id='toggle2' class='tgl'  />
+                      <label for='toggle2'></label>
+                    </li>
+                    <li>
+                      <span>댓글 기능 허용</span>
+                      <input type='checkbox' id='toggle3' class='tgl' />
+                      <label for='toggle3'></label>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+              <input type="submit" value="공유하기" class="dropBoxSubmit" id="dropBoxSubmit" disabled/>
+              <script src="./post.js"></script>
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
       
 
       </main>
