@@ -13,101 +13,55 @@ import javax.servlet.http.HttpSession;
 import dao.CertDAO;
 import vo.MemberVO;
 
-@WebServlet("/*")
+// /nick 검색을 포기
+// /user/nick 으로 검색할 것.
+// "/" 디폴트 서블릿을 매핑하는경우 tomcat이 처리하는 디폴트 서블릿을 재정의하게되서. css나 js의 경로를 찾을수 없게됨
+// 따라서 패턴으로 매칭해서 디폴트 서블릿을 오버라이딩 하지 않아야함.
+// (참고 : https://devpanda.tistory.com/95)
+//@WebServlet("/")
+@WebServlet(urlPatterns = { "/p/", "/login/*", "/direct/", "/user/" })
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public FrontController() {
+	public FrontController() {
 
-    }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		boolean isLogin = false;
-		boolean isAdmin = false;
-		
-		request.setCharacterEncoding("UTF-8");
-		
-		HttpSession session = request.getSession();
-		if(session != null) {
-		
-			MemberVO member = (MemberVO)session.getAttribute("login");
-			if(member != null) {
-				isLogin = !CertDAO.isExpired(member.getMno(), member.getToken());
-				isAdmin = CertDAO.isAdmin(member.getMno(), member.getToken());
-			}
-		}
-		
-		String command = request.getRequestURI()
- 		        .substring(request.getContextPath()
- 		        .length()+1);
-
-		String[] uris = command.split("/");
-		System.out.println("uris len : " + uris.length);
-		for(String uri : uris) {
-			System.out.println(uri);
-		}
-		
-		
-		// 어떤 페이지가 오든지 login이 안되어 있다면 login 페이지로 이동.
-		if(!isLogin) {
-			
-			
-		}
-		else {
-				// 로그인상태면 로그인 만료시간 갱신
-			
-			
-			/*
-			 * String command = request.getRequestURI() .substring(request.getContextPath()
-			 * .length()+1);
-			 * 
-			 * String[] uris = command.split("/");
-			 */
-			
-			// 첫번째 경로가 비어 있다면 (로그인 된 상태이므로 홈으로 간다)
-			
-			/*
-			 * for(String uri : uris) { System.out.println(uri); }
-			 */
-			
-			/*
-			 * RequestDispatcher rd= request.getRequestDispatcher("/sample/ex02.jsp");
-			 * rd.forward(request, response);
-			 */
-			
-			// 모르는경로가 나오는경우 무조건 /로 리다이렉트.
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-String command = request.getRequestURI()
-				 		        .substring(request.getContextPath()
-				 		        .length()+1);
-		
-		String[] uris = command.split("/");
-		 * if(uris[0].equals("sample")) { SampleController sampleContoller = new
-		 * SampleController(); sampleContoller.doAction(uris,request, response); }else
-		 * if(uris[0].equals("board")) { BoardController boardController = new
-		 * BoardController(); boardController.doAction(uris, request, response); }
-		 */		
-		
-		// 여기서 허용된 명령만 통과
-		
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		System.out.println("FrontController");
+		
+		 String command = request.getRequestURI().substring(request.getContextPath().length()+1);
+		 String[] uris = command.split("/"); 
+		 System.out.println("uris len : " + uris.length); 
+		 
+		 for(String uri : uris) { 
+			 System.out.println(uri); 
+		 }
+		
+		 // 모든조건을 검사한뒤 안맞으면 루트로보냄
+		 String mainPath =uris[0];
+		 switch(mainPath) {
+		 case "p":
+			 break;
+		 case "login":
+			 	LoginController sampleContoller = new LoginController();
+			 	sampleContoller.doAction(uris,request, response);
+			 break;
+		 case "direct":
+			 break;
+		 case "user":
+			 break;
+		 
+		 	default:
+		 		response.sendRedirect(request.getContextPath());
+		 }
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
