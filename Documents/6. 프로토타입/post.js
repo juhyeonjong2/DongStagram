@@ -139,31 +139,31 @@ function el(nodeName, attributes, ...children) {
 preview.addEventListener("mouseover", () => {
   const draggables = document.querySelectorAll(".draggable");
   const containers = document.querySelectorAll(".preview");
-// 드래그시 dragging라는 클래스 주입 
-draggables.forEach(draggable => {
-  draggable.addEventListener("dragstart", () => {
-    draggable.classList.add("dragging");
+  // 드래그시 dragging라는 클래스 주입 
+  draggables.forEach(draggable => {
+    draggable.addEventListener("dragstart", () => {
+      draggable.classList.add("dragging");
+    });
+
+  // 드래그 끝나면 dragging라는 클래스 제거 
+    draggable.addEventListener("dragend", () => {
+      draggable.classList.remove("dragging");
+    });
   });
 
-// 드래그 끝나면 dragging라는 클래스 제거 
-  draggable.addEventListener("dragend", () => {
-    draggable.classList.remove("dragging");
-  });
-});
 
-
-containers.forEach(container => {
-  container.addEventListener("dragover", e => {
-    e.preventDefault();
-    const afterElement = getDragAfterElement(container, e.clientY); //clientY y값으로 변경
-    const draggable = document.querySelector(".dragging");
-    if (afterElement === undefined) {
-      container.appendChild(draggable);
-    } else {
-      container.insertBefore(draggable, afterElement);
-    }
+  containers.forEach(container => {
+    container.addEventListener("dragover", e => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(container, e.clientY); //clientY y값으로 변경
+      const draggable = document.querySelector(".dragging");
+      if (afterElement === undefined) {
+        container.appendChild(draggable);
+      } else {
+        container.insertBefore(draggable, afterElement);
+      }
+    });
   });
-});
 });
 
 
@@ -199,13 +199,48 @@ function getDragAfterElement(container, y) {
 
 preview.addEventListener("mouseover", () => {
   let imgCnt =input.value.length
+  console.log(imgCnt)
   const changeImg = document.querySelectorAll(".embedImg"); //늦게 찾아짐
   const previewClick = document.querySelectorAll(".draggable");
+  console.log(changeImg)
+  console.log(previewClick)
 
   for (const pre of changeImg) {
     pre.addEventListener("click", function () { 
+      // reader.readAsDataURL(input) 경로찾기 연습
        document.getElementById('dropBox').style.backgroundImage = "url('즐겁다 짤.jpg')"; //
         console.log('배경 미리보기 변경')
+      });
+    }
+
+  // 파일 삭제 버튼 코드
+  const imgDelete = document.querySelectorAll(".imgDelete");
+  for (let i =0; i< imgDelete.length; i++) {
+    const imgDe = imgDelete[i];
+    imgDe.addEventListener("click", function () {
+
+      //input안의 파일 삭제 코드
+      const dataTransfer = new DataTransfer();
+        let trans = $('#input')[0].files;
+        let filearray = Array.from(trans);
+        filearray.splice(i, 1);
+        filearray.forEach(file => {
+            dataTransfer.items.add(file);
+        });
+        $('#input')[0].files = dataTransfer.files
+       //input안의 파일 삭제 코드
+
+       imgDe.parentElement.remove() //미리보기 창도 지워줌
+        console.log('파일 삭제')
+        console.log(filearray.length) //왠지 모르겠는데 이거 지우면 아래 공유버튼 비활성화가 잘 안됨
+
+
+        //전부 지우면 공유버튼 비활성화
+        if(filearray.length == 0){
+          document.getElementById("dropBoxSubmit").setAttribute("disabled", true);
+          document.getElementById("dropBoxSubmit").style.color ="#aaa"
+        }
+
       });
     }
 
