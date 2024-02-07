@@ -154,7 +154,7 @@
 	    //이미지 클릭시 미리보기
 	    function previewImg(obj){
 	      let previewSrc = $(obj).attr("src");
-	      if(previewSrc != "./icon/noneImg.gif"){
+	      if(previewSrc != "<%=request.getContextPath()%>/icon/noneImg.gif"){
 	        $(".dropBox").css("background-image","url("+previewSrc+")")
 	        $(".dropBox").css("background-color","#111")
 	      }
