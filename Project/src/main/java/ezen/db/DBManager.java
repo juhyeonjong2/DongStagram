@@ -29,12 +29,12 @@ public class DBManager implements AutoCloseable{
 	// 생성자
 	public DBManager() {
 		
-		this("donstagram", "tester", "1234");
+		this("donstagram", "dongtester", "1234");
 	}
 	
 	public DBManager(String dbName) {
 		
-		this(dbName, "tester", "1234");
+		this(dbName, "dongtester", "1234");
 	}
 	
 	public DBManager(String dbName, String id, String pw) {

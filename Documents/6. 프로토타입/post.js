@@ -139,31 +139,31 @@ function el(nodeName, attributes, ...children) {
 preview.addEventListener("mouseover", () => {
   const draggables = document.querySelectorAll(".draggable");
   const containers = document.querySelectorAll(".preview");
-// 드래그시 dragging라는 클래스 주입 
-draggables.forEach(draggable => {
-  draggable.addEventListener("dragstart", () => {
-    draggable.classList.add("dragging");
+  // 드래그시 dragging라는 클래스 주입 
+  draggables.forEach(draggable => {
+    draggable.addEventListener("dragstart", () => {
+      draggable.classList.add("dragging");
+    });
+
+  // 드래그 끝나면 dragging라는 클래스 제거 
+    draggable.addEventListener("dragend", () => {
+      draggable.classList.remove("dragging");
+    });
   });
 
-// 드래그 끝나면 dragging라는 클래스 제거 
-  draggable.addEventListener("dragend", () => {
-    draggable.classList.remove("dragging");
-  });
-});
 
-
-containers.forEach(container => {
-  container.addEventListener("dragover", e => {
-    e.preventDefault();
-    const afterElement = getDragAfterElement(container, e.clientY); //clientY y값으로 변경
-    const draggable = document.querySelector(".dragging");
-    if (afterElement === undefined) {
-      container.appendChild(draggable);
-    } else {
-      container.insertBefore(draggable, afterElement);
-    }
+  containers.forEach(container => {
+    container.addEventListener("dragover", e => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(container, e.clientY); //clientY y값으로 변경
+      const draggable = document.querySelector(".dragging");
+      if (afterElement === undefined) {
+        container.appendChild(draggable);
+      } else {
+        container.insertBefore(draggable, afterElement);
+      }
+    });
   });
-});
 });
 
 
@@ -208,8 +208,7 @@ preview.addEventListener("mouseover", () => {
   for (const pre of changeImg) {
     pre.addEventListener("click", function () { 
       // reader.readAsDataURL(input) 경로찾기 연습
-       // document.getElementById('dropBox').style.backgroundImage = "url(./즐겁다 짤.jpg)"; //
-         document.getElementById('dropBox').style.backgroundColor="black"
+       document.getElementById('dropBox').style.backgroundImage = "url('즐겁다 짤.jpg')"; //
         console.log('배경 미리보기 변경')
       });
     }

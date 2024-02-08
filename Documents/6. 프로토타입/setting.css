@@ -47,9 +47,37 @@ header #settingTab a{width: 250px;}
 .settingMain2 .textarea{margin-left: 120px; width: 800px; height: 100px; border-radius: 30px; border: 1px solid #111;}
 .settingMain2 h5{margin-left: 120px; font-size: 20px; margin-top: 60px; margin-bottom: 20px;}
 .settingMain2 textarea{margin: 10px; width: 770px; height: 60px; border: 0; max-height: 60px; max-width: 770px;}
+.settingMain2 textarea:focus{outline: none;}
 .settingMain2 .textCnt{position: absolute; right: 100px; top: 110px; color: #aaa;}
 
 .settingMain3 h5{margin-left: 120px; font-size: 20px; margin-top: 60px; margin-bottom: 20px;}
 .settingMain3 .settingOp{margin-left: 120px; width: 800px; height: 50px; border-radius: 15px;}
-.settingSubmit{margin-left: 780px; margin-top: 50px; width: 150px; height: 50px; background-color: #0d6efd; border: 0; color: #fff; border-radius: 10px;}
-.settingSubmit2{margin-left: 780px; margin-top: 50px; width: 150px; height: 50px; background-color: #aaa; border: 0; color: #fff; border-radius: 10px;}
+#submitBox{margin-left: 580px; margin-top: 70px; }
+.settingSubmit{margin-left: 35px; width: 150px; height: 50px; background-color: #0d6efd; border: 0; color: #fff; border-radius: 10px;}
+.settingSubmit2{width: 150px; height: 50px; background-color: #aaa; border: 0; color: #fff; border-radius: 10px;}
+.deleteBtn{ 
+  width: 150px; height: 50px; background-color: red; color: #fff; border-radius: 10px; display: inline-block; text-align: center; line-height: 50px; text-decoration: none;}
+.deleteBtn:hover{color: #fff;}
+
+.settingTop .settingBt .imgSize{width: 35px; height: 35px; margin-top: 2px;}
+.settingBottom .settingBt .imgSize{width: 35px; height: 35px; margin-top: 2px;}
+
+
+/*비밀번호 변경 페이지 css*/
+.settingPW{margin-left: 120px;}
+.settingPW p{font-size: 17px; margin-left: 30px; margin-bottom: 10px; margin-top: 50px;}
+.settingPW input[type="password"]{width: 600px; height: 35px; border: 1px solid #aaa; border-radius: 10px;}
+.settingPW input[type="password"]:last-child{margin-bottom: 40px;}
+.settingPWSubmit{margin-left: 570px; margin-top: 50px; width: 150px; height: 50px; background-color: #0d6efd; border: 0; color: #fff; border-radius: 10px;}
+.settingPWSubmit2{margin-left: 570px; margin-top: 50px; width: 150px; height: 50px; background-color: #aaa; border: 0; color: #fff; border-radius: 10px;}
+
+
+
+/*회원탈퇴 팝업*/
+#deletePopup .modal-dialog{max-width: 350px;} /*넓이는 여기서*/
+#deletePopup .deletePopupMain{height: 300px;} /*높이는 여기서*/
+#deletePopup .deletePopupMain p{font-size: 18px; margin-top: 30px; text-align: center; margin-bottom: 20px;}
+#deletePopup .deletePopupMain input[type="password"]{height: 30px; display: block; margin: 0 auto; margin-bottom: 50px;}
+#deletePopup .deletePopupMain input[type="text"]{height: 30px; display: block; margin: 0 auto; margin-bottom: 30px;}
+#deletePopup .deletePopupMain .deleteBtn{border: 0; width: 120px; height: 40px; line-height: 40px; margin-left: 98px;}
+
