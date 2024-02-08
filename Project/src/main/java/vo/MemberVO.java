@@ -6,7 +6,6 @@ public class MemberVO {
 	private String mname;
 	private String mnick;
 	private String email;
-	private String allowemail;
 	private int mlevel;
 	private String joindate;
 	private String delyn;
@@ -42,12 +41,6 @@ public class MemberVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getAllowemail() {
-		return allowemail;
-	}
-	public void setAllowemail(String allowemail) {
-		this.allowemail = allowemail;
-	}
 	public int getMlevel() {
 		return mlevel;
 	}
@@ -79,5 +72,19 @@ public class MemberVO {
 		this.token = token;
 	}
 	
+	
+	
+	@Override
+	public String toString() {
+		return "mno(" + mno + "), mid(" +mid+ "), mname(" +mname+ "), mnick("+mnick+"), email(" + email+"), " +
+	           "mlevel(" +mlevel+"), joindate(" +joindate+"), delyn(" + delyn+"), mpassword(" + mpassword+"), token(" + token+")";		
+	}
+	
+	public boolean isValid() {
+		// 이함수로 데이터의 이상 유무를 검사한다.
+		
+		
+		return true;
+	}
 	
 }
