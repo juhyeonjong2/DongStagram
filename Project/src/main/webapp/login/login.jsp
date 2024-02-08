@@ -11,7 +11,6 @@
 
 </head>
 <body>
-	<h2><%=request.getContextPath()%>/css/login/login.css</h2>
     <div>
 
         <div class="login-wrap"> 
@@ -22,14 +21,14 @@
               <div class="login-form">
                 <div class="sign-in-htm">
 
-                  <form action="#">
+                  <form name="loginfrm" action="<%=request.getContextPath()%>/accounts/login" method="post">
                     <div class="group">
                       <label for="user" class="label">아이디</label>
-                      <input id="user" type="text" class="input">
+                      <input id="user" type="text" class="input" name="mid">
                     </div>
                     <div class="group">
                       <label for="pass" class="label">비밀번호</label>
-                      <input id="pass" type="password" class="input" data-type="password">
+                      <input id="pass" type="password" class="input" data-type="password" name="mpassword">
                     </div>
                     <div class="group">
                     </div>
@@ -38,7 +37,7 @@
                     </div>
                   </form>
                     <div class="foot-lnk">
-                      <a href="./passwordSearch.html">비밀번호를 잊으셨나요?</a>
+                      <a href="<%=request.getContextPath()%>/accounts/password/reset">비밀번호를 잊으셨나요?</a>
                       <label for="tab-2" class="label">회원이 아니신가요?</a>
                     </div>
 
@@ -47,10 +46,10 @@
 
                 <div class="sign-up-htm"> <!--회원 가입 checkBox의 span은 오류메세지 적는 공간-->
 
-                  <form action="#">
+                  <form name="joinfrm" action="<%=request.getContextPath()%>/accounts/join" method="post">
                     <div class="group">
                       <label for="user" class="label">아이디</label>
-                      <input id="user" type="text" class="input">
+                      <input id="user" type="text" class="input" name="mid">
                       <button class="checkBtn long">중복 확인</button>
                       
                       <div class="checkBox">
@@ -60,7 +59,7 @@
                     </div>
                     <div class="group">
                       <label for="pass" class="label">비밀번호</label>
-                      <input id="pass" type="password" class="input" data-type="password">
+                      <input id="pass" type="password" class="input" data-type="password" name="mpassword">
 
                       <div class="checkBox">
                         <span></span>
@@ -78,7 +77,7 @@
                     </div>
                     <div class="group">
                       <label for="pass" class="label">이름</label>
-                      <input id="pass" type="text" class="input textname">
+                      <input id="pass" type="text" class="input textname" name="mname">
 
                       <div class="checkBox">
                         <span></span>
@@ -87,12 +86,12 @@
                     </div>
                     <div class="group">
                       <label for="pass" class="label">닉네임</label>
-                      <input id="pass" type="text" class="input">
+                      <input id="pass" type="text" class="input"  name="mnick">
                       <button class="checkBtn long">중복 확인</button>
                     </div>
                     <div class="group">
                       <label for="pass" class="label">이메일</label>
-                      <input id="pass" type="text" class="input">
+                      <input id="pass" type="text" class="input"  name="email">
                       <button class="checkBtn">인증번호 전송</button>
                       <div class="none"></div>
                       <input id="pass" type="text" class="input">

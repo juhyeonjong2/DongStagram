@@ -29,7 +29,7 @@ public class DBManager implements AutoCloseable{
 	// 생성자
 	public DBManager() {
 		
-		this("donstagram", "dongtester", "1234");
+		this("dongstagram", "dongtester", "1234");
 	}
 	
 	public DBManager(String dbName) {
@@ -319,9 +319,8 @@ public class DBManager implements AutoCloseable{
 		//sql = "select last_insert_id() as nno from notification"; // DB샘에 알려준 mysql전용방법
 		String sql = "SELECT MAX(" + columnName + ") as " +columnName + " FROM "+ tableName; // 담임샘이 알려준 방법. (마지막 넣은 index가져오기. 이번에는 이걸로 써야함.)
 		int index = 0;
-		// null이 아닌경우 성공
-		if(prepare(sql) != null) {
-			if(read()) {
+		if(prepare(sql).read()) {
+			if(next()){
 				index = getInt(columnName);
 			}
 		}

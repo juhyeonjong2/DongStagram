@@ -38,8 +38,8 @@ public class CharacterEncodingFilter extends HttpFilter implements Filter {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 	
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		System.out.println("PageNotFoundFilter:doFilter() 전...." + "status :" + httpResponse.getStatus());
+		//HttpServletResponse httpResponse = (HttpServletResponse) response;
+		//System.out.println("PageNotFoundFilter:doFilter() 전...." + "status :" + httpResponse.getStatus());
 		
 		// 처리
 		chain.doFilter(request, response);
@@ -47,7 +47,7 @@ public class CharacterEncodingFilter extends HttpFilter implements Filter {
 		  
 
 		//여기에 후처리
-		System.out.println("PageNotFoundFilter:doFilter() 후...." + "status :" + httpResponse.getStatus());
+		//System.out.println("PageNotFoundFilter:doFilter() 후...." + "status :" + httpResponse.getStatus());
 		 
 	}
 
