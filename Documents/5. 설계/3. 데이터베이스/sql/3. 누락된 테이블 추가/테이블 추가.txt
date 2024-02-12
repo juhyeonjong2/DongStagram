@@ -1,0 +1,7 @@
+use dongstagram;
+
+ALTER TABLE board ADD COLUMN postOpen char(1) NOT NULL comment '게시물 공개';
+ALTER TABLE board ADD COLUMN favoriteOpen char(1) NOT NULL comment '좋아요 공개';
+ALTER TABLE board ADD COLUMN replyOpen char(1) NOT NULL comment '댓글 기능 허용';
+
+ALTER TABLE reply ADD COLUMN rnote varchar(2200) NOT NULL comment '댓글내용';

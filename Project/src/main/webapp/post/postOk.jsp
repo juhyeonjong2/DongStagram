@@ -49,7 +49,6 @@
 	//원본 파일명
 	String foriginName = multi.getFilesystemName("uploadimg");
 	
-	
 	DBManager db = new DBManager();
 	// 게시글 테이블에는 글번호(자동),회원번호 (로그인한),작성일자 (업데이트로 생성해서 토글태그3개 넣기 (완))
 	// 댓글 테이블에는 댓글번호(자동),관리인덱스(0),작성일, 외래키의 회원번호와 글번호
@@ -60,17 +59,33 @@
 				boolean isSuccess = true;
 				
 				String sql = "INSERT INTO board(mno,boardOpen,favoriteOpen,replyOpen,wdate,bhit,bfavorite) "
-						   + " VALUES(?,?,?,?,now(), 0, 0) ";
-				
-				// update시에 true를 준경우 update에 결과값이 0이면 rollback을 자동으로 수행한다.
+						   + " VALUES(? ";
+						   //게시글 공개 미체크 시
+							if(boardOpen == null){
+								sql += " ,'n'";
+							}else{
+								sql += " ,'y'";
+							}
+							//좋아요 공개 미체크 시
+							if(favoriteOpen == null){
+								sql += " ,'n'";
+							}else{
+								sql += " ,'y'";
+							}
+							//댓글 공개 미체크 시 
+							if(replyOpen == null){
+								sql += " ,'n'";
+							}else{
+								sql += " ,'y'";
+							}
+							
+						 sql += " ,now(), 0, 0) ";
+				// if안에 if쓰는법 몰라서 위 방식으로 구현 
 					if(db.prepare(sql)
-						 .setInt(mno)
-						 .setString(boardOpen)
-						 .setString(favoriteOpen)
-						 .setString(replyOpen)
-						 .update(true) <= 0) {
-					isSuccess = false;
-				}
+							 .setInt(mno)
+							 .update(true) <= 0) {
+						isSuccess = false;
+					}
 				
 				// 파일 업로드
 				int bno = 0;
@@ -100,7 +115,6 @@
 							
 							
 							BoardAttachVO attach = new BoardAttachVO();
-							System.out.println(Integer.parseInt(numberString));
 							attach.setBfidx(Integer.parseInt(numberString)); //번호를 골라내서 관리번호에 집어넣는다.
 							attach.setBno(bno);
 							attach.setBfrealname(multi.getFilesystemName(nameAttr)); // 업로드된 실제 파일명(겹치는경우 이름이 바뀐다.)
