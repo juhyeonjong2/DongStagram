@@ -166,7 +166,7 @@
 
 	      //input의 이름을 배정해준다
 	      $("#preview div input[type=file]").each(function (index, item){  //item은 preview div input[type=file]의 현재 요소, index는 인덱스 요소(위부터)
-	          $(item).attr("name", "productFile_" + (index) );
+	          $(item).attr("name", "file_" + (index) );
 	        });
 
 	      //input 파일안에 이미지가 없는 경우 임시로 넣어둔 이미지가 있다면 공유하기 안되도록
