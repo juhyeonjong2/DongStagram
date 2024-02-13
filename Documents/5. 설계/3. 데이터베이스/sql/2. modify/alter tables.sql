@@ -13,7 +13,7 @@ ALTER TABLE member drop column allowemail;
 # 게시글 옵션 추가
 ALTER TABLE board ADD COLUMN bopen char(1) NOT NULL comment '게시물 공개';
 ALTER TABLE board ADD COLUMN fopen char(1) NOT NULL comment '좋아요 공개';
-ALTER TABLE board ADD COLUMN ropen char(1) NOT NULL comment '댓글 기능 허용';
+ALTER TABLE board ADD COLUMN rallow char(1) NOT NULL comment '댓글 기능 허용';
 
 # 알림확인 테이블 생성전 알림테이블에 pk 지정
 ALTER TABLE notification ADD COLUMN nno int unsigned primary key auto_increment comment '알림번호';
