@@ -21,10 +21,10 @@ import vo.MemberVO;
 //@WebServlet("/")
 @WebServlet(urlPatterns = { "/page/*", "/direct/*", "/user/*", "/accounts/*", "/explore" }) // 가상경로만 여기에 넣기. 실제 경로는 이
 																							// 가상경로를 포함하면 안됨. (무한루프걸림)
-public class FrontController extends HttpServlet {
+public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public FrontController() {
+	public MainController() {
 
 	}
 
