@@ -307,7 +307,7 @@
 
             <section id="nav4">
               <ul>
-                <li><a href="<%=request.getContextPath()%>/login/login.jsp">로그인</a></li> <!--일단 로그인 가는 경로가 없어 수정 안함-->
+                <li><a href="<%=request.getContextPath()%>/accounts/logout">로그아웃</a></li> <!--일단 로그인 가는 경로가 없어 수정 안함-->
                 <li><a href="./setting.html">설정</a></li> <!--만약 관리자라면 href를 adminSetting로 변경-->
               </ul>
             </section>

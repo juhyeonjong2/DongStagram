@@ -31,6 +31,9 @@ public class AccountsController implements SubController {
 		 case "join":
 			 isSuccess = join(uris, request, response);
 			 break; 
+		 case "logout":
+			 isSuccess = logout(uris, request, response);
+			 break;
 		 }
 		 
 		  
@@ -70,6 +73,18 @@ public class AccountsController implements SubController {
 		if(uris.length == 2)
 		{
 		 request.getRequestDispatcher("/login/joinOk.jsp").forward(request, response);
+		 return true;
+		}
+		
+		return false;
+	}
+	
+	protected boolean logout(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		if(uris.length == 2)
+		{
+		 request.getRequestDispatcher("/login/logout.jsp").forward(request, response);
 		 return true;
 		}
 		
