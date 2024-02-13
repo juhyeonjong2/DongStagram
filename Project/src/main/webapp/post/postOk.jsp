@@ -140,7 +140,7 @@
 				
 				// 쓴 글 댓글로
 				if(isSuccess){
-					sql = " INSERT INTO reply(mno, bno, ridx, rpno, rdate, rnote ) VALUES(?, ?, ?, ?, now(), ?) ";
+					sql = " INSERT INTO reply(mno, bno, ridx, rpno, rdate, rcontent ) VALUES(?, ?, ?, ?, now(), ?) ";
 					
 					if(db.prepare(sql)
 							 .setInt(mno)
