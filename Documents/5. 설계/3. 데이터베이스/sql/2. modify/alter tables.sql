@@ -14,3 +14,24 @@ ALTER TABLE member drop column allowemail;
 ALTER TABLE board ADD COLUMN bopen char(1) NOT NULL comment '게시물 공개';
 ALTER TABLE board ADD COLUMN fopen char(1) NOT NULL comment '좋아요 공개';
 ALTER TABLE board ADD COLUMN ropen char(1) NOT NULL comment '댓글 기능 허용';
+
+# 알림확인 테이블 생성전 알림테이블에 pk 지정
+ALTER TABLE notification ADD COLUMN nno int unsigned primary key auto_increment comment '알림번호';
+
+# 알림 확인 테이블 생성
+CREATE TABLE notificationView (
+	nno int unsigned not null comment '알림번호',
+    mno int unsigned not null comment '회원번호',
+	rdate timestamp not null comment '확인일',
+    foreign key(nno) references notification(nno),
+	foreign key(mno) references member(mno)
+);
+
+# 게시물 확인 테이블 생성
+CREATE TABLE boardView (
+	bno int unsigned not null comment '글번호',
+    mno int unsigned not null comment '회원번호',
+	rdate timestamp not null comment '확인일',
+    foreign key(bno) references board(bno),
+	foreign key(mno) references member(mno)
+);
