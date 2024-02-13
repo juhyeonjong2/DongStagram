@@ -9,3 +9,8 @@ ALTER TABLE member MODIFY column mid varchar(50) not null unique comment '아이
 
 # member table의 allowemail 제거(스토리보드에 없음)
 ALTER TABLE member drop column allowemail;
+
+# 게시글 옵션 추가
+ALTER TABLE board ADD COLUMN bopen char(1) NOT NULL comment '게시물 공개';
+ALTER TABLE board ADD COLUMN fopen char(1) NOT NULL comment '좋아요 공개';
+ALTER TABLE board ADD COLUMN ropen char(1) NOT NULL comment '댓글 기능 허용';
