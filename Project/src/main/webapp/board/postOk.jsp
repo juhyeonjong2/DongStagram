@@ -118,21 +118,13 @@
 						isSuccess = false;
 					}
 				
-				// 파일 업로드
 				int bno = 0;
+				// 파일 업로드
 				if(isSuccess) {
-					// 현재 삽입된 상품목록의 기본키(bno)값을 조회후 bno안에 순서대로 집어넣는다.
-					sql = "select last_insert_id() as bno from board";
-				
 					
-					if(db.prepare(sql).read())
-					{
-						if(db.next()){
-							bno = db.getInt("bno");
-						}
-					}
-					if(bno != 0) { // 0이 아닌경우 가져오기 성공
-						
+				bno = db.last_insert_id("board", "bno"); // insert한 마지막 인덱스 가져오기
+				if(bno != 0) { // 0이 아닌경우 가져오기 성공
+					
 					// 2. 저장된 파일을 정보를 생성한다.
 					List<BoardAttachVO> fileList = new ArrayList<BoardAttachVO>();
 					 
@@ -166,13 +158,13 @@
 							 isSuccess = false;
 							}
 						}
+						
 					}
 				}
 				
 				// 쓴 글 댓글로
 				if(isSuccess){
 					sql = " INSERT INTO reply(mno, bno, ridx, rpno, rdate, rcontent ) VALUES(?, ?, ?, ?, now(), ?) ";
-					
 					if(db.prepare(sql)
 							 .setInt(mno)
 							 .setInt(bno)
@@ -191,6 +183,7 @@
 					%>
 					<script>
 						alert("공유성공")
+						location.href="<%=request.getContextPath()%>";
 					</script>
 					<%
 				}
