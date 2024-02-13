@@ -35,7 +35,7 @@
 		 });
    </script>
    
-    <link href="<%=request.getContextPath()%>/css/post.css" type="text/css"
+    <link href="<%=request.getContextPath()%>/css/post/post.css" type="text/css"
 	rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/base.css" type="text/css"
 	rel="stylesheet"> <!-- footer css도 포함 -->
@@ -307,7 +307,7 @@
 
             <section id="nav4">
               <ul>
-                <li><a href="./login.html">로그인</a></li> <!--일단 로그인 가는 경로가 없어 수정 안함-->
+                <li><a href="<%=request.getContextPath()%>/login/login.jsp">로그인</a></li> <!--일단 로그인 가는 경로가 없어 수정 안함-->
                 <li><a href="./setting.html">설정</a></li> <!--만약 관리자라면 href를 adminSetting로 변경-->
               </ul>
             </section>
@@ -326,7 +326,7 @@
               <div class="modal-body">
 
 
-                <form class="container" action="<%=request.getContextPath()%>/post/postOk.jsp" name="postfrm" method="post" enctype="multipart/form-data">
+                <form class="container" action="<%=request.getContextPath()%>/board/postOk.jsp" name="postfrm" method="post" enctype="multipart/form-data">
                     <div class="dropBox" id="dropBox"></div>
                   <div class="postLeft">
                     <div class="preview" id="preview"></div>

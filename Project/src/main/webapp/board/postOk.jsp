@@ -7,6 +7,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="ezen.db.DBManager" %>
+<%@ page import="java.io.File" %>
 <%
 	request.setCharacterEncoding("UTF-8"); //인코딩
 %>
@@ -30,8 +31,38 @@
 	//파일 업로드 참고
 	//파일은 다른방법으로 파라미터를 가져와야하는데 빈으로 될지 몰라서 일단 원래방식으로 작성
 	
-	String saveDir = "image/boardImg";
+	
+	String saveDir = member.getMnick(); // member 닉네임
+	
+	//닉네임이 널이면 아래 실행
+	if(saveDir == null){
+	%>
+		<script>
+			location.href="<%=request.getContextPath()%>/login/login.jsp";
+		</script>
+	<%
+	}
+	
 	String saveDirectoryPath = application.getRealPath(saveDir); // 절대 경로 안쓰기위해 톰캣쪽에 저장됨. (디비 합치면 못씀.) 
+	// 위 경로에  폴더가 있는지 확인 후 없다면 폴더 생성
+	String path = saveDirectoryPath;
+	File Folder = new File(path);
+
+	// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+	if (!Folder.exists()) {
+		try{
+		    Folder.mkdir(); //폴더 생성합니다.
+		    System.out.println("폴더가 생성되었습니다.");
+	        } 
+	        catch(Exception e){
+		    e.getStackTrace();
+		}        
+         }else {
+		System.out.println("이미 폴더가 생성되어 있습니다.");
+	}
+	
+	
+	System.out.println(saveDirectoryPath);
 	int sizeLimit = 100*1024*1024;//100mb 제한
 	
 	MultipartRequest multi = new MultipartRequest(request
@@ -58,7 +89,7 @@
 			{
 				boolean isSuccess = true;
 				
-				String sql = "INSERT INTO board(mno,boardOpen,favoriteOpen,replyOpen,wdate,bhit,bfavorite) "
+				String sql = "INSERT INTO board(mno,bopen,fopen,rallow,wdate,bhit,bfavorite) "
 						   + " VALUES(? ";
 						   //게시글 공개 미체크 시
 							if(boardOpen == null){
