@@ -7,7 +7,7 @@
 		 request.getRequestDispatcher("/login/login.jsp").forward(request, response);
 	 }
 	 else {
-		 request.getRequestDispatcher("/home/home.jsp").forward(request, response);
+		 request.getRequestDispatcher("/member/home.jsp").forward(request, response);
 	 } 
 %>
 
