@@ -11,11 +11,11 @@
     <div id="passwordsearch">
         <div class="login-form">
             <div class="sign-in-htm">
-                <form class="group" action="#">
+                <form class="group" name="pwsearchfrm" action="<%=request.getContextPath()%>/accounts/password/reset" method="post">
                 <div class="group">
                     <img src="<%=request.getContextPath() +"/icon/lock.png" %>">
                     <label for="user" class="label emailsearch">가입한 이메일 입력</label>
-                    <input id="user" type="email" class="input passwordsearch1"> <!--타입을 이메일로 만듬-->
+                    <input id="user" name="email" type="email" class="input passwordsearch1"> <!--타입을 이메일로 만듬-->
                 </div>
                     <input type="submit" class="button" value="임시 비밀번호 발급" id="submitcolor1">
                 </form>
