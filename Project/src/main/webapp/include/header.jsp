@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="vo.MemberVO"%>
+<%
+	MemberVO memberHeader = (MemberVO)session.getAttribute("login"); //인덱스에 합쳐지는 헤드가 인덱스와 겹쳐서 이름 바꿔준다.
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -220,7 +224,7 @@
                 <label for="tab5" class="tab3"><a data-toggle="modal" href="#postPopup"><img src="<%=request.getContextPath()%>/icon/post.png">만들기</a></label>
                 
                 <input type="radio" name="tab_radio" id="tab6"/>
-                <label for="tab6" class="tab3"><a href="./search3.html"><img src="<%=request.getContextPath()%>/icon/profile.png">프로필</a></label>
+                <label for="tab6" class="tab3"><a href="<%=request.getContextPath()%>/member/profile.jsp?mno=<%=memberHeader.getMno()%>"><img src="<%=request.getContextPath()%>/icon/profile.png">프로필</a></label>
 
                 <input type="radio" name="tab_radio" id="tab7"/>
                 <label for="tab7" class="tab3"><img src="<%=request.getContextPath()%>/icon/more.png">더 보기</label>
