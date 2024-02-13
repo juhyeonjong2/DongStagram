@@ -49,7 +49,7 @@
 	      let html = '<div class="draggable" draggable: "true">';
 	      html += ' <label  for="file' + (childCnt) + '" class="changeImg"><img src="<%=request.getContextPath()%>/icon/replyPlus.png"></label>';
 	      html += ' <img src="<%=request.getContextPath()%>/icon/noneImg.gif" class="thumbnailImg" onclick="previewImg(this)">'
-	      html += ' <input type="file" onchange="thumbnail(event,this)" id="file' + (childCnt) + '" hidden="true">';
+	      html += ' <input type="file" onchange="thumbnail(event,this)" id="file' + (childCnt) + '" name="file' + (childCnt) + '" hidden="true">';
 	      html += ' <button type="button" class="imgDelete" onclick="removeImg(this)">제거</button>';
 	      html += '</div>';
 	      $("#preview").append(html);
@@ -166,7 +166,7 @@
 
 	      //input의 이름을 배정해준다
 	      $("#preview div input[type=file]").each(function (index, item){  //item은 preview div input[type=file]의 현재 요소, index는 인덱스 요소(위부터)
-	          $(item).attr("name", "productFile_" + (index) );
+	          $(item).attr("name", "file_" + (index) );
 	        });
 
 	      //input 파일안에 이미지가 없는 경우 임시로 넣어둔 이미지가 있다면 공유하기 안되도록
@@ -174,7 +174,7 @@
 	      $(".thumbnailImg").each(function (index, item){ 
 	        let previewSrc = $(item).attr("src");
 	        //만약 임시이미지가 잘못된 경우
-	        if(previewSrc == null || previewSrc == "./icon/noneImg.gif"){
+	        if(previewSrc == null || previewSrc == "/Dongstagram/icon/noneImg.gif"){
 	          imgCheck = false;
 	          return false; //반복하는 도중 문제를 발견하면 바로 반복문 종료(마지막만 제대로된 사진일 경우 트루되버리는거 방지)
 	        }else{
@@ -183,7 +183,7 @@
 	      });
 
 	      if(imgCheck){
-	        document.frm.submit();
+	        document.postfrm.submit();
 	      }else{
 	        alert("이미지를 전부 넣어주세요");
 	      }
@@ -326,7 +326,7 @@
               <div class="modal-body">
 
 
-                <form class="container" action="#" name="frm">
+                <form class="container" action="<%=request.getContextPath()%>/post/postOk.jsp" name="postfrm" method="post" enctype="multipart/form-data">
                     <div class="dropBox" id="dropBox"></div>
                   <div class="postLeft">
                     <div class="preview" id="preview"></div>
@@ -342,7 +342,7 @@
                         <img src="./즐겁다 짤.jpg" class="profile">
                         <span class="nickname">tester123</span>
                       </div>
-                      <textarea class="replyTextarea" id="replyTextarea" placeholder="문구를 입력하세요..." onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
+                      <textarea name="boardReply" class="replyTextarea" id="replyTextarea" placeholder="문구를 입력하세요..." onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
                       <span class="replyTextareaCount" id="replyTextareaCount">0
                       </span>
                       <span class="replyTextareaCount2">/2200</span>
@@ -353,17 +353,17 @@
                       <ul class="righrToggle">
                         <li>
                           <span>게시물 공개</span>
-                          <input type='checkbox' id='toggle' class='tgl' />
+                          <input type='checkbox' id='toggle' class='tgl' name="boardOpen" value="y"/>
                           <label for='toggle'></label>
                         </li>
                         <li>
                           <span>좋아요 공개</span>
-                          <input type='checkbox' id='toggle2' class='tgl'  />
+                          <input type='checkbox' id='toggle2' class='tgl' name="favoriteOpen" value="y" />
                           <label for='toggle2'></label>
                         </li>
                         <li>
                           <span>댓글 기능 허용</span>
-                          <input type='checkbox' id='toggle3' class='tgl' />
+                          <input type='checkbox' id='toggle3' class='tgl' name="replyOpen" value="y" />
                           <label for='toggle3'></label>
                         </li>
                       </ul>
