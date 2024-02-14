@@ -12,11 +12,24 @@
 
     <!-- Demo styles -->
     <style>
- .swiper {
-  width: 600px;
-  height: 300px;
-}
+    /*홈화면*/
+    .mySwiper{
+      width: 450px;
+      height: 550px;
+    }
+    .swiper-wrapper{margin: 0 auto;}
+    .swiper-slide{ list-style: none; width: 450px; height: 550px; margin: 0 auto;background-color: #111; text-align: center;}
+    .swiper-slide img{height: 100%;} 
 
+    /*팝업 화면*/
+    .mySwiper{
+      width: 650px;
+      height: 750px;
+      margin: 0 auto;
+    }
+    .swiper-wrapper{margin: 0 auto;}
+    .swiper-slide{ list-style: none; width: 650px; height: 750px; margin: 0 auto;background-color: #111; text-align: center;}
+    .swiper-slide img{height: 100%;}
     </style>
   </head>
 
@@ -24,9 +37,9 @@
     <!-- Swiper -->
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="./images/banner1_friend.png"></div>
-        <div class="swiper-slide"><img src="./images/banner1_friend.png"></div>
-        <div class="swiper-slide"><img src="./images/banner1_friend.png"></div>
+        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
+        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
+        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
       </div>
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
@@ -34,7 +47,7 @@
     </div>
 
 
-    <!-- Initialize Swiper -->
+    <!-- Initialize Swiper --> <!--이거 없으면 작동 안함-->
     <script>
       var swiper = new Swiper(".mySwiper", {
         spaceBetween: 30,
