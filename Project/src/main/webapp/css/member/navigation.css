@@ -91,14 +91,14 @@ li{margin: 0; padding: 0;}
 
 /*슬라이드*/
 
-.slideShow{
-    width: 650px;
-    height: 750px;
-    margin: 0 auto;
-}
-.bx-wrappe{margin: 0 auto;}
-.bxslider li { list-style: none; width: 650px; height: 750px; margin: 0 auto;background-color: #111;}
-.bxslider li img{height: 100%; margin: 0 auto;}
+.mySwiper{
+	width: 650px;
+	height: 750px;
+	margin: 0 auto;
+ }
+.swiper-wrapper{margin: 0 auto;}
+.swiper-slide{ list-style: none; width: 650px; height: 750px; margin: 0 auto;background-color: #111; text-align: center;}
+.swiper-slide img{height: 100%;}
 
 
 /*게시글 호버시 효과*/

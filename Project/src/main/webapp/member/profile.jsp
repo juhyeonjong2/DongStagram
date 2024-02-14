@@ -126,15 +126,16 @@
                 	{
                 		String saveDir = member.getMnick();
     					String foreignFileName = b.getRealFileName();
-                		String realFileName = b.getRealFileName(); 
+                		String realFileName = b.getRealFileName();
+                		
 %>
 
                 <li class="scanimg">
                   <a data-toggle="modal" href="#exampleModalCenter"><img src="<%=request.getContextPath() +"/" + saveDir + "/" + realFileName%>">
                     <span class="scanimgHover">
                       <span>
-                        <img src="./icon/whiteHeart.png"><%=b.getBfavorite() %>
-                        <img src="./icon/whiteMessage.png">9
+                        <img src="<%=request.getContextPath()%>/icon/whiteHeart.png"><%=b.getBfavorite() %>
+                        <img src="<%=request.getContextPath()%>/icon/whiteMessage.png">9
                       </span>
                     </span>
                   </a>
@@ -161,11 +162,34 @@
                             <!--보내진 이미지 들어오는 곳-->
                             
                             <div class="slideShow"> <!--메인 동영상과 사진 슬라이드-->
-                              <ul class="bxslider">
-                                <li><img src="./즐겁다 짤.jpg" ></li>
-                                <li><img src="./인스타 탑로고.png" ></li>
-                                <li><img src="./즐겁다 짤.jpg" ></li>
-                            </ul> 
+							    <div class="swiper mySwiper">
+							      <div class="swiper-wrapper">
+							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
+							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
+							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
+							      </div>
+							      <div class="swiper-button-next"></div>
+							      <div class="swiper-button-prev"></div>
+							      <div class="swiper-pagination"></div>
+							    </div>
+							
+							
+							    <!-- Initialize Swiper --> <!--이거 없으면 작동 안함-->
+							    <script>
+							      var swiper = new Swiper(".mySwiper", {
+							        spaceBetween: 30,
+							        centeredSlides: true,
+							        pagination: {
+							          el: ".swiper-pagination",
+							          clickable: true,
+							        },
+							        navigation: {
+							          nextEl: ".swiper-button-next",
+							          prevEl: ".swiper-button-prev",
+							        },
+							      });
+							
+							    </script> 
                     
                             </div> <!--메인 동영상과 사진 슬라이드-->
 
