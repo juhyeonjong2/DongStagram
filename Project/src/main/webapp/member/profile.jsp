@@ -26,7 +26,8 @@
 <%	
 	}
 	
-	ArrayList<BoardViewVO> boardList = new ArrayList<BoardViewVO>(); 
+	ArrayList<BoardViewVO> boardList = new ArrayList<BoardViewVO>();
+	
 	DBManager db = new DBManager();
 	
 	if(db.connect()) {
@@ -47,8 +48,8 @@
 		for(BoardViewVO board : boardList){
 			if(db.prepare(sql).setInt(board.getBno()).read()){
 				if(db.next()){
-					board.setRealFileName(db.getString("pfrealname"));
-					board.setForeignFileName(db.getString("pforeignname"));
+					board.setRealFileName(db.getString("bfrealname"));
+					board.setForeignFileName(db.getString("bforeignname"));
 				}
 			}
 		}
@@ -104,7 +105,7 @@
                 <a class="btn btn-secondary" href="#">프로필 편집</a>
               </span>
               <span class="searchSpan2">
-                <span>게시물 5899</span>
+                <span>게시물 <%=boardList.size()%></span>
                 <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2">팔로워 4.9만</a></span>
                 <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2">팔로우 16</a></span>
               </span>
@@ -126,8 +127,6 @@
                 		String saveDir = member.getMnick();
     					String foreignFileName = b.getRealFileName();
                 		String realFileName = b.getRealFileName(); 
-                		System.out.println(saveDir);
-                		System.out.println(realFileName); //이것도 널값이 나온다
 %>
 
                 <li class="scanimg">
