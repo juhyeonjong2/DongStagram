@@ -8,7 +8,39 @@
     <title>로그인</title>
 	<%-- <link href="<%=request.getContextPath()%>/css/base.css" type="text/css" rel="stylesheet"> --%>
 	<link href="<%=request.getContextPath()%>/css/login/login.css" type="text/css" rel="stylesheet">
-
+	<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
+	<%-- <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script> --%>
+	<script>
+	function checkId(o){
+		
+		let divParent = $(o).closest(".group");
+		let errorSpan = divParent.find(".checkBox span");
+		let value = $(o).val();
+		let regId = /[^a-zA-Z]/g;
+		let regRs = regId.test(value);
+		
+		//console.log($(o).val());
+		//console.log(divParent);
+		//console.log(errorSpan);
+		
+		if(value == ""){
+			errorSpan.text("필수입력입니다");
+			errorSpan.css("color", "red");
+			return false;
+		}else if(regRs){
+			errorSpan.text("영문만 입력 가능합니다.");
+			errorSpan.css("color", "red");
+			return false;
+		}else{
+			
+			// 중복확인 유무 검사하고 처리할 것.
+			// ws comment - 여기 작업중
+			errorSpan.text("사용가능합니다.");
+			errorSpan.css("color", "green");
+			return true;
+		}
+	}	
+	</script>
 </head>
 <body>
     <div>
@@ -43,14 +75,13 @@
 
                 </div> <!--로그인-->
 
-
                 <div class="sign-up-htm"> <!--회원 가입 checkBox의 span은 오류메세지 적는 공간-->
 
                   <form name="joinfrm" action="<%=request.getContextPath()%>/accounts/join" method="post">
                     <div class="group">
                       <label for="user" class="label">아이디</label>
-                      <input id="user" type="text" class="input" name="mid">
-                      <button class="checkBtn long">중복 확인</button>
+                      <input id="user" type="text" class="input" name="mid" onblur="checkId(this)">
+                      <button type="button" class="checkBtn long">중복 확인</button>
                       
                       <div class="checkBox">
                         <span></span>
