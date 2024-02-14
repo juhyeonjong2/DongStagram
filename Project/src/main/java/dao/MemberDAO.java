@@ -75,10 +75,52 @@ public class MemberDAO {
 		try(DBManager db = new DBManager();)
 		{
 			if(db.connect()) {
-				String sql = "SELECT mno, mid, email, mnick, mname, joindate FROM member " 
+				/*// 원본
+				  String sql = "SELECT mno, mid, email, mnick, mname, joindate FROM member " 
 						   + " WHERE mid=? AND mpassword= md5(?) AND (delyn is null or delyn = 'n') ";
+				 */
 				
-				if(db.prepare(sql).setString(id).setString(pw).read()) {
+				// 임시비밀번호 포함으로 변경
+				 String sql ="SELECT M.mno as mno, mid, mname, mnick, email, mlevel, joindate, delyn, mpassword " 
+						    +"FROM member as M "
+						    +"LEFT JOIN temppassword as T "
+						    +"ON M.mno = T.mno "
+						    +" WHERE (delyn is null or delyn = 'n') "
+						    +"AND (M.mid=? AND M.mpassword= md5(?)) "
+						    +"OR (T.tpassword=md5(?) AND TIMESTAMPDIFF(SECOND, T.expiretime, now()) <=0) ";
+				
+				//System.out.println(sql);
+				
+				if(db.prepare(sql).setString(id).setString(pw).setString(pw).read()) {
+					if(db.next()) {
+						vo = new MemberVO();
+						vo.setMno(db.getInt("mno"));
+						vo.setEmail(db.getString("email"));
+						vo.setJoindate(db.getString("joindate"));
+						vo.setMid(db.getString("mid"));
+						vo.setMname(db.getString("mname"));
+						vo.setMnick(db.getString("mnick"));
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
+	
+	public static MemberVO findOneByMno(int mno) {
+		
+		MemberVO vo = null;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) {
+				String sql = "SELECT mno, mid, email, mnick, mname, joindate FROM member " 
+						   + " WHERE mno=? AND (delyn is null or delyn = 'n') ";
+				
+				if(db.prepare(sql).setInt(mno).read()) {
 					if(db.next()) {
 						vo = new MemberVO();
 						vo.setMno(db.getInt("mno"));

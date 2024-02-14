@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="<%=request.getContextPath()%>/css/login/login.css" type="text/css" rel="stylesheet">
-    <title>Document</title>
+    <title>임시 비밀 번호</title>
 </head>
 <body>
     <div id="passwordsearch">

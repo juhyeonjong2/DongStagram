@@ -15,5 +15,14 @@
     <error-code>404</error-code>
     <location>/</location>
   </error-page>
+
+ 
+ <!--  참고 : https://blog.naver.com/devstory/130035779193 쓰레드 풀  -->
+ <servlet>
+ 	<servlet-name>ThreadPool</servlet-name>
+ 	<servlet-class>ezen.thread.ThreadPool</servlet-class>
+ 	<load-on-startup>2</load-on-startup>
+</servlet>
+
 	
 </web-app>
