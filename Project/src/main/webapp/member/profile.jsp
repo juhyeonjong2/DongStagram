@@ -76,14 +76,15 @@ function load(o){
 		   
 		let bno = $(o).data('id');
 		console.log(bno);
-		let name = $(o).
+
 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/member/detailBoard.jsp",
 			type:"post",
 			data : {bno : bno},
+			dataType : "json",
 			success:function(data){
-				console.log(data) //여기 공백 생기는거 처리해야함
+				console.log(data)
 			}
 		});
 		// ajax통신으로 반환 하는 값은 글 쓴사람 닉네임 + 파일명으로 가져와야 하는데 그걸 수만큼 전부 가져온다.
