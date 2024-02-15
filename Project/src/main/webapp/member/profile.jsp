@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="vo.MemberVO"%>
 <%@ page import="ezen.db.DBManager" %>
+<%@ page import="ezen.util.HashMaker" %>
 <%@ page import="vo.BoardViewVO"%>
 <%@ page import="java.util.ArrayList"%>
     
@@ -68,17 +69,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로필</title>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script>
 
+function load(o){
+		   
+		let bno = $(o).data('id');
+		console.log(bno);
+		let name = $(o).
+		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/member/detailBoard.jsp",
+			type:"post",
+			data : {bno : bno},
+			success:function(data){
+				console.log(data) //여기 공백 생기는거 처리해야함
+			}
+		});
+		// ajax통신으로 반환 하는 값은 글 쓴사람 닉네임 + 파일명으로 가져와야 하는데 그걸 수만큼 전부 가져온다.
+		//let html = '<div class="swiper-slide"><img src="'+닉네임/파일명+'"></div>';
+		let html = '<div class="swiper-slide">54</div>';
+		$('.swiper-wrapper').append(html)
+	     
+	     $('#detailBoard').modal('show');
+	};
 
-    <script> 
-    //대댓글 클릭시 보이도록 (자신만 선택하는 방법 추가 필요(아마 this))
-    $(document).ready(function(){
-        $('.reReply').click(function(){
-          $('.replyblock').css('display','block');
-      }); 
-    });
-    
-    </script>
+</script>
 
 
 
@@ -102,7 +118,7 @@
               <img src="./icon/home.png" class="searchProfile">
               <span class="searchSpan1">
                 <%=member.getMnick() %>
-                <a class="btn btn-secondary" href="#">프로필 편집</a>
+                <a class="btn btn-secondary" href="<%=request.getContextPath()%>/member/profileModify.jsp">프로필 편집</a>
               </span>
               <span class="searchSpan2">
                 <span>게시물 <%=boardList.size()%></span>
@@ -127,11 +143,16 @@
                 		String saveDir = member.getMnick();
     					String foreignFileName = b.getRealFileName();
                 		String realFileName = b.getRealFileName();
+                		int bno2 = b.getBno();
+                		String bno = HashMaker.Base62Encoding(bno2);
+                		//받아온 bno를 인코딩해서 숫자를 수정 후 보냄
+                		// 그후 보낸곳에서 받은 수정된 bno를 디코딩해서 사용
+                		// 온클릭으로 bno를 보냄 -> 
                 		
 %>
 
                 <li class="scanimg">
-                  <a data-toggle="modal" href="#exampleModalCenter"><img src="<%=request.getContextPath() +"/" + saveDir + "/" + realFileName%>">
+                  <a data-toggle="modal" data-id="<%=bno %>" class="open" onclick="load(this)"><img src="<%=request.getContextPath() +"/" + saveDir + "/" + realFileName%>">
                     <span class="scanimgHover">
                       <span>
                         <img src="<%=request.getContextPath()%>/icon/whiteHeart.png"><%=b.getBfavorite() %>
@@ -140,6 +161,8 @@
                     </span>
                   </a>
                 </li>
+    
+
 <%
                 	} // for문 종료
 				
@@ -148,14 +171,13 @@
         </div>
 
         <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="detailBoard" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">게시글 보기</h5>
                     </div>
                     <div class="modal-body">
-
                     <div class="popupView">
                         <!--왼쪽-->
                         <div class="popupViewLeft">
@@ -164,9 +186,11 @@
                             <div class="slideShow"> <!--메인 동영상과 사진 슬라이드-->
 							    <div class="swiper mySwiper">
 							      <div class="swiper-wrapper">
+							      <!-- 받아온 bno의있는 모든 이미지를 가져온다 -> 순서대로 나열한다  -->
 							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
 							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
 							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
+							        
 							      </div>
 							      <div class="swiper-button-next"></div>
 							      <div class="swiper-button-prev"></div>
