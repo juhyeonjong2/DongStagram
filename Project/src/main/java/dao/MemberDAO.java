@@ -168,4 +168,48 @@ public class MemberDAO {
 		
 		return vo;
 	}
+	
+	public static boolean isExistById(String id) {
+		
+		boolean result = false;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) {
+				String sql = "SELECT * FROM member WHERE mid=? ";
+				
+				if(db.prepare(sql).setString(id).read()) {
+					if(db.next()) {
+						result = true;	
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+public static boolean isExistByNick(String nick) {
+		
+		boolean result = false;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) {
+				String sql = "SELECT * FROM member WHERE mnick=? ";
+				
+				if(db.prepare(sql).setString(nick).read()) {
+					if(db.next()) {
+						result = true;	
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

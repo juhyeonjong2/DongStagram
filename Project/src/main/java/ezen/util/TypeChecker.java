@@ -17,5 +17,28 @@ public class TypeChecker {
 		}
 		return err;
 	}
+	
+	public static boolean isValidId(String id) {
+		// 출처 : https://moonong.tistory.com/31
+		boolean err = false;
+		String regex = "^[a-zA-Z0-9]*$";   
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(id);
+		if(m.matches()){
+			err = true; 
+		}
+		return err;
+	}
+	
+	public static boolean isValidNick(String id) {
+		boolean err = false;
+		String regex = "^[a-zA-Z0-9]*$";   
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(id);
+		if(m.matches()){
+			err = true; 
+		}
+		return err;
+	}
 
 }
