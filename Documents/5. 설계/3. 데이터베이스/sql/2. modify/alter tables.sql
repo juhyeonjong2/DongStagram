@@ -38,3 +38,10 @@ CREATE TABLE boardView (
 
 # 임시 비밀번호 테이블의 upsert를 위한 unique 추가 
 ALTER TABLE temppassword modify column mno int unsigned not null unique comment '회원번호';
+
+# 회원가입 인증번호 테이블 생성
+CREATE TABLE joinCert (
+	email varchar(100) not null primary key comment '이메일',
+    cert char(8) not null comment '인증번호',
+	expiretime timestamp not null comment '만료일'
+);
