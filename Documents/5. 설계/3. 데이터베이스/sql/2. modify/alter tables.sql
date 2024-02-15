@@ -35,3 +35,6 @@ CREATE TABLE boardView (
     foreign key(bno) references board(bno),
 	foreign key(mno) references member(mno)
 );
+
+# 임시 비밀번호 테이블의 upsert를 위한 unique 추가 
+ALTER TABLE temppassword modify column mno int unsigned not null unique comment '회원번호';
