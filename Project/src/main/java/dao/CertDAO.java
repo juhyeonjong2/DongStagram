@@ -152,6 +152,34 @@ public class CertDAO {
 			return isSuccess;
 		}
 		
+		public static boolean removeToken(CertVO cert) {
+			
+			if(cert == null)
+				return false;
+			
+			
+			boolean isSuccess = false;
+			
+			try(DBManager db = new DBManager();)
+			{
+				if(db.connect()) {
+					
+					String sql = "DELETE FROM cert WHERE mno=?";
+					if(db.prepare(sql).setInt(cert.getMno()).update() > 0)
+					{
+						//System.out.println("removeToken");
+						isSuccess = true;
+					}
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return isSuccess;
+		}
+		
+		
 		// 권한 인증 시간을 검사한다.
 		public static boolean isExpiredTime(CertVO cert) throws Exception{
 			if(cert == null) {
