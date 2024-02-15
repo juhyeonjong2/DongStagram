@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="vo.MemberVO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,19 @@
 <title>프로필 설정</title>
 <link href="<%=request.getContextPath()%>/css/base.css" type="text/css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/css/member/profileModify.css" type="text/css" rel="stylesheet">
+
+ <!-- bopen -->
+
+      DBManager db = new DBManager();
+	if(db.connect()) {
+		String sql = "SELECT bopen WHERE bno=?";
+		board.setBopen(rs.getString(Bopen"));
+		
+		//노랑줄이 너무심해서 공부필요
+
+	
+
+	}
 </head>
 <body>
     <!--header-->
@@ -71,6 +85,8 @@
           </div>
         </div>
       </div>
+      
+     
     
     <!--footer-->
 	<%@ include file="/include/footer.jsp"%>

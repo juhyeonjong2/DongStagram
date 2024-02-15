@@ -158,13 +158,21 @@
   </header> <!--header-->
 
   <main>
-
+    
     <div class="inner2 clearfix">
       <h3>계정 공개 범위</h3>
       <div id="settingTop">
         <span>비공개 계정</span>
-        <input type='checkbox' id='toggle2' class='tgl'  />
+        <input type='checkbox' id='toggle2' class='tgl' onclick="bopen()"/>
         <label for='toggle2'></label>
+
+        
+        <script>
+        function bopen(){
+          // 여깃다가 DB 연결해서 bopen 칼럼에 인써트하는 함수같은거를 해보고싶은데 잘모르곘습니다.
+        }
+        </script>
+        
       </div>
 
       <div class="textBoxP">
