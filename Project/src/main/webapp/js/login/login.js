@@ -309,10 +309,15 @@
 	
 	function sendCertNumber(o)
 	{
+		// 여기를 풀면 이메일 형식이 아니어도 동작함(서버에서 막음)
+		if(checkEmail() == false){
+			return;
+		}
+		
 		let me = $("#joinEmail");
 		let value = me.val();
 		
-		let btn = $(o);	
+		let btn = $(o);
 		btn.attr("disabled",true); // 확인전에 disable
 		btn.css("backgroundColor", "gray");
 		
@@ -326,8 +331,6 @@
 		printEmailCert("");
 		showEmailCertInput(false);
 		
-		showEmailCertInput(true);
-		
 		$.ajax( 
 		{
 			url : "/Dongstagram/accounts/cert/email",
@@ -335,25 +338,24 @@
 			data : "email=" + value,
 			success : function(resData) 
 			{
-				// ws comment - 여기 작업중
-			//	let obj =JSON.parse(resData.trim());
-			//	if(obj.result =="SUCESS")
-			//	{
+				let obj =JSON.parse(resData.trim());	
+				if(obj.result =="SUCCESS")
+				{
 					// 오류 없이 데이터가 전송되었음.
 					// 인증번호 입력창을 연다.
-			//		showEmailCertInput(true);
-			//	}
-			//	else if(obj.result =="FAIL")
-			//	{
-			//		printEmailCert(obj.reason);
-			//	}
+					showEmailCertInput(true);
+				}
+				else if(obj.result =="FAIL")
+				{
+					printEmailCert(obj.reason);
+				}
 				 
 			},
 			error : function() {
-				//consloe.log("FAIL");
+				
+			//	consloe.log("FAIL");
 			}
 		});
-		
 		
 	}
 	
@@ -394,7 +396,65 @@
 		}
 	}
 	
-	
+	function verifyCertNumber(o)
+	{
+		// 여기를 풀면 이메일 형식이 아니어도 동작함(서버에서 막음)
+		if(checkEmail() == false){
+			return;
+		}
+		
+		let email = $("#joinEmail");
+		let emailValue = email.val();
+		
+		let me = $("#joinCertNumber");
+		let divParent = me.closest(".group");
+		let errorSpan = divParent.find(".checkBox span");
+		let value = me.val();
+		
+		
+		// 검사.
+		const regex = /^[0-9]*$/; // 숫자
+		let regRs = regex.test(value);
+		
+		if(value == ""){
+			errorSpan.text("인증 번호를 입력하세요.");
+			errorSpan.css("color", "red");
+			return;
+		}else if(!regRs){
+			errorSpan.text("공백없이 숫자만 입력하세요.");
+			errorSpan.css("color", "red");
+			return;
+		} else {
+			errorSpan.text("");
+		}
+		
+		
+		let btn = $(o);
+		btn.attr("disabled",true); // 확인전에 disable
+		btn.css("backgroundColor", "gray");
+		
+		// 연속 클릭방지용 1초 딜레이
+		setTimeout(function() {
+			btn.removeAttr("disabled");	
+			btn.css("backgroundColor", "#4EA685");
+		}, 1000);
+		
+		$.ajax( 
+		{
+			url : "/Dongstagram/accounts/cert/email",
+			type : "post",
+			data : {email:emailValue, cert:value},
+			success : function(resData) 
+			{
+				// ws comment - 여기 작업중
+				console.log(resData);
+			},
+			error : function() {
+				//consloe.log("FAIL");
+			}
+		});
+		
+	}
 	
 	
 	

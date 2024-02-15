@@ -37,6 +37,10 @@ public class AccountsController implements SubController {
 		 case "duplicate":
 			 isSuccess = duplicate(uris, request, response);
 			 break;
+		 case "cert":
+			 isSuccess = cert(uris, request, response);
+			 break;
+		
 		 }
 		 
 		  
@@ -126,6 +130,31 @@ public class AccountsController implements SubController {
 		}
 		
 		return true;
+	}
+	
+		protected boolean cert(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(uris.length != 3)
+		{
+			return false;
+		}
+		
+		String method = request.getMethod();
+		boolean isPost = method.equals("POST");
+		
+		
+		if(uris[2].equals("email"))
+		{
+			if(isPost) {
+				request.getRequestDispatcher("/login/certEmailOk.jsp").forward(request, response);
+			}
+			else { // get
+				request.getRequestDispatcher("/login/certEmail.jsp").forward(request, response);
+			}
+			return true;
+		}
+		
+		return false;
 	}
 
 }

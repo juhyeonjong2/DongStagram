@@ -191,7 +191,7 @@ public class MemberDAO {
 		return result;
 	}
 	
-public static boolean isExistByNick(String nick) {
+	public static boolean isExistByNick(String nick) {
 		
 		boolean result = false;
 		try(DBManager db = new DBManager();)
@@ -200,6 +200,28 @@ public static boolean isExistByNick(String nick) {
 				String sql = "SELECT * FROM member WHERE mnick=? ";
 				
 				if(db.prepare(sql).setString(nick).read()) {
+					if(db.next()) {
+						result = true;	
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public static boolean isExistByEmail(String email) {
+		
+		boolean result = false;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) {
+				String sql = "SELECT * FROM member WHERE email=? ";
+				
+				if(db.prepare(sql).setString(email).read()) {
 					if(db.next()) {
 						result = true;	
 					}

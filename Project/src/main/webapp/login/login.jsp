@@ -97,12 +97,12 @@
                     <div class="group">
                       <label for="joinEmail" class="label">이메일</label>
                       <input id="joinEmail" type="text" class="input" name="email" onblur="checkEmail()">
-                      <button type="button" class="checkBtn" onclick="sendCertNumber()">인증번호 전송</button>
+                      <button type="button" class="checkBtn" onclick="sendCertNumber(this)">인증번호 전송</button>
                       <div class="none"></div>
                       
                       <!--  여기는 인증번호 전송을 누르면 나타나게 하자. -->
                       <input id="joinCertNumber" type="text" class="input" style="display:none">
-                      <button id="joinCertNumberCheck" class="checkBtn" style="display:none">인증번호 확인</button>
+                      <button id="joinCertNumberCheck" type="button" class="checkBtn" onclick="verifyCertNumber(this)" style="display:none">인증번호 확인</button>
 
                       <div class="checkBox">
                         <span></span>
