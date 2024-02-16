@@ -1,0 +1,6 @@
+set FOREIGN_KEY_CHECKS = 0;
+
+DELETE FROM account WHERE mno=10;
+DELETE FROM member WHERE mno=10;
+
+set FOREIGN_KEY_CHECKS = 1;
