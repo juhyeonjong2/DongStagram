@@ -45,3 +45,5 @@ CREATE TABLE joinCert (
     cert char(8) not null comment '인증번호',
 	expiretime timestamp not null comment '만료일'
 );
+
+ALTER TABLE joincert ADD COLUMN verifyyn char(1) comment '인증유무';
