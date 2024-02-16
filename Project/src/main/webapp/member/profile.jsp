@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="vo.MemberVO"%>
 <%@ page import="ezen.db.DBManager" %>
+<%@ page import="ezen.util.HashMaker" %>
 <%@ page import="vo.BoardViewVO"%>
 <%@ page import="java.util.ArrayList"%>
     
@@ -68,17 +69,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로필</title>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script>
 
+function load(o){
 
-    <script> 
-    //대댓글 클릭시 보이도록 (자신만 선택하는 방법 추가 필요(아마 this))
-    $(document).ready(function(){
-        $('.reReply').click(function(){
-          $('.replyblock').css('display','block');
-      }); 
-    });
-    
-    </script>
+		let bno = $(o).data('id');
+		// 가상경로로 수정(페이지 컨트롤러)
+		// 파일 이미지 넣기
+		$.ajax({
+			url:"<%=request.getContextPath()%>/member/detailBoard.jsp", 
+			type:"post",
+			data : {shortUrl : bno},
+			dataType : "json",
+			success:function(resData){
+				console.log(resData)	
+				console.log(resData.nick)
+				console.log(resData.imglist[0].bfrealname)
+				
+				$('.swiper-wrapper').empty();
+				
+				// ajax통신으로 반환 하는 값은 글 쓴사람 닉네임 + 파일명으로 가져와야 하는데 그걸 수만큼 전부 가져온다.
+				// 반복문 돌림 -> 닉네임은 안돌림 이미지는
+				//for(PageVO p : resData.imglist){
+				//for(let=i; i<resData.imglist.length; i++){
+				//let html = '<div class="swiper-slide"><img src="''"></div>';
+				//	$('.swiper-wrapper').append(html)
+				
+				let aa = "/Dongstagram"
+				for(let i =0; i<resData.imglist.length; i++){
+					
+					let html = '<div class="swiper-slide"><img src="'
+							 + aa + '/' + resData.nick + '/' + resData.imglist[i].bfrealname
+							 + '"></div>';
+					$('.swiper-wrapper').append(html)
+				 }
+				
+			 }
+	 });
+		
+		var swiper = new Swiper(".mySwiper", {
+			spaceBetween: 30,
+			centeredSlides: true,
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+			},
+			navigation: {
+		 		nextEl: ".swiper-button-next",
+				prevEl: ".swiper-button-prev",
+			},
+		});
+				
+	     $('#detailBoard').modal('show');
+	     
+	};
+
+</script>
 
 
 
@@ -102,7 +149,7 @@
               <img src="./icon/home.png" class="searchProfile">
               <span class="searchSpan1">
                 <%=member.getMnick() %>
-                <a class="btn btn-secondary" href="#">프로필 편집</a>
+                <a class="btn btn-secondary" href="<%=request.getContextPath()%>/member/profileModify.jsp">프로필 편집</a>
               </span>
               <span class="searchSpan2">
                 <span>게시물 <%=boardList.size()%></span>
@@ -127,11 +174,17 @@
                 		String saveDir = member.getMnick();
     					String foreignFileName = b.getRealFileName();
                 		String realFileName = b.getRealFileName();
+                		int bno2 = b.getBno();
+                		String bno = HashMaker.Base62Encoding(bno2);
+                		//받아온 bno를 인코딩해서 숫자를 수정 후 보냄
+                		// 그후 보낸곳에서 받은 수정된 bno를 디코딩해서 사용
+                		// 온클릭으로 bno를 보냄 
                 		
 %>
 
                 <li class="scanimg">
-                  <a data-toggle="modal" href="#exampleModalCenter"><img src="<%=request.getContextPath() +"/" + saveDir + "/" + realFileName%>">
+                  <a data-toggle="modal" data-id="<%=bno %>" class="open" onclick="load(this)"><img src="<%=request.getContextPath() +"/" + saveDir + "/" + realFileName%>">
+                  <input type="hidden" value="<%=saveDir %>" class="mnick">
                     <span class="scanimgHover">
                       <span>
                         <img src="<%=request.getContextPath()%>/icon/whiteHeart.png"><%=b.getBfavorite() %>
@@ -140,6 +193,8 @@
                     </span>
                   </a>
                 </li>
+    
+
 <%
                 	} // for문 종료
 				
@@ -148,14 +203,13 @@
         </div>
 
         <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="detailBoard" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">게시글 보기</h5>
                     </div>
                     <div class="modal-body">
-
                     <div class="popupView">
                         <!--왼쪽-->
                         <div class="popupViewLeft">
@@ -164,32 +218,14 @@
                             <div class="slideShow"> <!--메인 동영상과 사진 슬라이드-->
 							    <div class="swiper mySwiper">
 							      <div class="swiper-wrapper">
-							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
-							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
-							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
+							      <!-- 받아온 bno의있는 모든 이미지를 가져온다 -> 순서대로 나열한다  -->
+							        
 							      </div>
 							      <div class="swiper-button-next"></div>
 							      <div class="swiper-button-prev"></div>
 							      <div class="swiper-pagination"></div>
 							    </div>
 							
-							
-							    <!-- Initialize Swiper --> <!--이거 없으면 작동 안함-->
-							    <script>
-							      var swiper = new Swiper(".mySwiper", {
-							        spaceBetween: 30,
-							        centeredSlides: true,
-							        pagination: {
-							          el: ".swiper-pagination",
-							          clickable: true,
-							        },
-							        navigation: {
-							          nextEl: ".swiper-button-next",
-							          prevEl: ".swiper-button-prev",
-							        },
-							      });
-							
-							    </script> 
                     
                             </div> <!--메인 동영상과 사진 슬라이드-->
 
@@ -460,7 +496,6 @@
 
               </div>
               <input type="submit" value="공유하기" class="dropBoxSubmit" id="dropBoxSubmit" disabled/>
-              <script src="./post.js"></script>
             </form>
 
 
@@ -528,7 +563,6 @@
 
               </div>
               <input type="submit" value="수정하기" class="dropBoxSubmit2" >
-              <script src="./post.js"></script>
             </form>
 
 
@@ -536,6 +570,8 @@
         </div>
       </div>
     </div>
+
+	<!-- Initialize Swiper --> <!--이거 없으면 작동 안함-->
 
 
       </main>

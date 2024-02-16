@@ -2,10 +2,16 @@ package vo;
 
 public class BoardViewVO extends BoardVO  {
 	
-		// ½æ³×ÀÏ Ãß°¡.
-		private String realFileName;    // ¼­¹ö¿¡ ÀúÀåµÈ ÆÄÀÏ¸í
-		private String foreignFileName; // ¿ÜºÎ¿¡¼­ ¿Â(Å¬¶ó¿¡¼­) ÆÄÀÏ¸í 
+		private String realFileName;    // ì„œë²„ì— ì €ì¥ëœ íŒŒì¼ëª…
+		private String foreignFileName; // ì™¸ë¶€ì—ì„œ ì˜¨(í´ë¼ì—ì„œ) íŒŒì¼ëª…
+		private int bfidx; 				// ì´ë¯¸ì§€ê°€ ë“¤ì–´ì˜¨ ìˆœì„œ
 		
+		public int getBfidx() {
+			return bfidx;
+		}
+		public void setBfidx(int bfidx) {
+			this.bfidx = bfidx;
+		}
 		public String getRealFileName() {
 			return realFileName;
 		}
