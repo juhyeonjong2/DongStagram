@@ -20,7 +20,6 @@
 		// isValid는 형식에 맞는지만 확인하고 디비의 중복체크는 하지 않음.
 		// 따라서 여기서 한번더 디비 중복체크를 한다. (디비에서 하도록 유니크 처리하였음)
 		boolean isSuccess = MemberDAO.insert(member);
-
 		if(isSuccess)	
 		{
 			%>
@@ -32,7 +31,7 @@
 		}else{
 			%>
 			<script>
-				alert("회원가입을 실패하였습니다.");
+				alert("회원가입을 실패하였습니다. 2");
 				location.href="<%=request.getContextPath()%>"
 			</script>
 			<%

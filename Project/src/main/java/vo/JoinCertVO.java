@@ -4,6 +4,8 @@ public class JoinCertVO {
 	private String email;
 	private String cert;
 	private String expiretime;
+	private String verifyyn;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -21,6 +23,12 @@ public class JoinCertVO {
 	}
 	public void setExpiretime(String expiretime) {
 		this.expiretime = expiretime;
+	}
+	public String getVerifyyn() {
+		return verifyyn;
+	}
+	public void setVerifyyn(String verifyyn) {
+		this.verifyyn = verifyyn;
 	}
 	
 	

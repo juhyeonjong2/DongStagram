@@ -10,28 +10,41 @@ public class MemberDAO {
 		// 맴버 만들고
 		// 계정 만들고(디폴트값)
 		
-		boolean isSuccess = false;
+		boolean isSuccess = true;
 		try(DBManager db = new DBManager();)
 		{
 			
 			 if(db.connect(true)) // 트렌젝션 활성화.
 			 {
-			    String sql = "INSERT INTO member (mid, mpassword, mname, mnick, email, joindate,  mlevel, delyn) "
-						    + " VALUES(?, md5(?), ?, ?, ?, now(), ?, 'n')";
-				
-			    vo.setMlevel(1);
-				
-				if( db.prepare(sql)
-				  .setString(vo.getMid())
-				  .setString(vo.getMpassword())
-				  .setString(vo.getMname())
-				  .setString(vo.getMnick())
-				  .setString(vo.getEmail())
-				  .setInt(vo.getMlevel())
-				  .update() > 0)
-				{
-					isSuccess = true;
+				 // 이메일 인증 정보 확인.
+				 String sql = "SELECT * FROM joincert WHERE email=? AND verifyyn = 'y'";
+				 if(db.prepare(sql).setString(vo.getEmail()).read()) {
+					if(db.next()) {
+						isSuccess = true;	
+					}
 				}
+			 
+				 
+				if(isSuccess)
+			 	{
+				 
+				    sql = "INSERT INTO member (mid, mpassword, mname, mnick, email, joindate,  mlevel, delyn) "
+							    + " VALUES(?, md5(?), ?, ?, ?, now(), ?, 'n')";
+					
+				    vo.setMlevel(1);
+					
+					if( db.prepare(sql)
+					  .setString(vo.getMid())
+					  .setString(vo.getMpassword())
+					  .setString(vo.getMname())
+					  .setString(vo.getMnick())
+					  .setString(vo.getEmail())
+					  .setInt(vo.getMlevel())
+					  .update() <= 0)
+					{
+						isSuccess = false;
+					}
+		 		}
 				
 				if(isSuccess)
 				{
@@ -52,6 +65,13 @@ public class MemberDAO {
 							isSuccess = false; // 업데이트 실패인경우.
 						}
 				}
+				
+				if(isSuccess) {
+					// 인증 정보 삭제.
+					sql = "DELETE FROM joincert WHERE email=?";
+					db.prepare(sql).setString(vo.getEmail()).update(); // 삭제 여부는 상관없음.
+				}
+				
 				
 				if(isSuccess){
 					db.txCommit();
