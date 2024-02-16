@@ -34,6 +34,13 @@ public class AccountsController implements SubController {
 		 case "logout":
 			 isSuccess = logout(uris, request, response);
 			 break;
+		 case "duplicate":
+			 isSuccess = duplicate(uris, request, response);
+			 break;
+		 case "cert":
+			 isSuccess = cert(uris, request, response);
+			 break;
+		
 		 }
 		 
 		  
@@ -92,6 +99,59 @@ public class AccountsController implements SubController {
 		{
 		 request.getRequestDispatcher("/login/logout.jsp").forward(request, response);
 		 return true;
+		}
+		
+		return false;
+	}
+	
+	protected boolean duplicate(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(uris.length != 3)
+		{
+			return true; // 아무 동작도 안함.
+		}
+		
+		String method = request.getMethod();
+		if(!method.equals("POST")) // POST가 아니면 아무것도 안함.
+		{
+			return true; 
+		}
+		
+		if(uris[2].equals("id"))
+		{
+			request.getRequestDispatcher("/login/checkIdOk.jsp").forward(request, response);
+		}
+		else if(uris[2].equals("nick"))
+		{
+			request.getRequestDispatcher("/login/checkNickOk.jsp").forward(request, response);
+		}
+		else {
+			return false;
+		}
+		
+		return true;
+	}
+	
+		protected boolean cert(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(uris.length != 3)
+		{
+			return false;
+		}
+		
+		String method = request.getMethod();
+		boolean isPost = method.equals("POST");
+		
+		
+		if(uris[2].equals("email"))
+		{
+			if(isPost) {
+				request.getRequestDispatcher("/login/certEmailOk.jsp").forward(request, response);
+			}
+			else { // get
+				request.getRequestDispatcher("/login/certEmail.jsp").forward(request, response);
+			}
+			return true;
 		}
 		
 		return false;
