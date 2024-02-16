@@ -73,26 +73,56 @@
 <script>
 
 function load(o){
-		   
-		let bno = $(o).data('id');
-		console.log(bno);
 
-		
+		let bno = $(o).data('id');
+		// 가상경로로 수정(페이지 컨트롤러)
+		// 파일 이미지 넣기
 		$.ajax({
-			url:"<%=request.getContextPath()%>/member/detailBoard.jsp",
+			url:"<%=request.getContextPath()%>/member/detailBoard.jsp", 
 			type:"post",
-			data : {bno : bno},
+			data : {shortUrl : bno},
 			dataType : "json",
-			success:function(data){
-				console.log(data)
-			}
+			success:function(resData){
+				console.log(resData)	
+				console.log(resData.nick)
+				console.log(resData.imglist[0].bfrealname)
+				
+				$('.swiper-wrapper').empty();
+				
+				// ajax통신으로 반환 하는 값은 글 쓴사람 닉네임 + 파일명으로 가져와야 하는데 그걸 수만큼 전부 가져온다.
+				// 반복문 돌림 -> 닉네임은 안돌림 이미지는
+				//for(PageVO p : resData.imglist){
+				//for(let=i; i<resData.imglist.length; i++){
+				//let html = '<div class="swiper-slide"><img src="''"></div>';
+				//	$('.swiper-wrapper').append(html)
+				
+				let aa = "/Dongstagram"
+				for(let i =0; i<resData.imglist.length; i++){
+					
+					let html = '<div class="swiper-slide"><img src="'
+							 + aa + '/' + resData.nick + '/' + resData.imglist[i].bfrealname
+							 + '"></div>';
+					$('.swiper-wrapper').append(html)
+				 }
+				
+			 }
+	 });
+		
+		var swiper = new Swiper(".mySwiper", {
+			spaceBetween: 30,
+			centeredSlides: true,
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+			},
+			navigation: {
+		 		nextEl: ".swiper-button-next",
+				prevEl: ".swiper-button-prev",
+			},
 		});
-		// ajax통신으로 반환 하는 값은 글 쓴사람 닉네임 + 파일명으로 가져와야 하는데 그걸 수만큼 전부 가져온다.
-		//let html = '<div class="swiper-slide"><img src="'+닉네임/파일명+'"></div>';
-		let html = '<div class="swiper-slide">54</div>';
-		$('.swiper-wrapper').append(html)
-	     
+				
 	     $('#detailBoard').modal('show');
+	     
 	};
 
 </script>
@@ -148,12 +178,13 @@ function load(o){
                 		String bno = HashMaker.Base62Encoding(bno2);
                 		//받아온 bno를 인코딩해서 숫자를 수정 후 보냄
                 		// 그후 보낸곳에서 받은 수정된 bno를 디코딩해서 사용
-                		// 온클릭으로 bno를 보냄 -> 
+                		// 온클릭으로 bno를 보냄 
                 		
 %>
 
                 <li class="scanimg">
                   <a data-toggle="modal" data-id="<%=bno %>" class="open" onclick="load(this)"><img src="<%=request.getContextPath() +"/" + saveDir + "/" + realFileName%>">
+                  <input type="hidden" value="<%=saveDir %>" class="mnick">
                     <span class="scanimgHover">
                       <span>
                         <img src="<%=request.getContextPath()%>/icon/whiteHeart.png"><%=b.getBfavorite() %>
@@ -188,9 +219,6 @@ function load(o){
 							    <div class="swiper mySwiper">
 							      <div class="swiper-wrapper">
 							      <!-- 받아온 bno의있는 모든 이미지를 가져온다 -> 순서대로 나열한다  -->
-							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
-							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
-							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
 							        
 							      </div>
 							      <div class="swiper-button-next"></div>
@@ -198,23 +226,6 @@ function load(o){
 							      <div class="swiper-pagination"></div>
 							    </div>
 							
-							
-							    <!-- Initialize Swiper --> <!--이거 없으면 작동 안함-->
-							    <script>
-							      var swiper = new Swiper(".mySwiper", {
-							        spaceBetween: 30,
-							        centeredSlides: true,
-							        pagination: {
-							          el: ".swiper-pagination",
-							          clickable: true,
-							        },
-							        navigation: {
-							          nextEl: ".swiper-button-next",
-							          prevEl: ".swiper-button-prev",
-							        },
-							      });
-							
-							    </script> 
                     
                             </div> <!--메인 동영상과 사진 슬라이드-->
 
@@ -485,7 +496,6 @@ function load(o){
 
               </div>
               <input type="submit" value="공유하기" class="dropBoxSubmit" id="dropBoxSubmit" disabled/>
-              <script src="./post.js"></script>
             </form>
 
 
@@ -553,7 +563,6 @@ function load(o){
 
               </div>
               <input type="submit" value="수정하기" class="dropBoxSubmit2" >
-              <script src="./post.js"></script>
             </form>
 
 
@@ -561,6 +570,8 @@ function load(o){
         </div>
       </div>
     </div>
+
+	<!-- Initialize Swiper --> <!--이거 없으면 작동 안함-->
 
 
       </main>
