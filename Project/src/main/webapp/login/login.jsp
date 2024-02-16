@@ -8,7 +8,8 @@
     <title>로그인</title>
 	<%-- <link href="<%=request.getContextPath()%>/css/base.css" type="text/css" rel="stylesheet"> --%>
 	<link href="<%=request.getContextPath()%>/css/login/login.css" type="text/css" rel="stylesheet">
-
+	<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/js/login/login.js"></script>
 </head>
 <body>
     <div>
@@ -43,14 +44,13 @@
 
                 </div> <!--로그인-->
 
-
                 <div class="sign-up-htm"> <!--회원 가입 checkBox의 span은 오류메세지 적는 공간-->
 
                   <form name="joinfrm" action="<%=request.getContextPath()%>/accounts/join" method="post">
                     <div class="group">
-                      <label for="user" class="label">아이디</label>
-                      <input id="user" type="text" class="input" name="mid">
-                      <button class="checkBtn long">중복 확인</button>
+                      <label for="joinUser" class="label">아이디</label>
+                      <input id="joinUser" type="text" class="input" name="mid" onblur="checkId()" onchange="resetIdDupCheck()">
+                      <button type="button" class="checkBtn long" onclick="checkDuplicateIdWithUI(this)">중복 확인</button>
                       
                       <div class="checkBox">
                         <span></span>
@@ -58,8 +58,8 @@
 
                     </div>
                     <div class="group">
-                      <label for="pass" class="label">비밀번호</label>
-                      <input id="pass" type="password" class="input" data-type="password" name="mpassword">
+                      <label for="joinPass" class="label">비밀번호</label>
+                      <input id="joinPass" type="password" class="input" data-type="password" name="mpassword" onblur="checkPassword()">
 
                       <div class="checkBox">
                         <span></span>
@@ -67,8 +67,8 @@
 
                     </div>
                     <div class="group">
-                      <label for="pass" class="label">비밀번호 확인</label>
-                      <input id="pass" type="password" class="input" data-type="password">
+                      <label for="joinRepass" class="label">비밀번호 확인</label>
+                      <input id="joinRepass" type="password" class="input" data-type="password" onblur="checkRepassword()">
 
                       <div class="checkBox">
                         <span></span>
@@ -76,8 +76,8 @@
 
                     </div>
                     <div class="group">
-                      <label for="pass" class="label">이름</label>
-                      <input id="pass" type="text" class="input textname" name="mname">
+                      <label for="joinName" class="label">이름</label>
+                      <input id="joinName" type="text" class="input textname" name="mname" onblur="checkName()">
 
                       <div class="checkBox">
                         <span></span>
@@ -85,17 +85,24 @@
 
                     </div>
                     <div class="group">
-                      <label for="pass" class="label">닉네임</label>
-                      <input id="pass" type="text" class="input"  name="mnick">
-                      <button class="checkBtn long">중복 확인</button>
+                      <label for="joinNick" class="label">닉네임</label>
+                      <input id="joinNick" type="text" class="input"  name="mnick" onblur="checkNick()" onchange="resetNickDupCheck()">
+                      <button class="checkBtn long" onclick="checkDuplicateNickWithUI(this)">중복 확인</button>
+                       <div class="checkBox">
+                        <span></span>
+                      </div>
                     </div>
+                    
+                    
                     <div class="group">
-                      <label for="pass" class="label">이메일</label>
-                      <input id="pass" type="text" class="input"  name="email">
-                      <button class="checkBtn">인증번호 전송</button>
+                      <label for="joinEmail" class="label">이메일</label>
+                      <input id="joinEmail" type="text" class="input" name="email" onblur="checkEmail()">
+                      <button type="button" class="checkBtn" onclick="sendCertNumber(this)">인증번호 전송</button>
                       <div class="none"></div>
-                      <input id="pass" type="text" class="input">
-                      <button class="checkBtn">인증번호 확인</button>
+                      
+                      <!--  여기는 인증번호 전송을 누르면 나타나게 하자. -->
+                      <input id="joinCertNumber" type="text" class="input" style="display:none">
+                      <button id="joinCertNumberCheck" type="button" class="checkBtn" onclick="verifyCertNumber(this)" style="display:none">인증번호 확인</button>
 
                       <div class="checkBox">
                         <span></span>
