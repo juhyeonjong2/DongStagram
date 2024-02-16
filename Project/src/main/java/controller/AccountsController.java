@@ -34,6 +34,9 @@ public class AccountsController implements SubController {
 		 case "logout":
 			 isSuccess = logout(uris, request, response);
 			 break;
+		 case "acouunt":
+			 System.out.println("acouunt µé¾î¿È");
+			 
 		 }
 		 
 		  

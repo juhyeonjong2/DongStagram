@@ -312,7 +312,7 @@
                 </div>
               <div class="settingBottom">
                 <p>내 콘텐츠를 볼 수 있는 사람</p>
-                <a class="settingBt"  href="./setting2.html">
+                <a class="settingBt"  href="<%=request.getContextPath()%>/member/openyn.jsp">
                   <img src="<%=request.getContextPath()%>/icon/lock.png">
                   <span>계정 공개 범위</span>
                 </a>

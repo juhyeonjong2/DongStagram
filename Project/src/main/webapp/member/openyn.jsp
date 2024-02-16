@@ -1,12 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>설정</title>
-  <link rel="stylesheet" href="./base.css">
-  <link rel="stylesheet" href="./setting.css">
-  <link rel="stylesheet" href="./setting2.css">
+
+  <link href="<%=request.getContextPath()%>/css/setting/setting.css" type="text/css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/css/setting/setting2.css" type="text/css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/css/base.css" type="text/css" rel="stylesheet">
   <script src="./post.js"></script>
 
 </head>
@@ -17,28 +20,28 @@
       <h1 id="logo"><a href="#"></a></h1>
       <div id="tabmenu">
         <input type="radio" name="tab_radio" id="tab">
-          <label for="tab" class="tab3"><a href="./base.html"><img src="./icon/home.png">홈</a></label>
+          <label for="tab" class="tab3"><a href="./base.html"><img src="<%=request.getContextPath()%>/icon/home.png">홈</a></label>
 
             <input type="radio" name="tab_radio" id="tab1"/>
-            <label for="tab1" class="tab3"><img src="./icon/search.png">검색</label>
+            <label for="tab1" class="tab3"><img src="<%=request.getContextPath()%>/icon/search.png">검색</label>
 
             <input type="radio" name="tab_radio" id="tab2"/>
-            <label for="tab2" class="tab3"><a href="./message.html"><img src="./icon/message.png">메세지</a></label>
+            <label for="tab2" class="tab3"><a href="./message.html"><img src="<%=request.getContextPath()%>/icon/message.png">메세지</a></label>
 
             <input type="radio" name="tab_radio" id="tab3"/>
-            <label for="tab3" class="tab3"><img src="./icon/notice.png">알림</label>
+            <label for="tab3" class="tab3"><img src="<%=request.getContextPath()%>/icon/notice.png">알림</label>
 
             <input type="radio" name="tab_radio" id="tab4"/>
-            <label for="tab4" class="tab3"><a href="./navigation.html"><img src="./icon/scan.png">탐색 탭</a></label>
+            <label for="tab4" class="tab3"><a href="./navigation.html"><img src="<%=request.getContextPath()%>/icon/scan.png">탐색 탭</a></label>
 
             <input type="radio" name="tab_radio" id="tab5"/>
-            <label for="tab5" class="tab3"><a data-toggle="modal" href="#postPopup"><img src="./icon/post.png">만들기</a></label>
+            <label for="tab5" class="tab3"><a data-toggle="modal" href="#postPopup"><img src="<%=request.getContextPath()%>/icon/post.png">만들기</a></label>
             
             <input type="radio" name="tab_radio" id="tab6"/>
-            <label for="tab6" class="tab3"><a href="./search3.html"><img src="./icon/profile.png">프로필</a></label>
+            <label for="tab6" class="tab3"><a href="./search3.html"><img src="<%=request.getContextPath()%>/icon/profile.png">프로필</a></label>
 
             <input type="radio" name="tab_radio" id="tab7"/>
-            <label for="tab7" class="tab3"><img src="./icon/more.png">더 보기</label>
+            <label for="tab7" class="tab3"><img src="<%=request.getContextPath()%>/icon/more.png">더 보기</label>
         
         <section id="nav1">
           <h4>검색</h4>
