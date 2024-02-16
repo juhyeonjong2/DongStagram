@@ -160,7 +160,7 @@
 		let errorSpan = divParent.find(".checkBox span");
 		let value = me.val();
 		
-		const regex = /^[[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]a-zA-Z0-9]*$/; // 한글, 숫자, 영어만 
+		const regex = /^[가-힣a-zA-Z0-9]*$/; // 한글, 숫자, 영어만 
 		let regRs = regex.test(value);
 		
 		if(value == ""){
@@ -245,7 +245,7 @@
 		else {
 			errorSpan.text("사용가능합니다.");
 			errorSpan.css("color", "green");
-			idDupChecked = true;
+			nickDupChecked = true;
 		}
 		
 	}
@@ -387,9 +387,13 @@
 			errorSpan.text("중복된 이메일 입니다.");
 			errorSpan.css("color", "red");
 		}
+		else if(reason == "CERT_ERROR"){
+			errorSpan.text("인증 오류입니다.");
+			errorSpan.css("color", "red");
+		}
 		else if(reason == "CERT_SUCCESS"){
 			errorSpan.text("인증되었습니다.");
-			errorSpan.css("color", "red");
+			errorSpan.css("color", "green");
 		}
 		else { // 이유 삭제.
 			errorSpan.text("");
@@ -446,8 +450,8 @@
 			data : {email:emailValue, cert:value},
 			success : function(resData) 
 			{
-				// ws comment - 여기 작업중
-				console.log(resData);
+				let obj =JSON.parse(resData.trim());	
+				printEmailCert(obj.reason);
 			},
 			error : function() {
 				//consloe.log("FAIL");
@@ -458,6 +462,17 @@
 	
 	
 	
+	
+	function submitValidation()
+	{
+		if(checkId() & checkPassword() & checkRepassword() &
+		   checkName() & checkNick() & checkEmail())
+		{
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	
 	

@@ -46,7 +46,7 @@
 
                 <div class="sign-up-htm"> <!--회원 가입 checkBox의 span은 오류메세지 적는 공간-->
 
-                  <form name="joinfrm" action="<%=request.getContextPath()%>/accounts/join" method="post">
+                  <form name="joinfrm" action="<%=request.getContextPath()%>/accounts/join" method="post" onsubmit="return submitValidation();">
                     <div class="group">
                       <label for="joinUser" class="label">아이디</label>
                       <input id="joinUser" type="text" class="input" name="mid" onblur="checkId()" onchange="resetIdDupCheck()">
