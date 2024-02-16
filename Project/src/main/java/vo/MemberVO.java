@@ -13,6 +13,8 @@ public class MemberVO {
 	private String delyn;
 	private String mpassword;
 	private String token; // 로그인시 넣어주는 인증 토큰
+	
+	
 	public int getMno() {
 		return mno;
 	}
