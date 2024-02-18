@@ -9,8 +9,22 @@ public class ReplyVO {
 	private String rname; //작성자 닉네임
 	private int mno; // 회원번호
 	private int bno; // 글 번호
+	private String rcontent; //글 내용
+	private int previousDate; //접속날짜-작성날짜
 	
 	
+	public int getPreviousDate() {
+		return previousDate;
+	}
+	public void setPreviousDate(int previousDate) {
+		this.previousDate = previousDate;
+	}
+	public String getRcontent() {
+		return rcontent;
+	}
+	public void setRcontent(String rcontent) {
+		this.rcontent = rcontent;
+	}
 	public int getRno() {
 		return rno;
 	}

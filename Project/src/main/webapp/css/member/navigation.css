@@ -115,3 +115,6 @@ li{margin: 0; padding: 0;}
 }
 #scanMain .scanimg .scanimgHover > span img{width: 20px; height: 20px;}
 #scanMain .scanimg .scanimgHover > span img:last-child{margin-left: 15px;}
+
+/*submit버튼 숨기기*/
+.noneBtn{opacity: 0;}

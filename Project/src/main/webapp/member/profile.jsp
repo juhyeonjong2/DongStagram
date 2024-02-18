@@ -73,8 +73,8 @@
 <script>
 
 function load(o){
-
 		let bno = $(o).data('id');
+		$('#inputBno').attr('value',bno);
 		// 가상경로로 수정(페이지 컨트롤러)
 		// 파일 이미지 넣기
 		$.ajax({
@@ -83,18 +83,12 @@ function load(o){
 			data : {shortUrl : bno},
 			dataType : "json",
 			success:function(resData){
-				console.log(resData)	
-				console.log(resData.nick)
-				console.log(resData.imglist[0].bfrealname)
+			//	console.log(resData)	
+			//	console.log(resData.nick)
+			//	console.log(resData.imglist[0].bfrealname)
 				
+				//이미지 부분
 				$('.swiper-wrapper').empty();
-				
-				// ajax통신으로 반환 하는 값은 글 쓴사람 닉네임 + 파일명으로 가져와야 하는데 그걸 수만큼 전부 가져온다.
-				// 반복문 돌림 -> 닉네임은 안돌림 이미지는
-				//for(PageVO p : resData.imglist){
-				//for(let=i; i<resData.imglist.length; i++){
-				//let html = '<div class="swiper-slide"><img src="''"></div>';
-				//	$('.swiper-wrapper').append(html)
 				
 				let aa = "/Dongstagram"
 				for(let i =0; i<resData.imglist.length; i++){
@@ -106,8 +100,36 @@ function load(o){
 				 }
 				
 			 }
-	 });
+		 });
 		
+		//댓글 생성
+		$.ajax({
+			url:"<%=request.getContextPath()%>/member/detailBoard.jsp", 
+			type:"post",
+			data : {shortUrlReply : bno},
+			dataType : "json",
+			success:function(resData){
+				// 댓글 부분
+				$('.popupviewMain').empty();
+
+				console.log(resData.replylist.length);
+				for(let i = 0; i<resData.replylist.length; i++){
+					
+					let html = '<div class="mainTop"><img src="#" class="profile"> '
+							 + '<a href="#" class="main1name">' + resData.replylist[i].rname + '</a> '
+							 + '<div class="popupViewReply">' + resData.replylist[i].rcontent + '</div> '
+							 + '</div>'
+							 + '<span class="popupviewMainSpan1">' + resData.replylist[i].previousDate + '일 전</span>'
+							 + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
+							 + '<a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>'
+					 			 
+					$('.popupviewMain').append(html)
+				 } // for문
+			} //success
+
+	 	});
+			
+		//swiper 생성
 		var swiper = new Swiper(".mySwiper", {
 			spaceBetween: 30,
 			centeredSlides: true,
@@ -121,10 +143,59 @@ function load(o){
 			},
 		});
 				
+		// 팝업 열기
 	     $('#detailBoard').modal('show');
 	     
 	};
 
+	
+	//댓글 엔터키
+	function enterkey(e){
+		
+		const code = e.code;
+		if(code == 'Enter'){
+			let bno = $('#inputBno').attr('value');
+			let text = $('#replyText').val();
+			let nick = $('#inputMnick').attr('value');
+			$.ajax({
+				url:"<%=request.getContextPath()%>/member/replyOk.jsp",
+				type:"post",
+				data : {shortUrl : bno, reply : text, nick : nick},
+				success: function(data){
+					console.log(data.trim());
+					if(data.trim() == true){
+						
+					}
+				}
+				
+			});
+			
+			
+			// 다시 팝업 작성하기
+			$('.swiper-wrapper').empty(); //이미지만 지워짐
+			
+				
+			
+			
+			//swiper 생성
+			var swiper = new Swiper(".mySwiper", {
+				spaceBetween: 30,
+				centeredSlides: true,
+				pagination: {
+					el: ".swiper-pagination",
+					clickable: true,
+				},
+				navigation: {
+			 		nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev",
+				},
+			});
+			// 다시 팝업 열기
+		    $('#detailBoard').modal('show');			
+			
+        }
+	}
+	
 </script>
 
 
@@ -134,8 +205,7 @@ function load(o){
     <!--header-->
     <%@ include file="/include/header.jsp"%>
     <!-- css순서문제로 여기에 놨는데 일단 돌아가서 임시로 여기에 둠 -->
-    <link href="<%=request.getContextPath()%>/css/post/post.css" type="text/css" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/css/base.css" type="text/css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/css/post/post.css" type="text/css" rel="stylesheet">  
     <link href="<%=request.getContextPath()%>/css/member/navigation.css" type="text/css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/member/profile.css" type="text/css" rel="stylesheet">
     <!--header-->
@@ -243,11 +313,11 @@ function load(o){
 
                             <!--댓글 창-->
                             <div class="popupviewMain">
-                              <!--댓글이 없을경우 보여주는 글-->
+                              <!--댓글이 없을경우 보여주는 글
                               <div class="notReply">
                                   <p>아직 댓글이 없습니다.</p>
                                   <h6>댓글을 남겨보세요</h6>
-                              </div>
+                              </div>-->
 
                                 <!--for문으로 복사 될 페이지-->
                                     <div class="mainTop">
@@ -274,34 +344,7 @@ function load(o){
                                           <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
                                         </div>
                                     <!--for문으로 복사 될 페이지-->
-                                    
-                                    
-                                    <!--임시 페이지-->
-                                    <div class="mainTop">
-                                      <img src="./자산 4.png" class="profile">
-                                      <a href="#" class="main1name">닉네임</a>
-                                      <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                   </div> <!--상단 태그-->
-                                   <span class="popupviewMainSpan1">6일</span>
-                                   <span class="popupviewMainSpan3">| 댓글달기 |</span>
-                                   <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
-
-                                   <!--만약 대댓글이(태그를 통해) 달릴 경우 보여줄 글 -->
-
-                                    <div class="reReply">---댓글 보기(?개)</div> 
-
-                                      <div class="replyblock">
-                                          <div class="mainTop">
-                                            <img src="./자산 4.png" class="profile">
-                                            <a href="#" class="main1name">닉네임</a>
-                                            <div class="popupViewReply">대댓글입니다.</div>
-                                        </div> <!--상단 태그-->
-                                        <span class="popupviewMainSpan1">6일</span>
-                                        <span class="popupviewMainSpan3">| 댓글달기 |</span>
-                                        <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
-                                      </div>
-                                    <!--임시 페이지-->
-                                    
+                                   
                                       <!--댓글이 많다면 보여줄 아이콘-->
                                       <div class="replyPlus">
                                         <img src="./icon/replyPlus.png">
@@ -317,10 +360,10 @@ function load(o){
                                     <span class="popupviewBottomSpan1">좋아요 11개</span>
                                     <span class="popupviewBottomSpan2">6일 전</span>
                                 </div>
-                                <form action="#">
-                                    <input type="text" placeholder="   댓글달기...">
-                                </form>
 
+                                    <input type="text" placeholder="   댓글달기..." onkeyup="enterkey(event)" id="replyText">
+                                    <input type="hidden" id="inputBno" value=""> <!-- 인코딩된 bno라 괜찮을듯 -->
+                                    <input type="hidden" id="inputMnick" value="<%=member.getMnick()%>"> <!-- 닉네임을 넘기는거라 괜찮을 듯 -->
                             </div>
                         </div>
                     </div> <!--popupView-->
