@@ -6,8 +6,10 @@ public class HomeViewVO extends BoardVO {
 	// member 정보
 	String profileImage;    // 프로필 사진
 	String nick; 				   // 닉네임
-	
+	String mfavorite;     //호출자가 좋아요를 설정했는지.
+
 	ReplyVO rootReply;     // 글 내용 (idx == 0)
+	
 	
 	// 미디어 리스트.
 	ArrayList<BoardAttachVO> mediaList = new ArrayList<BoardAttachVO>();
@@ -15,6 +17,13 @@ public class HomeViewVO extends BoardVO {
 	// 리플레이
 	ArrayList<ReplyVO> replyList = new ArrayList<ReplyVO>();
 
+	public String getMfavorite() {
+		return mfavorite;
+	}
+
+	public void setMfavorite(String mfavorite) {
+		this.mfavorite = mfavorite;
+	}
 	public String getProfileImage() {
 		return profileImage;
 	}

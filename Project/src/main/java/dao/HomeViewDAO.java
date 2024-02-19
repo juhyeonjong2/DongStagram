@@ -13,17 +13,19 @@ public class HomeViewDAO {
 	// 2.내가 팔로우한 유저들의 게시물 들고오기
 	// 3.내가 팔로우한 유저들의 게시물 중 최근 3일내의 게시물만 들고오기.
 	// 4.내가 팔로우한 유저들의 게시물 중 최근 3일내의 게시물 중에 확인을 안했거나 확인한지 1일이 지나지 않은 게시물만 가져오기
-	public static ArrayList<HomeViewVO> list(){
+	public static ArrayList<HomeViewVO> list(int mno){
 		ArrayList<HomeViewVO> list = new ArrayList<HomeViewVO>();
 		
+		// mno가 좋아요 한 것인지도 조사.
 		try(DBManager db = new DBManager();)
 		{
 			if(db.connect()) {
 				//1. 블럭되지 않은 모든 게시물 목록 가져오기
-				String sql = "SELECT bno, B.mno as mno, shorturi, bhit, bfavorite, wdate, mnick, mfrealname "
+				String sql = "SELECT B.bno as bno, B.mno as mno, shorturi, bhit, bfavorite, wdate, mnick, mfrealname, F.bno as favorite "
 						+ "FROM board as B "
 						+ "LEFT JOIN member as M ON B.mno = M.mno "
 						+ "LEFT JOIN memberattach as A ON M.mno = A.mno "
+						+ "LEFT JOIN favorite as F ON F.bno = B.bno "
 						+ "WHERE (B.blockyn is null or B.blockyn = 'n') ";
 				
 				
@@ -39,6 +41,8 @@ public class HomeViewDAO {
 						// homeview
 						vo.setProfileImage(db.getString("mfrealname"));
 						vo.setNick(db.getString("mnick"));
+						vo.setMfavorite(db.getInt("favorite")>0?"y":"n");
+						
 						list.add(vo);
 					}
 				}
@@ -112,10 +116,11 @@ public class HomeViewDAO {
 			if(db.connect()) {
 				// pageUrl을 가지고있는 board찾기.
 				//1. 게시물 정보
-				String sql = "SELECT bno, B.mno as mno, shorturi, bhit, bfavorite, wdate, mnick, mfrealname "
+				String sql = "SELECT B.bno as bno, B.mno as mno, shorturi, bhit, bfavorite, wdate, mnick, mfrealname, F.bno as favorite "
 						+ "FROM board as B "
 						+ "LEFT JOIN member as M ON B.mno = M.mno "
 						+ "LEFT JOIN memberattach as A ON M.mno = A.mno "
+						+ "LEFT JOIN favorite as F ON F.bno = B.bno "
 						+ "WHERE B.shorturi = ? AND (B.blockyn is null or B.blockyn = 'n') ";
 				
 				
@@ -131,6 +136,7 @@ public class HomeViewDAO {
 						// homeview
 						vo.setProfileImage(db.getString("mfrealname"));
 						vo.setNick(db.getString("mnick"));
+						vo.setMfavorite(db.getInt("favorite")>0?"y":"n");
 					}
 				}
 				

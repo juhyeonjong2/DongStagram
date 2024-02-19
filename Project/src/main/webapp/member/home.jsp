@@ -21,7 +21,7 @@
 	// 4차. 내가 팔로우한 유저들의 게시물 중 최근 3일내의 게시물 중에 
 	//      확인을 안했거나 확인한지 1일이 지나지 않은 게시물만 가져오기
 	
-	ArrayList<HomeViewVO> viewList = HomeViewDAO.list();
+	ArrayList<HomeViewVO> viewList = HomeViewDAO.list(member.getMno());
 %>
 
 <!DOCTYPE html>
@@ -84,8 +84,13 @@
 				<div> 
 					<div class="main2">
 						<!--  좋아요 버튼기능? -->
-						<img src="<%=request.getContextPath()%>/icon/heart.png" class="good">
-						<a href="<%=boardPageLink%>"><img src="<%=request.getContextPath()%>/icon/reply.png"></a>
+						<form class="favoriteFrm" onsubmit="return false;">
+							<input type='hidden' name='bno' value="<%=vo.getBno()%>">
+							<input type='hidden' name='req' value="1">
+							<img src="<%=request.getContextPath()%>/icon/heart.png" class="good favoriteImg_<%=vo.getBno()%>" onclick="sendFavorite(this)">
+							<a href="<%=boardPageLink%>"><img src="<%=request.getContextPath()%>/icon/reply.png"></a>
+						</form>
+						
 					</div>
 					<div class="main3">
 						<p> 좋아요 <span class="favorite_<%=vo.getBno()%>"></span>개</p>
@@ -131,7 +136,8 @@
 			<script>
 				initSwiper("mySwiper_<%=vo.getBno()%>");
 				setWriteDate("writetime_<%=vo.getBno()%>", "<%=vo.getWdate()%>");
-				setFavorite("favorite_<%=vo.getBno()%>", <%=vo.getBfavorite()%>);
+				setFavoriteCount("favorite_<%=vo.getBno()%>", <%=vo.getBfavorite()%>);
+				setFavorite("favoriteImg_<%=vo.getBno()%>", "<%=vo.getMfavorite()%>");
 				<% 
 				if(rootReply != null) {
 				%>

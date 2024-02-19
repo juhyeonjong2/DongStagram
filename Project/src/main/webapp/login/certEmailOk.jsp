@@ -5,7 +5,7 @@
 <%@ page import="java.util.Map"%>
 <%@ page import="ezen.util.TypeChecker" %>
 <%@ page import="dao.JoinCertDAO" %>
-
+ 
 <%
 	String email = request.getParameter("email");
 	String cert = request.getParameter("cert");
