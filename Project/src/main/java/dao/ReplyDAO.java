@@ -55,5 +55,29 @@ public class ReplyDAO {
 		
 		return isSuccess;
 	}
+	
+	public static int getReplyCount(int bno) {
+		
+		int count = 0;
+
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect(true)) 
+			{
+				String sql = "SELECT Count(*) as count FROM reply WHERE bno=? AND ridx>0";
+				
+				if(db.prepare(sql).setInt(bno).read()) {
+					if(db.next()) {
+						count = db.getInt("count");
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 
 }

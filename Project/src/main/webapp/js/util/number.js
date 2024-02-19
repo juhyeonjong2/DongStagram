@@ -20,6 +20,9 @@
 		 
 		 wordIndex = i;
          resultValue = unitResult.toFixed(1);
+         if(resultValue% 1 === 0){
+			resultValue = unitResult.toFixed(0);
+		 }
     }
     
     return resultValue + unitWords[wordIndex];

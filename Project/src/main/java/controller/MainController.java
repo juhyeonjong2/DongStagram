@@ -19,7 +19,7 @@ import vo.MemberVO;
 // 따라서 패턴으로 매칭해서 디폴트 서블릿을 오버라이딩 하지 않아야함.
 // (참고 : https://devpanda.tistory.com/95)
 //@WebServlet("/")
-@WebServlet(urlPatterns = { "/page/*", "/direct/*", "/user/*", "/accounts/*", "/reply/*", "/explore" }) // 가상경로만 여기에 넣기. 실제 경로는 이
+@WebServlet(urlPatterns = { "/page/*", "/direct/*", "/user/*", "/accounts/*", "/reply/*", "/favorite/*", "/explore" }) // 가상경로만 여기에 넣기. 실제 경로는 이
 																							// 가상경로를 포함하면 안됨. (무한루프걸림)
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -67,9 +67,11 @@ public class MainController extends HttpServlet {
 			ReplyController replyContoller = new ReplyController();
 			replyContoller.doAction(uris, request, response);
 			break;
-		case "explore": // 유저의 프로필 페이지로 이동. (실제경로 member/profile.jsp)
-			// UserController userContoller = new UserController();
-			// userContoller.doAction(uris, request, response);
+		case "favorite": // 댓글. (실제경로 board/reply.jsp)
+			FavoriteController favoriteContoller = new FavoriteController();
+			favoriteContoller.doAction(uris, request, response);
+			break;
+		case "explore": // 없어질 운명
 			break;
 
 		default: // 그외에 모든 경로는 루트로 리다이렉트 시킴(홈 or 로그인페이지)

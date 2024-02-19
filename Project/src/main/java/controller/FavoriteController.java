@@ -6,13 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ReplyController implements SubController {
+public class FavoriteController implements SubController {
 
 	@Override
 	public void doAction(String[] uris, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		 
-		 System.out.println("ReplyController::doAction");
+		 System.out.println("FavoriteController::doAction");
 		 
 		 for(String uri : uris) { 
 			 System.out.println(uri); 
@@ -28,9 +28,10 @@ public class ReplyController implements SubController {
 		 
 		 switch(uris[1]) 
 		 {
-		 case "hot":
-			 isSuccess = hotReply(uris, request, response);
+		 case "touch":
+			 isSuccess = touch(uris, request, response);
 			 break;
+		
 		 }
 		 
 		  
@@ -40,7 +41,7 @@ public class ReplyController implements SubController {
 	
 	}
 	
-	protected boolean hotReply(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected boolean touch(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
 		if(uris.length == 2)
