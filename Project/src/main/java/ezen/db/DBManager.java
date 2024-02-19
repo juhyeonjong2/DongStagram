@@ -60,8 +60,8 @@ public class DBManager implements AutoCloseable{
 		this.conn = conn;
 	}
 
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setUserID(String userID) { 
+		this.userID = userID;			   
 	}
 
 	public void setUserPW(String userPW) {

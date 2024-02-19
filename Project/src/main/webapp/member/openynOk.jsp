@@ -1,15 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>
-<%@ page import="vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
-<%
-	MemberVO member = (MemberVO)session.getAttribute("login");
-%>
+<%@ page import="vo.MemberVO"%>
+<%@ page import="ezen.db.DBManager" %>
 
 <%
+	MemberVO member = (MemberVO)session.getAttribute("login");
+	int mno = member.getMno();
 	String openyn = request.getParameter("openyn");
 	
-	if(member.openyn="y")){
-		//if로 openyn = y면 비공개  openyn = n이면 공개 기본상태는 n 으로 만들거ㅛㅅ
+
+	//db연결
+	DBManager db = new DBManager();
+	
+	if(db.connect()) {
+		String sql = "UPDATE  account set openyn = ? WHERE mno=? ";
+		
+	
+		int result = db.prepare(sql).setString(openyn).setInt(mno).update();
+		
+		db.release();
+		db.close();
+		
+		out.print(result);
+	}else{
+		out.print(0);
 	}
 	
 %>
