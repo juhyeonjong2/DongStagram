@@ -26,7 +26,7 @@ function loadNextPages(){
 	// ws comment - 여기 작업중 페이징 처리
 	$.ajax(
 	{
-		url: "/Dongstagram//hot",
+		url: "/Dongstagram/data/home/views",
 		type: "post",
 		data: params,
 		success: function(resData) {
@@ -155,7 +155,7 @@ function sendHotReply(o) {
 	let params = frm.serialize();
 	$.ajax(
 		{
-			url: "/Dongstagram/reply/hot",
+			url: "/Dongstagram/data/reply/hot",
 			type: "post",
 			data: params,
 			success: function(resData) {
@@ -185,7 +185,7 @@ function sendFavorite(o){
 	let params = frm.serialize();
 	$.ajax(
 		{
-			url: "/Dongstagram/favorite/touch",
+			url: "/Dongstagram/data/favorite/toggle",
 			type: "post",
 			data: params,
 			success: function(resData) {
