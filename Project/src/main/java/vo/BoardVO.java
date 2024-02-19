@@ -3,8 +3,6 @@ package vo;
 public class BoardVO {
 	private int bno; //글번호
 	private int mno; //회원번호
-	private String boardReply; //글 작성할 때 쓴 글      // ws comment : 필요없는 정보. reply 0번이 해당글
-	private String blockyn; //블록여부					// ws comment : 필요없는 정보. DB에서 가져올때 해당값이 y면 가져오지 않음.
 	private int bhit; //조회수
 	private String shorturi; //짧은 경로 인데 어디에 쓰는지 잘 모르겠다.
 	private String wdate; //작성일
@@ -24,12 +22,6 @@ public class BoardVO {
 	}
 	public void setMno(int mno) {
 		this.mno = mno;
-	}
-	public String getBlockyn() {
-		return blockyn;
-	}
-	public void setBlockyn(String blockyn) {
-		this.blockyn = blockyn;
 	}
 	public int getBhit() {
 		return bhit;

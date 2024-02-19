@@ -32,17 +32,8 @@
 	//파일 업로드 참고
 	//파일은 다른방법으로 파라미터를 가져와야하는데 빈으로 될지 몰라서 일단 원래방식으로 작성
 	
-	
-	String saveDir = member.getMnick(); // member 닉네임
-	
-	//닉네임이 널이면 아래 실행
-	if(saveDir == null){
-	%>
-		<script>
-			location.href="<%=request.getContextPath()%>/login/login.jsp";
-		</script>
-	<%
-	}
+	String saveDir = "upload/" + member.getMnick(); // member 닉네임
+
 	
 	String saveDirectoryPath = application.getRealPath(saveDir); // 절대 경로 안쓰기위해 톰캣쪽에 저장됨. (디비 합치면 못씀.) 
 	// 위 경로에  폴더가 있는지 확인 후 없다면 폴더 생성
