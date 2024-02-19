@@ -27,6 +27,7 @@ public class PageDAO {
 						if(db.next()){ //next로 차근차근 전부 가져온다.
 							vo = new PageVO(); //값을 넣기위한 생성자
 							vo.setNick(db.getString("mnick")); //vo안에 닉네임을 집어넣는다.
+							vo.setBno(bno);
 					 }
 				 }
 				 
@@ -113,6 +114,31 @@ public class PageDAO {
 		
 		return vo; 
 	}
+	
+	
+	
+	// 댓글을 삭제하는 메소드
+		public static boolean deleteReply(int rno, int mno) {
+			
+			boolean isSuccess = false;
+
+			try(DBManager db = new DBManager();){
+				if(db.connect()){
+					
+					// 댓글을  지운다.
+					String sql = " delete from reply WHERE rno = ? and mno = ?;";
+					if( db.prepare(sql).setInt(rno).setInt(mno).update() > 0){
+						isSuccess = true; 
+					}  
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return isSuccess; 
+		}
+	
 	
 	
 }

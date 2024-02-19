@@ -15,6 +15,7 @@ public class PageVO extends BoardVO{
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
+	
 
 	// 이미지 받아올 리스트
 	 public ArrayList<BoardAttachVO> imglist = new ArrayList<BoardAttachVO>();

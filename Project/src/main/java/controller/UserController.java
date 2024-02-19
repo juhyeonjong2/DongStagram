@@ -35,8 +35,6 @@ public class UserController implements SubController {
 		// 상속 boxing unboxing
 		//session.getAttribute("login"); = request.getSession().getAttribute("login");
 		MemberVO member = (MemberVO)request.getSession().getAttribute("login");
-		System.out.println(member.getMnick());
-		System.out.println(uris[1]);
 		// 위 세션을 통해 클릭해온 닉네임과 세션의 닉네임이 같은지 비교 후 같다면 내 프로필 아니라면 타인의 프로필에?해서mno보내기
 		
 		if(uris.length == 2)

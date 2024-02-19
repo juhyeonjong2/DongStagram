@@ -14,7 +14,6 @@
 <%@ page import="dao.PageDAO"%>
 
 <%
-
 	String bnoParam = request.getParameter("shortUrl"); 
 	int bno = 0;
 	if(bnoParam != null  && !bnoParam.equals("")){
@@ -24,6 +23,7 @@
 	
 	// 이미지 가져오기
 	if(bno != 0){
+
 		PageVO vo = PageDAO.findOne(bno); // 타입공부
 		
 		// jackson사용해서 json만들기
@@ -31,7 +31,7 @@
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);	
 
 		String json = mapper.writeValueAsString(vo);
-
+		//System.out.println(json);
 		out.print(json);
 	}
 	
@@ -55,6 +55,28 @@
 
 		out.print(json);
 	}
+	
+	
+	
+	
+	MemberVO member = (MemberVO)session.getAttribute("login");
+	
+	String rnoParam = request.getParameter("rno"); 
+	int rno = 0;
+	if(rnoParam != null  && !rnoParam.equals("")){
+		rno = Integer.parseInt(rnoParam);
+	}
+	
+	//댓글 지우기
+	if(rno != 0){
+		boolean isSuccess = PageDAO.deleteReply(rno, member.getMno()); 
+		out.print(isSuccess);
+	}
+	
+	
+	
+	
+	
 
 	
 %>
