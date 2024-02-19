@@ -158,19 +158,13 @@
   </header> <!--header-->
 
   <main>
-    
+
     <div class="inner2 clearfix">
       <h3>계정 공개 범위</h3>
       <div id="settingTop">
         <span>비공개 계정</span>
-        <input type='checkbox' id='toggle2' class='tgl' onchange="sendData(this)";/>
+        <input type='checkbox' id='toggle2' class='tgl'  />
         <label for='toggle2'></label>
-
-        
-          
-
-       
-        
       </div>
 
       <div class="textBoxP">
@@ -189,28 +183,4 @@
 
   </main>
 </body>
-  <script>
-    function sendData(e){
-      // 진짜가는지 확인
-      alert("!");
-
-      // 프론트에서 어카운트의 
-      $(document).ready(function(){
-	$.ajax({
-		url : "/Dongstagram/accounts/acouunt/openyn",
-			type : "post",
-			data : {account:acouuntValue, openyn:value},
-			success : function(result) 
-			{
-				console.log(goData);
-			},
-			error : function(error) {
-        console.error(error)
-			}
-		});
-	
-});
-    }
-
-  </script>
 </html>
