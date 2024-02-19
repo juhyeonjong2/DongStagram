@@ -20,7 +20,8 @@ public class ReplyVO {
 		this.previousDate = previousDate;
 	}
 	public String getRcontent() {
-		return rcontent;
+		// 개행문자를 <br>로 변경해서 리턴
+		return rcontent.replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
 	}
 	public void setRcontent(String rcontent) {
 		this.rcontent = rcontent;
@@ -74,3 +75,4 @@ public class ReplyVO {
 		this.bno = bno;
 	}
 }
+
