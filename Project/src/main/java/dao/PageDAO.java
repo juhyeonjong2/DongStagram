@@ -2,14 +2,18 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import ezen.db.DBManager;
 import vo.BoardAttachVO;
 import vo.MemberVO;
 import vo.PageVO;
+import vo.ReplyVO;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 public class PageDAO {
-
+	
+	//이미지를 가져오는 메소드
 	public static PageVO findOne(int bno) {
 		
 		PageVO vo  = null; 
@@ -49,6 +53,49 @@ public class PageDAO {
 		return vo; 
 	}
 	
+	
+	
+	// 댓글을 가져오는 메소드
+	public static PageVO findReply(int bno) {
+		PageVO vo = new PageVO();
+		
+        // 현재 날짜 구하기        
+		LocalDate now = LocalDate.now();
+		// 포맷 정의
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		// 포맷 적용 
+		String formatedNow = now.format(formatter);
+		
+		int Tnow = Integer.parseInt(formatedNow);
+		
+		
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()){	
+				// 가공된 날짜, 쓴 사람 닉네임, 댓글내용을 가져온다
+				 String sql = " SELECT r.rcontent, m.mnick, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate FROM board as b"
+				 		+ " inner join member as m on b.mno = m.mno inner join reply as r on b.mno = r.mno"
+				 		+ " WHERE b.bno = ?";
+				 if( db.prepare(sql).setInt(bno).read()){
+						while(db.next()){ //next로 차근차근 전부 가져온다.	
+							ReplyVO reply = new ReplyVO(); 
+							reply.setRname(db.getString("mnick"));
+							int Rnow = db.getInt("rdate");
+							reply.setPreviousDate(Tnow - Rnow);
+							reply.setRcontent(db.getString("rcontent"));
+							vo.replylist.add(reply);
+						}
+				 }
+				 
+				 
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vo; 
+	}
 	
 	
 }
