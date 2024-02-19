@@ -40,6 +40,9 @@ public class AccountsController implements SubController {
 		 case "cert":
 			 isSuccess = cert(uris, request, response);
 			 break;
+		 case "setting":
+			 isSuccess = setting(uris, request, response);
+			 break;
 		
 		 }
 		 
@@ -151,6 +154,27 @@ public class AccountsController implements SubController {
 			else { // get
 				request.getRequestDispatcher("/login/certEmail.jsp").forward(request, response);
 			}
+			return true;
+		}
+		
+		return false;
+	}
+		
+	protected boolean setting(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(uris.length != 3)
+		{
+			return false;
+		}
+		
+		if(uris[2].equals("profile"))
+		{
+			request.getRequestDispatcher("/member/profileModify.jsp").forward(request, response);
+			return true;
+		}
+		else if(uris[2].equals("openyn"))
+		{
+			request.getRequestDispatcher("/member/openynOk.jsp").forward(request, response);
 			return true;
 		}
 		
