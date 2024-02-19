@@ -8,6 +8,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="ezen.db.DBManager" %>
 <%@ page import="java.io.File" %>
+<%@ page import="ezen.util.HashMaker" %>
 <%
 	request.setCharacterEncoding("UTF-8"); //인코딩
 %>
@@ -117,6 +118,27 @@
 							 .update(true) <= 0) {
 						isSuccess = false;
 					}
+					
+				/*
+				// ws comment - 위내용 변경은 이렇게하는게 더좋음
+				// sql문을 보기 어렵게 쓰는거보다는 아래에서 분기시키는게 더 좋음.
+				sql = "INSERT INTO board(mno,bopen,fopen,rallow,wdate,bhit,bfavorite) "
+					+ " VALUES(?, ?, ?, ? ,now(), 0, 0)";
+				
+				db.prepare(sql).setInt(mno);
+				if(boardOpen == null) db.setString("n");
+				else				  db.setString("y");
+				if(favoriteOpen == null) db.setString("n");
+				else				  db.setString("y");
+				if(replyOpen == null) db.setString("n");
+				else				  db.setString("y");
+				
+				if(db.update(true) <= 0) {
+					isSuccess = false;
+				}
+				*/
+				
+				
 				
 				int bno = 0;
 				// 파일 업로드
@@ -124,6 +146,19 @@
 					
 				bno = db.last_insert_id("board", "bno"); // insert한 마지막 인덱스 가져오기
 				if(bno != 0) { // 0이 아닌경우 가져오기 성공
+					
+					/*
+					  ws comment - shoruri가 입력이 안되서 여기에 추가함.
+					*/
+					sql = "UPDATE board SET shorturi=? WHERE bno=?";
+				
+					String shorturi = HashMaker.Base62Encoding((long)bno);
+					if(db.prepare(sql).setString(shorturi).setInt(bno).update(true)  <= 0 ){
+						isSuccess = false;
+					}
+					
+					
+					//////////////////////////////////////////////////////////////////////
 					
 					// 2. 저장된 파일을 정보를 생성한다.
 					List<BoardAttachVO> fileList = new ArrayList<BoardAttachVO>();

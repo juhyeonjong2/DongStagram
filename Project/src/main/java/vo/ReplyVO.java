@@ -5,12 +5,19 @@ public class ReplyVO {
 	private int ridx; // 관리인덱스
 	private int rpno; // 부모댓글
 	private String rdate; //작성일
-	private String mdate; //수정일
-	private String rname; //작성자 닉네임
+	private String mdate; //수정일 (ws comment - db에 rmdate로 들어가있음 mdate가 맞는것. db 수정이 필요하나 시간없으니 그냥 진행할 것)
+	private String rname; //작성자 닉네임 (ws comment - nick name은 nick으로쓰기로 하였음. rname -> rnick으로 변경 필요)
 	private int mno; // 회원번호
 	private int bno; // 글 번호
+	private String rcontent; // 내용
 	
 	
+	public String getRcontent() {
+		return rcontent;
+	}
+	public void setRcontent(String rcontent) {
+		this.rcontent = rcontent;
+	}
 	public int getRno() {
 		return rno;
 	}

@@ -20,8 +20,8 @@ public class MemberDAO {
 				 // 이메일 인증 정보 확인.
 				 String sql = "SELECT * FROM joincert WHERE email=? AND verifyyn = 'y'";
 				 if(db.prepare(sql).setString(vo.getEmail()).read()) {
-					if(db.next()) {
-						isSuccess = true;	
+					if(!db.next()) {
+						isSuccess = false;	
 					}
 				}
 			 

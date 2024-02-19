@@ -7,10 +7,12 @@ public class HomeViewVO extends BoardVO {
 	String profileImage;    // 프로필 사진
 	String nick; 				   // 닉네임
 	
-	// 리플레이
-	ArrayList<String> mediaList = new ArrayList<String>();
+	ReplyVO rootReply;     // 글 내용 (idx == 0)
 	
 	// 미디어 리스트.
+	ArrayList<BoardAttachVO> mediaList = new ArrayList<BoardAttachVO>();
+	
+	// 리플레이
 	ArrayList<ReplyVO> replyList = new ArrayList<ReplyVO>();
 
 	public String getProfileImage() {
@@ -29,11 +31,11 @@ public class HomeViewVO extends BoardVO {
 		this.nick = nick;
 	}
 
-	public ArrayList<String> getMediaList() {
+	public ArrayList<BoardAttachVO> getMediaList() {
 		return mediaList;
 	}
 
-	public void setMediaList(ArrayList<String> mediaList) {
+	public void setMediaList(ArrayList<BoardAttachVO> mediaList) {
 		this.mediaList = mediaList;
 	}
 
@@ -43,6 +45,14 @@ public class HomeViewVO extends BoardVO {
 
 	public void setReplyList(ArrayList<ReplyVO> replyList) {
 		this.replyList = replyList;
+	}
+
+	public ReplyVO getRootReply() {
+		return rootReply;
+	}
+
+	public void setRootReply(ReplyVO rootReply) {
+		this.rootReply = rootReply;
 	}
 
 }

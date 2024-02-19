@@ -8,15 +8,8 @@
 	});
 	
 	function init(){
-		addPage("");
-		addPage("");
-		addPage("");
-		addPage("");
-		addPage("");
-		addPage("");
-		addPage("");
-		addPage("");
-		addPage("");
+		//addPage("");
+		
 	}
 	
 	function addPage(jsonData){
@@ -28,7 +21,7 @@
 			+ '		<button type="button">팔로우</button>'
 			+ '	</div>'
 			+ '	<div class="slideShow">'
-			+ '		<div class="swiper mySwiper">'
+			+ '		<div class="swiper mySwiper">'    // mySwiper 번호 증가 필요.
 			+ '			<div class="swiper-wrapper">'
 			+ '				<div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>'
 			+ '				<div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>'		  
@@ -88,6 +81,51 @@
 				          prevEl: ".swiper-button-prev",
 				        },
 			        }));
+	}
+	
+	function setWriteDate(className, date){
+		
+		$("."+className).text(timeForToday(date));
+	}
+	
+	function setFavorite(className, number){
+		
+		$("."+className).text(numberToKorean(number));
+	}
+	
+	function setShortContent(className, text) {
+		
+		$("."+className).text(textLengthOverCut(text, 3, "..."));
+	}
+	
+	function setReply(className, number){
+		$("."+className).text(numberToKorean(number));
+	}
+	
+	function sendHotReply(o){
+		let inputReply = $(o);
+		let frm = inputReply.closest(".hotReply");
+		//let errorSpan = divParent.find(".checkBox span");
+		console.log(inputReply);
+		console.log(frm);
+		
+		let params = frm.serialize();
+		$.ajax( 
+		{
+			url : "/Dongstagram/reply/create",
+			type : "post",
+			data : params,
+			success : function(resData) 
+			{
+				// refreshHomeView()
+				console.log(resData);
+				inputReply.val(''); 	
+			},
+			error : function() {
+				//consloe.log("FAIL");
+				inputReply.val(''); 
+			}
+		});
 	}
 		
 			        
