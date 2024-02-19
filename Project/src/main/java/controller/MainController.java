@@ -63,11 +63,11 @@ public class MainController extends HttpServlet {
 			AccountsController accountsContoller = new AccountsController();
 			accountsContoller.doAction(uris, request, response);
 			break;
-		case "reply": // 댓글. (실제경로 board/reply.jsp)
+		case "reply": // 댓글. 
 			ReplyController replyContoller = new ReplyController();
 			replyContoller.doAction(uris, request, response);
 			break;
-		case "favorite": // 댓글. (실제경로 board/reply.jsp)
+		case "favorite": // 좋아요
 			FavoriteController favoriteContoller = new FavoriteController();
 			favoriteContoller.doAction(uris, request, response);
 			break;

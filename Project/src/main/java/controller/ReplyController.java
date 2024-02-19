@@ -45,7 +45,7 @@ public class ReplyController implements SubController {
 		
 		if(uris.length == 2)
 		{
-		 request.getRequestDispatcher("/board/favoriteOk.jsp").forward(request, response);
+		 request.getRequestDispatcher("/board/hotReplyOk.jsp").forward(request, response);
 		 return true;
 		}
 		
