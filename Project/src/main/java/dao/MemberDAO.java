@@ -2,6 +2,7 @@ package dao;
 
 import ezen.db.DBManager;
 import vo.MemberVO;
+import vo.MemberWithAttachVO;
 
 public class MemberDAO {
 
@@ -19,8 +20,8 @@ public class MemberDAO {
 				 // 이메일 인증 정보 확인.
 				 String sql = "SELECT * FROM joincert WHERE email=? AND verifyyn = 'y'";
 				 if(db.prepare(sql).setString(vo.getEmail()).read()) {
-					if(db.next()) {
-						isSuccess = true;	
+					if(!db.next()) {
+						isSuccess = false;	
 					}
 				}
 			 
@@ -159,6 +160,46 @@ public class MemberDAO {
 		
 		return vo;
 	}
+	
+	public static MemberWithAttachVO findOneByMnoWithAttach(int mno) {
+		
+		MemberWithAttachVO vo = null;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) {
+				String sql = "SELECT M.mno as mno, mid, email, mnick, mname, joindate, mfrealname, mforeignname, rdate, mfno "
+						   + "FROM member as M "
+						   + "LEFT JOIN memberattach as A "
+						   + "ON M.mno=A.mno "
+						   + "WHERE M.mno=? AND (delyn is null or delyn = 'n') ";
+				
+				if(db.prepare(sql).setInt(mno).read()) {
+					if(db.next()) {
+						vo = new MemberWithAttachVO();
+						vo.setMno(db.getInt("mno"));
+						vo.setEmail(db.getString("email"));
+						vo.setJoindate(db.getString("joindate"));
+						vo.setMid(db.getString("mid"));
+						vo.setMname(db.getString("mname"));
+						vo.setMnick(db.getString("mnick"));
+						
+						// fileinfo
+						vo.setMfno(db.getInt("mfno"));
+						vo.setMforeignname(db.getString("mforeignname"));
+						vo.setMfrealname(db.getString("mfrealname"));
+						vo.setRdate(db.getString("rdate"));
+						
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
+	
 	
 	public static MemberVO findOneByEmail(String email) {
 		
