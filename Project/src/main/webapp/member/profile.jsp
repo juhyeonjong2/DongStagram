@@ -83,18 +83,17 @@ function load(o){
 			data : {shortUrl : bno},
 			dataType : "json",
 			success:function(resData){
-			//	console.log(resData)	
-			//	console.log(resData.nick)
-			//	console.log(resData.imglist[0].bfrealname)
+				console.log("1번");
 				
 				//이미지 부분
 				$('.swiper-wrapper').empty();
 				
-				let aa = "/Dongstagram"
+				let Dongstagram = "/Dongstagram";
+				let upload = "upload/";
 				for(let i =0; i<resData.imglist.length; i++){
 					
 					let html = '<div class="swiper-slide"><img src="'
-							 + aa + '/' + resData.nick + '/' + resData.imglist[i].bfrealname
+							 + Dongstagram + '/' + upload + resData.nick + '/' + resData.imglist[i].bfrealname
 							 + '"></div>';
 					$('.swiper-wrapper').append(html)
 				 }
@@ -109,10 +108,20 @@ function load(o){
 			data : {shortUrlReply : bno},
 			dataType : "json",
 			success:function(resData){
+				console.log("2번");
 				// 댓글 부분
 				$('.popupviewMain').empty();
-
-				console.log(resData.replylist.length);
+				
+				// 여기서 맨위의 루트댓글을 그려준다.
+				let rootReply = '<div class="mainTop"><img src="#" class="profile"> '
+							  + '<a href="#" class="main1name">' + resData.rootReply[0].rname + '</a> '
+							  + '<div class="popupViewReply">' + resData.rootReply[0].rcontent + '</div> '
+							  + '</div>'
+							  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].previousDate + '일 전</span>'
+							  + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
+							  + '<a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>'
+					$('.popupviewMain').append(rootReply)
+				
 				for(let i = 0; i<resData.replylist.length; i++){
 					
 					let html = '<div class="mainTop"><img src="#" class="profile"> '
@@ -121,8 +130,7 @@ function load(o){
 							 + '</div>'
 							 + '<span class="popupviewMainSpan1">' + resData.replylist[i].previousDate + '일 전</span>'
 							 + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
-							 + '<a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>'
-					 			 
+							 + '<a data-toggle="modal" data-id="'+ resData.replylist[i].rno +'" onclick="deleteOpen()" href="#morePopup" class="popupviewMainSpan2">· · ·</a>'
 					$('.popupviewMain').append(html)
 				 } // for문
 			} //success
@@ -150,33 +158,58 @@ function load(o){
 
 	
 	//댓글 엔터키
-	function enterkey(e){
-		
-		const code = e.code;
-		if(code == 'Enter'){
+	function enterkey(o){
+		// 엔터 누르면 댓글 작성
 			let bno = $('#inputBno').attr('value');
 			let text = $('#replyText').val();
 			let nick = $('#inputMnick').attr('value');
 			$.ajax({
 				url:"<%=request.getContextPath()%>/member/replyOk.jsp",
 				type:"post",
+				//async:"false", 
 				data : {shortUrl : bno, reply : text, nick : nick},
 				success: function(data){
-					console.log(data.trim());
-					if(data.trim() == true){
-						
-					}
-				}
+					if(data.trim() == "true"){
+						$('#replyText').val("");
+						// 댓글 다시 그리기
+						$.ajax({
+							url:"<%=request.getContextPath()%>/member/detailBoard.jsp", 
+							type:"post",
+							//async:"false",
+							data : {shortUrlReply : bno},
+							dataType : "json",
+							success:function(resData){
+								$('.popupviewMain').empty();
+								// 여기서 맨위의 루트댓글을 그려준다.
+								let rootReply = '<div class="mainTop"><img src="#" class="profile"> '
+											  + '<a href="#" class="main1name">' + resData.rootReply[0].rname + '</a> '
+											  + '<div class="popupViewReply">' + resData.rootReply[0].rcontent + '</div> '
+											  + '</div>'
+											  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].previousDate + '일 전</span>'
+											  + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
+											  + '<a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>'
+											  
+									$('.popupviewMain').append(rootReply)
+			
+								for(let i = 0; i<resData.replylist.length; i++){
+									
+									let html = '<div class="mainTop"><img src="#" class="profile"> '
+											 + '<a href="#" class="main1name">' + resData.replylist[i].rname + '</a> '
+											 + '<div class="popupViewReply">' + resData.replylist[i].rcontent + '</div> '
+											 + '</div>'
+											 + '<span class="popupviewMainSpan1">' + resData.replylist[i].previousDate + '일 전</span>'
+											 + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
+											 + '<a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>'
+									 			 
+									$('.popupviewMain').append(html)
+								 } // for문
+							} //success
+			
+					 	}); //댓글 다시그리는 ajax
+					} //트루 라면 실행
+				} //success
 				
-			});
-			
-			
-			// 다시 팝업 작성하기
-			$('.swiper-wrapper').empty(); //이미지만 지워짐
-			
-				
-			
-			
+			}); // 댓글 엔터로 쓰는 ajax
 			//swiper 생성
 			var swiper = new Swiper(".mySwiper", {
 				spaceBetween: 30,
@@ -193,7 +226,14 @@ function load(o){
 			// 다시 팝업 열기
 		    $('#detailBoard').modal('show');			
 			
-        }
+	}
+	
+	function deleteOpen(){
+		//팝업 열기 input 추가해서
+	}
+	
+	function replyDelete(){
+		
 	}
 	
 </script>
@@ -242,6 +282,7 @@ function load(o){
                 	for(BoardViewVO b : boardList)
                 	{
                 		String saveDir = member.getMnick();
+                		String upload = "upload/";
     					String foreignFileName = b.getRealFileName();
                 		String realFileName = b.getRealFileName();
                 		int bno2 = b.getBno();
@@ -253,7 +294,7 @@ function load(o){
 %>
 
                 <li class="scanimg">
-                  <a data-toggle="modal" data-id="<%=bno %>" class="open" onclick="load(this)"><img src="<%=request.getContextPath() +"/" + saveDir + "/" + realFileName%>">
+                  <a data-toggle="modal" data-id="<%=bno %>" class="open" onclick="load(this)"><img src="<%=request.getContextPath() +"/" + upload + saveDir + "/" + realFileName%>">
                   <input type="hidden" value="<%=saveDir %>" class="mnick">
                     <span class="scanimgHover">
                       <span>
@@ -327,7 +368,7 @@ function load(o){
                                      </div> <!--상단 태그-->
                                      <span class="popupviewMainSpan1">6일</span>
                                      <span class="popupviewMainSpan3">| 댓글달기 |</span>
-                                     <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
+                                     <a data-toggle="modal"  href="#morePopup" class="popupviewMainSpan2">· · ·</a>
 
                                      <!--만약 대댓글이(태그를 통해) 달릴 경우 보여줄 글 -->
 
@@ -353,15 +394,15 @@ function load(o){
                                   </div> <!--댓글 창-->
                             <!--하단 태그-->
                             <div class="popupviewBottom">
-                                <img src="./icon/heart.png">
-                                <img src="./icon/reply.png">
+                                <img src="<%=request.getContextPath()%>/icon/heart.png">
+                                <img src="<%=request.getContextPath()%>/icon/reply.png">
                                 <div class="popupviewBottom2">
                                     <img src="./자산 4.png" class="profile"><!--작은프로필-->
                                     <span class="popupviewBottomSpan1">좋아요 11개</span>
                                     <span class="popupviewBottomSpan2">6일 전</span>
                                 </div>
 
-                                    <input type="text" placeholder="   댓글달기..." onkeyup="enterkey(event)" id="replyText">
+                                    <input type="text" placeholder="   댓글달기..." onkeyup="if(window.event.keyCode==13){enterkey(this)}" id="replyText">
                                     <input type="hidden" id="inputBno" value=""> <!-- 인코딩된 bno라 괜찮을듯 -->
                                     <input type="hidden" id="inputMnick" value="<%=member.getMnick()%>"> <!-- 닉네임을 넘기는거라 괜찮을 듯 -->
                             </div>
@@ -386,8 +427,9 @@ function load(o){
               <div class="morePopupMain">
                 <div class="morePopupBox1"><a href="#">신고</a></div>
                 <!--삭제는 if문 사용으로 숨기기-->
-                <div class="morePopupBox2"><a href="#">삭제</a></div>
+                <div class="morePopupBox2"><a onclick="replyDelete()">삭제</a></div>
                 <button type="button" class="morePopupBox3" data-dismiss="modal">취소</button>
+                <input type="hidden" id="inputRno" value="">
               </div>
             </div>
           </div>

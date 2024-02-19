@@ -71,22 +71,39 @@ public class PageDAO {
 		
 		try(DBManager db = new DBManager();)
 		{
-			if(db.connect()){	
+			if(db.connect()){
+				
+				// 루트댓글을 가져온다
+				String sql = " SELECT r.rcontent, m.mnick, r.ridx, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate"
+						+ " FROM board as b inner join member as m on b.mno = m.mno"
+						+ " inner join reply as r on b.bno = r.bno "
+						+ " WHERE b.bno = ? and r.ridx = 0;";
+				if( db.prepare(sql).setInt(bno).read()){
+					if(db.next()) {
+						ReplyVO rootReply = new ReplyVO();
+						rootReply.setRname(db.getString("mnick"));
+						int Rnow = db.getInt("rdate");
+						rootReply.setPreviousDate(Tnow - Rnow);
+						rootReply.setRcontent(db.getString("rcontent"));
+						vo.rootReply.add(rootReply);
+					}
+				}
+	
 				// 가공된 날짜, 쓴 사람 닉네임, 댓글내용을 가져온다
-				 String sql = " SELECT r.rcontent, m.mnick, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate FROM board as b"
-				 		+ " inner join member as m on b.mno = m.mno inner join reply as r on b.mno = r.mno"
-				 		+ " WHERE b.bno = ?";
+			 	 sql = " SELECT r.rcontent, m.mnick, r.rno, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate FROM board as b"
+			 		 + " inner join member as m on b.mno = m.mno inner join reply as r on b.bno = r.bno"
+			 		 + " WHERE b.bno = ? and r.ridx = 1 ";	
 				 if( db.prepare(sql).setInt(bno).read()){
 						while(db.next()){ //next로 차근차근 전부 가져온다.	
 							ReplyVO reply = new ReplyVO(); 
 							reply.setRname(db.getString("mnick"));
+							reply.setRno(db.getInt("r.rno"));
 							int Rnow = db.getInt("rdate");
 							reply.setPreviousDate(Tnow - Rnow);
 							reply.setRcontent(db.getString("rcontent"));
 							vo.replylist.add(reply);
 						}
-				 }
-				 
+				 }	 
 				 
 			}
 		}
