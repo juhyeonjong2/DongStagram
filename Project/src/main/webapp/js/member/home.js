@@ -2,15 +2,52 @@
  * 
  */
 
-let swiper = [];
+let _swiper = [];
+let _nowPage = 1;
 $(window).on("load", function() {
 	init();
 });
+
+function setNowPage(nowPage){
+	_nowPage = nowPage;
+}
+
+function getNowPage(){
+	return _nowPage;
+}
 
 function init() {
 	//addPage("");
 
 }
+
+function loadNextPages(){
+	
+	// ws comment - 여기 작업중 페이징 처리
+	$.ajax(
+	{
+		url: "/Dongstagram//hot",
+		type: "post",
+		data: params,
+		success: function(resData) {
+			let obj =JSON.parse(resData.trim());	
+			if(obj.result =="SUCCESS")
+			{
+				//alert("댓글 등록에 성공");
+				setReply("reply_"+obj.bno , obj.replyCount);
+			}
+			else {
+				alert("댓글 등록에 실패");
+			}
+			inputReply.val('');
+		},
+		error: function() {
+			//consloe.log("FAIL");
+			inputReply.val('');
+		}
+	});
+}
+
 
 function addPage(jsonData) {
 	let html = '<div class="page">'
@@ -66,7 +103,7 @@ function addPage(jsonData) {
 
 }
 function initSwiper(className) {
-	swiper.push(new Swiper("." + className,
+	_swiper.push(new Swiper("." + className,
 		{
 			spaceBetween: 30,
 			centeredSlides: true,
@@ -95,7 +132,7 @@ function setFavoriteCount(className, number) {
 
 function setShortContent(className, text) {
 
-	$("." + className).text(textLengthOverCut(text, 20, "..."));
+	$("." + className).html(textLengthOverCut(text, 20, "..."));
 }
 
 function setReply(className, number) {

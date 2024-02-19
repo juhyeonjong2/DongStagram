@@ -5,6 +5,7 @@
 <%@ page import="vo.BoardAttachVO" %>
 <%@ page import="vo.MemberVO" %>
 <%@ page import="vo.ReplyVO" %>
+<%@ page import="vo.PagingVO" %>
 
 
 <%
@@ -14,14 +15,18 @@
 	 response.sendRedirect(request.getContextPath());
 	}
 	
+	
 	//HomeViewDAO에서 최신 10개를 들고온다 
 	// 1차. 게시물 전부 들고오기 + 페이징
 	// 2차. 내가 팔로우한 유저들의 게시물 들고오기
 	// 3차. 내가 팔로우한 유저들의 게시물 중 최근 3일내의 게시물만 들고오기.
 	// 4차. 내가 팔로우한 유저들의 게시물 중 최근 3일내의 게시물 중에 
 	//      확인을 안했거나 확인한지 1일이 지나지 않은 게시물만 가져오기
+	int totalCnt = HomeViewDAO.count(member.getMno());
+	int nowPage = 1;
+	PagingVO pagingVO = new PagingVO(nowPage, totalCnt, 5);
+	ArrayList<HomeViewVO> viewList = HomeViewDAO.list(member.getMno(), pagingVO.getStart()-1 , pagingVO.getPerPage());
 	
-	ArrayList<HomeViewVO> viewList = HomeViewDAO.list(member.getMno());
 %>
 
 <!DOCTYPE html>
@@ -35,6 +40,12 @@
 <script src="<%=request.getContextPath()%>/js/util/text.js"></script>
 <script src="<%=request.getContextPath()%>/js/util/number.js"></script>
 <script src="<%=request.getContextPath()%>/js/member/home.js"></script>
+<script>
+	$(function(){
+		setNowPage(<%=nowPage%>);
+	});
+	
+</script>
 </head>
 
 <body>
@@ -46,7 +57,7 @@
 			
 	    	for(HomeViewVO vo : viewList)
 	    	{	
-	    		String mediaFolder = request.getContextPath() + "/" + vo.getNick() + "/";
+	    		String mediaFolder = request.getContextPath() + "/upload/" + vo.getNick() + "/";
 	    		String profileImagePath = 	request.getContextPath() + "/icon/profile.png";
 	    		if(vo.getProfileImage() != null){ // 프로필이미지가 있는경우 해당 프로필 이미지로
 	    			profileImagePath = mediaFolder + vo.getProfileImage();
