@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="vo.MemberVO"%>
 <%@ page import="ezen.db.DBManager" %>
+<%@ page import="ezen.util.HashMaker" %>
 <%@ page import="vo.BoardViewVO"%>
 <%@ page import="java.util.ArrayList"%>
     
@@ -68,17 +69,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로필</title>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script>
 
+function load(o){
+		let bno = $(o).data('id');
+		$('#inputBno').attr('value',bno);
+		// 가상경로로 수정(페이지 컨트롤러)
+		// 파일 이미지 넣기
+		$.ajax({
+			url:"<%=request.getContextPath()%>/member/detailBoard.jsp", 
+			type:"post",
+			data : {shortUrl : bno},
+			dataType : "json",
+			success:function(resData){
+			//	console.log(resData)	
+			//	console.log(resData.nick)
+			//	console.log(resData.imglist[0].bfrealname)
+				
+				//이미지 부분
+				$('.swiper-wrapper').empty();
+				
+				let aa = "/Dongstagram"
+				for(let i =0; i<resData.imglist.length; i++){
+					
+					let html = '<div class="swiper-slide"><img src="'
+							 + aa + '/' + resData.nick + '/' + resData.imglist[i].bfrealname
+							 + '"></div>';
+					$('.swiper-wrapper').append(html)
+				 }
+				
+			 }
+		 });
+		
+		//댓글 생성
+		$.ajax({
+			url:"<%=request.getContextPath()%>/member/detailBoard.jsp", 
+			type:"post",
+			data : {shortUrlReply : bno},
+			dataType : "json",
+			success:function(resData){
+				// 댓글 부분
+				$('.popupviewMain').empty();
 
-    <script> 
-    //대댓글 클릭시 보이도록 (자신만 선택하는 방법 추가 필요(아마 this))
-    $(document).ready(function(){
-        $('.reReply').click(function(){
-          $('.replyblock').css('display','block');
-      }); 
-    });
-    
-    </script>
+				console.log(resData.replylist.length);
+				for(let i = 0; i<resData.replylist.length; i++){
+					
+					let html = '<div class="mainTop"><img src="#" class="profile"> '
+							 + '<a href="#" class="main1name">' + resData.replylist[i].rname + '</a> '
+							 + '<div class="popupViewReply">' + resData.replylist[i].rcontent + '</div> '
+							 + '</div>'
+							 + '<span class="popupviewMainSpan1">' + resData.replylist[i].previousDate + '일 전</span>'
+							 + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
+							 + '<a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>'
+					 			 
+					$('.popupviewMain').append(html)
+				 } // for문
+			} //success
+
+	 	});
+			
+		//swiper 생성
+		var swiper = new Swiper(".mySwiper", {
+			spaceBetween: 30,
+			centeredSlides: true,
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+			},
+			navigation: {
+		 		nextEl: ".swiper-button-next",
+				prevEl: ".swiper-button-prev",
+			},
+		});
+				
+		// 팝업 열기
+	     $('#detailBoard').modal('show');
+	     
+	};
+
+	
+	//댓글 엔터키
+	function enterkey(e){
+		
+		const code = e.code;
+		if(code == 'Enter'){
+			let bno = $('#inputBno').attr('value');
+			let text = $('#replyText').val();
+			let nick = $('#inputMnick').attr('value');
+			$.ajax({
+				url:"<%=request.getContextPath()%>/member/replyOk.jsp",
+				type:"post",
+				data : {shortUrl : bno, reply : text, nick : nick},
+				success: function(data){
+					console.log(data.trim());
+					if(data.trim() == true){
+						
+					}
+				}
+				
+			});
+			
+			
+			// 다시 팝업 작성하기
+			$('.swiper-wrapper').empty(); //이미지만 지워짐
+			
+				
+			
+			
+			//swiper 생성
+			var swiper = new Swiper(".mySwiper", {
+				spaceBetween: 30,
+				centeredSlides: true,
+				pagination: {
+					el: ".swiper-pagination",
+					clickable: true,
+				},
+				navigation: {
+			 		nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev",
+				},
+			});
+			// 다시 팝업 열기
+		    $('#detailBoard').modal('show');			
+			
+        }
+	}
+	
+</script>
 
 
 
@@ -87,8 +205,7 @@
     <!--header-->
     <%@ include file="/include/header.jsp"%>
     <!-- css순서문제로 여기에 놨는데 일단 돌아가서 임시로 여기에 둠 -->
-    <link href="<%=request.getContextPath()%>/css/post/post.css" type="text/css" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/css/base.css" type="text/css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/css/post/post.css" type="text/css" rel="stylesheet">  
     <link href="<%=request.getContextPath()%>/css/member/navigation.css" type="text/css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/member/profile.css" type="text/css" rel="stylesheet">
     <!--header-->
@@ -102,7 +219,7 @@
               <img src="./icon/home.png" class="searchProfile">
               <span class="searchSpan1">
                 <%=member.getMnick() %>
-                <a class="btn btn-secondary" href="#">프로필 편집</a>
+                <a class="btn btn-secondary" href="<%=request.getContextPath()%>/member/profileModify.jsp">프로필 편집</a>
               </span>
               <span class="searchSpan2">
                 <span>게시물 <%=boardList.size()%></span>
@@ -127,11 +244,17 @@
                 		String saveDir = member.getMnick();
     					String foreignFileName = b.getRealFileName();
                 		String realFileName = b.getRealFileName();
+                		int bno2 = b.getBno();
+                		String bno = HashMaker.Base62Encoding(bno2);
+                		//받아온 bno를 인코딩해서 숫자를 수정 후 보냄
+                		// 그후 보낸곳에서 받은 수정된 bno를 디코딩해서 사용
+                		// 온클릭으로 bno를 보냄 
                 		
 %>
 
                 <li class="scanimg">
-                  <a data-toggle="modal" href="#exampleModalCenter"><img src="<%=request.getContextPath() +"/" + saveDir + "/" + realFileName%>">
+                  <a data-toggle="modal" data-id="<%=bno %>" class="open" onclick="load(this)"><img src="<%=request.getContextPath() +"/" + saveDir + "/" + realFileName%>">
+                  <input type="hidden" value="<%=saveDir %>" class="mnick">
                     <span class="scanimgHover">
                       <span>
                         <img src="<%=request.getContextPath()%>/icon/whiteHeart.png"><%=b.getBfavorite() %>
@@ -140,6 +263,8 @@
                     </span>
                   </a>
                 </li>
+    
+
 <%
                 	} // for문 종료
 				
@@ -148,14 +273,13 @@
         </div>
 
         <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="detailBoard" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">게시글 보기</h5>
                     </div>
                     <div class="modal-body">
-
                     <div class="popupView">
                         <!--왼쪽-->
                         <div class="popupViewLeft">
@@ -164,32 +288,14 @@
                             <div class="slideShow"> <!--메인 동영상과 사진 슬라이드-->
 							    <div class="swiper mySwiper">
 							      <div class="swiper-wrapper">
-							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
-							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
-							        <div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>
+							      <!-- 받아온 bno의있는 모든 이미지를 가져온다 -> 순서대로 나열한다  -->
+							        
 							      </div>
 							      <div class="swiper-button-next"></div>
 							      <div class="swiper-button-prev"></div>
 							      <div class="swiper-pagination"></div>
 							    </div>
 							
-							
-							    <!-- Initialize Swiper --> <!--이거 없으면 작동 안함-->
-							    <script>
-							      var swiper = new Swiper(".mySwiper", {
-							        spaceBetween: 30,
-							        centeredSlides: true,
-							        pagination: {
-							          el: ".swiper-pagination",
-							          clickable: true,
-							        },
-							        navigation: {
-							          nextEl: ".swiper-button-next",
-							          prevEl: ".swiper-button-prev",
-							        },
-							      });
-							
-							    </script> 
                     
                             </div> <!--메인 동영상과 사진 슬라이드-->
 
@@ -207,11 +313,11 @@
 
                             <!--댓글 창-->
                             <div class="popupviewMain">
-                              <!--댓글이 없을경우 보여주는 글-->
+                              <!--댓글이 없을경우 보여주는 글
                               <div class="notReply">
                                   <p>아직 댓글이 없습니다.</p>
                                   <h6>댓글을 남겨보세요</h6>
-                              </div>
+                              </div>-->
 
                                 <!--for문으로 복사 될 페이지-->
                                     <div class="mainTop">
@@ -238,34 +344,7 @@
                                           <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
                                         </div>
                                     <!--for문으로 복사 될 페이지-->
-                                    
-                                    
-                                    <!--임시 페이지-->
-                                    <div class="mainTop">
-                                      <img src="./자산 4.png" class="profile">
-                                      <a href="#" class="main1name">닉네임</a>
-                                      <div class="popupViewReply">123가가가가가각가가가가가가가가가가가가가가가가가가가가가가가가가가가</div>
-                                   </div> <!--상단 태그-->
-                                   <span class="popupviewMainSpan1">6일</span>
-                                   <span class="popupviewMainSpan3">| 댓글달기 |</span>
-                                   <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
-
-                                   <!--만약 대댓글이(태그를 통해) 달릴 경우 보여줄 글 -->
-
-                                    <div class="reReply">---댓글 보기(?개)</div> 
-
-                                      <div class="replyblock">
-                                          <div class="mainTop">
-                                            <img src="./자산 4.png" class="profile">
-                                            <a href="#" class="main1name">닉네임</a>
-                                            <div class="popupViewReply">대댓글입니다.</div>
-                                        </div> <!--상단 태그-->
-                                        <span class="popupviewMainSpan1">6일</span>
-                                        <span class="popupviewMainSpan3">| 댓글달기 |</span>
-                                        <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
-                                      </div>
-                                    <!--임시 페이지-->
-                                    
+                                   
                                       <!--댓글이 많다면 보여줄 아이콘-->
                                       <div class="replyPlus">
                                         <img src="./icon/replyPlus.png">
@@ -281,10 +360,10 @@
                                     <span class="popupviewBottomSpan1">좋아요 11개</span>
                                     <span class="popupviewBottomSpan2">6일 전</span>
                                 </div>
-                                <form action="#">
-                                    <input type="text" placeholder="   댓글달기...">
-                                </form>
 
+                                    <input type="text" placeholder="   댓글달기..." onkeyup="enterkey(event)" id="replyText">
+                                    <input type="hidden" id="inputBno" value=""> <!-- 인코딩된 bno라 괜찮을듯 -->
+                                    <input type="hidden" id="inputMnick" value="<%=member.getMnick()%>"> <!-- 닉네임을 넘기는거라 괜찮을 듯 -->
                             </div>
                         </div>
                     </div> <!--popupView-->
@@ -460,7 +539,6 @@
 
               </div>
               <input type="submit" value="공유하기" class="dropBoxSubmit" id="dropBoxSubmit" disabled/>
-              <script src="./post.js"></script>
             </form>
 
 
@@ -528,7 +606,6 @@
 
               </div>
               <input type="submit" value="수정하기" class="dropBoxSubmit2" >
-              <script src="./post.js"></script>
             </form>
 
 
@@ -536,6 +613,8 @@
         </div>
       </div>
     </div>
+
+	<!-- Initialize Swiper --> <!--이거 없으면 작동 안함-->
 
 
       </main>

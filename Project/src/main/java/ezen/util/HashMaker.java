@@ -49,6 +49,20 @@ public class HashMaker {
 		return sb.toString();
     }
     
+    public static String randomNumber(int len) {
+    	
+    	int index = 0;
+		char[] charSet = new char[] { '0','1','2','3','4','5','6','7','8','9'};
+		
+		StringBuffer sb = new StringBuffer();
+		for (int i=0; i<len; i++) {
+			index =  (int) (charSet.length * Math.random());
+			sb.append(charSet[index]);
+		}
+		
+		return sb.toString();
+    }
+    
 }
 
 

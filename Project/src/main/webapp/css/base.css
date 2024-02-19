@@ -147,16 +147,13 @@ header img{width: 20px; margin-right: 10px;}
 
 
 /*슬라이드*/
-
-.slideShow{
-  width: 450px;
-  height: 550px;
-}
-.bx-wrappe{margin: 0 auto;}
-.bxslider li { list-style: none; width: 450px; height: 550px; margin: 0 auto;background-color: #111;}
-.bxslider li img{height: 100%; margin: 0 auto;}
-
-
+ .mySwiper{
+   width: 450px;
+   height: 550px;
+ }
+ .swiper-wrapper{margin: 0 auto;}
+ .swiper-slide{ list-style: none; width: 450px; height: 550px; margin: 0 auto;background-color: #111; text-align: center;}
+ .swiper-slide img{height: 100%;} 
 
 .main2{
   margin-top: 10px; margin-bottom: 8px;
@@ -228,3 +225,4 @@ footer{margin-bottom: 30px;}
 /*썸네일 이미지*/
 .thumbnailImg{width: 70px; height: 100%; margin-left: 8px;margin-right: 100px;}
 .changeImg img{width: 30px; height: 30px;}
+

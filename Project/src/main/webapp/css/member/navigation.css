@@ -5,7 +5,7 @@
 li{margin: 0; padding: 0;}
 .scanimg{
     width: 300px; height: 300px; display: inline-block; margin-top: 5px; margin-bottom: 5px; }
-.scanimg img{height: 100%; width: 100%}
+.scanimg img{height: 100%; width: 100%; object-fit: cover;}
 #scanMain ul{padding: 0;}
 
 .modal-dialog{max-width: 1300px;} /*넓이는 여기서*/
@@ -115,3 +115,6 @@ li{margin: 0; padding: 0;}
 }
 #scanMain .scanimg .scanimgHover > span img{width: 20px; height: 20px;}
 #scanMain .scanimg .scanimgHover > span img:last-child{margin-left: 15px;}
+
+/*submit버튼 숨기기*/
+.noneBtn{opacity: 0;}
