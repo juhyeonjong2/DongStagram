@@ -29,7 +29,7 @@ public class DataController implements SubController {
 		 switch(uris[1]) 
 		 {
 		 case "home":
-			 isSuccess = favorite(uris, request, response);
+			 isSuccess = home(uris, request, response);
 			 break;
 		 case "favorite":
 			 isSuccess = favorite(uris, request, response);

@@ -4,8 +4,23 @@
 
 let _swiper = [];
 let _nowPage = 1;
+let _isScrollEventLock = false;
 $(window).on("load", function() {
-	init();
+ 	// 미사용- 처음에 데이터를 보내주지 않을경우 여기서 요청해서 받아도 됨.
+});
+
+$(window).scroll(function(){
+	let scrT = $(window).scrollTop();
+	if(!_isScrollEventLock){
+		
+		if(scrT == $(document).height()-$(window).height()){
+			// 스크롤이 끝에 도달 했음.
+			//console.log("스크롤이 끝에 도달");
+			requestNextPages(_nowPage);
+		}else {
+			//console.log("스크롤이 끝 아님");
+		}
+	}
 });
 
 function setNowPage(nowPage){
@@ -16,90 +31,124 @@ function getNowPage(){
 	return _nowPage;
 }
 
-function init() {
-	//addPage("");
-
-}
-
-function loadNextPages(){
-	
-	// ws comment - 여기 작업중 페이징 처리
+function requestNextPages(nowPage){
+	// 해당 함수 호출시 데이터가 모두 올때까지 스크롤 이벤트 처리 안함.
+	_isScrollEventLock = true;
 	$.ajax(
 	{
 		url: "/Dongstagram/data/home/views",
 		type: "post",
-		data: params,
+		data: {nowPage : nowPage+1},
 		success: function(resData) {
 			let obj =JSON.parse(resData.trim());	
 			if(obj.result =="SUCCESS")
 			{
-				//alert("댓글 등록에 성공");
-				setReply("reply_"+obj.bno , obj.replyCount);
+				loadPages(obj.views);
+				
+				if(obj.views.length > 0){
+					setNowPage(nowPage +1);
+				}
 			}
-			else {
-				alert("댓글 등록에 실패");
-			}
-			inputReply.val('');
+			_isScrollEventLock = false;
 		},
 		error: function() {
 			//consloe.log("FAIL");
-			inputReply.val('');
+			_isScrollEventLock = false;
 		}
 	});
 }
 
+function loadPages(views){
+	//console.log(views);
+	for(let i=0;i<views.length;i++)
+	{
+		addPage(views[i]);
+	}
+}
 
-function addPage(jsonData) {
-	let html = '<div class="page">'
-		+ '	<div class="mainTop">'
-		+ '		<img src="./자산 4.png" class="profile">'
-		+ '		<a href="#" class="main1name">닉네임</a>'
-		+ '		<span class="span2 main1span">2일전</span>'
-		+ '		<button type="button">팔로우</button>'
-		+ '	</div>'
-		+ '	<div class="slideShow">'
-		+ '		<div class="swiper mySwiper">'    // mySwiper 번호 증가 필요.
-		+ '			<div class="swiper-wrapper">'
-		+ '				<div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>'
-		+ '				<div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>'
-		+ '				<div class="swiper-slide"><img src="./즐겁다 짤.jpg"></div>'
-		+ '			</div>'
-		+ ' 		<div class="swiper-button-next"></div>'
-		+ '			<div class="swiper-button-prev"></div>'
-		+ '			<div class="swiper-pagination"></div>'
-		+ '		</div>'
-		+ '	</div>'
-		+ '	<div>'  // < s : 좋아요나 작성 글 등등
-		+ '		<div class="main2">'
-		+ '			<img src="./icon/heart.png" class="good">'
-		+ '			<a href="#"><img src="./icon/reply.png"></a>'
-		+ '		</div>'
-		+ '		<div class="main3">'
-		+ '			<p>좋아요 ??개</p>'
-		+ '		</div>'
-		+ '		<div class="main4">'
-		+ '			<a href="#">닉네임</a>'
-		+ '			<span>작성글 짧게</span>'
-		+ '			<div class="tabmore">'
-		+ '				<div class="more">더보기</div> '
-		+ '				<section class="main4block">'
-		+ '					<div class="main4block2">더보기누르면 display block할 곳</div>'
-		+ '				</section>'
-		+ '			</div>'
-		+ '		</div>'
-		+ '		<div class="main5">'
-		+ '			<a href="#">댓글 ?(수) 모두보기</a>'
-		+ '		</div>'
-		+ '		<form class="hotReply" action="#"> <!--빠르게 댓글 작성 하는 곳-->'
-		+ '			<input type="text" placeholder="댓글 달기..">'
-		+ '			<input type="submit" value="게시">'
-		+ '		</form>'
-		+ '	</div>' // e : 좋아요나 작성 글 등등
-		+ '</div>';
+
+function addPage(view) {
+	//console.log(view);
+	
+	let contextPath = "/Dongstagram";
+	let mediaFolder = contextPath + "/upload/" + view.nick + "/";
+	let profileImagePath = contextPath +"/icon/profile.png";
+	if(view.profileImage !=null){
+		profileImagePath = mediaFolder + view.profileImage;
+	}
+	let profileLink = contextPath + "/user/" + view.nick;
+	let boardPageLink = contextPath + "/page/" + view.shorturi;
+	
+	
+	let html = '<div class="page">';
+		html += '	<div class="mainTop">';
+		html += '		<img class="profile" src="' + profileImagePath + '" alt="ProfileImage" >';
+		html += '		<a href="'+ profileLink +'" class="main1name">'+ view.nick +'</a>';
+		html += '		<span class="span2 main1span writetime_'+ view.bno +'"></span>';
+		html += '		<button type="button" onclick="follow(this)">팔로우</button>';
+		html += '	</div>';
+		html += '	<div class="slideShow">';
+		html += '		<div class="swiper mySwiper_'+ view.bno +'">'; 
+		html += '			<div class="swiper-wrapper">';
+		for(let i=0;i<view.mediaList.length;i++)
+		{
+		html += '				<div class="swiper-slide">';
+		html += '					<img src="'+ mediaFolder+view.mediaList[i].bfrealname +'" alt="'+ view.mediaList[i].bforeignname +'">';			
+		html += '				</div>';
+		}
+		html += '			</div>';
+		html += ' 			<div class="swiper-button-next"></div>';
+		html += '			<div class="swiper-button-prev"></div>';
+		html += '			<div class="swiper-pagination"></div>';
+		html += '		</div>';
+		html += '	</div>';
+		html += '	<div>';  
+		html += '		<div class="main2">';
+		html += '			<form class="favoriteFrm" onsubmit="return false;">';
+		html += '				<input type="hidden" name="bno" value="'+ view.bno +'">';
+		html += '				<input type="hidden" name="req" value="1">';
+		html += '				<img src="'+ contextPath+ '/icon/heart.png' +'" class="good favoriteImg_'+ view.bno +'" onclick="sendFavorite(this)">';
+		html += '				<a href="'+ boardPageLink +'"><img src="'+ contextPath+ '/icon/reply.png' +'"></a>';
+		html += '			</form>';
+		html += '		</div>';
+		html += '		<div class="main3">';
+		html += '			<p> 좋아요 <span class="favorite_'+ view.bno +'"></span>개</p>';
+		html += '		</div>';
+		html += '		<div class="main4">';
+		if(view.rootReply != null)
+		{
+		html += '			<a href="'+ profileLink +'">'+ view.nick +'</a>';
+		html += '			<span class="rootReply_'+ view.bno +'"></span>';
+		html += '			<div class="tabmore">';
+		html += '				<div class="more"><a href="'+ boardPageLink +'">더보기</a></div>';
+		html += '			</div>';
+		}
+		html += '		</div>';
+		html += '		<div class="main5">';
+		if(view.replyList.length > 0)
+		{
+		html += '			댓글 <span class="reply_'+ view.bno +'"></span>개 <a href="'+ boardPageLink +'">모두보기</a>';
+		}
+		html += '		</div>';
+		html += '		<form class="hotReply" onsubmit="return false;">';
+		html += '			<input type="hidden" name="bno" value="'+ view.bno +'">';
+		html += '			<input type="text" name="reply" placeholder="댓글 달기.." onkeyup="if(window.event.keyCode==13){sendHotReply(this);}">';
+		html += '		</form>';
+		html += '	</div>'; // e : 좋아요나 작성 글 등등
+		html += '</div>';
 
 	$("#maindiv").append(html);
 
-	initSwiper("mySwiper")
+	initSwiper("mySwiper_" + view.bno);
+	setWriteDate("writetime_" + view.bno, view.wdate);
+	setFavoriteCount("favorite_" + view.bno, view.bfavorite);
+	setFavorite("favoriteImg_" + view.bno, view.mfavorite);
+	if(view.rootReply != null){
+		setShortContent("rootReply_" + view.bno, view.rootReply.rcontent);
+	}
+	if(view.replyList.length > 0){
+		setReply("reply_" + view.bno, view.replyList.length);
+	}
 
 }
 function initSwiper(className) {
