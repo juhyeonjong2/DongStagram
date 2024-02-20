@@ -215,79 +215,7 @@
         </div>
 
 
-    <!--header post popup-->
-    <!-- Modal -->
-    <div class="modal fade" id="postPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">새 게시글 만들기</h5>
-           <!--<button id="btn-share" type="button" disabled>공유</button>-->
-          </div>
-          <div class="modal-body">
-
-
-            <form class="container">
-              <label class="label" id="label" for="input">
-                <!--이 안에 drop해야함 or 클릭-->
-                <div class="dropBox" id="dropBox"></div>
-              </label>
-              <input id="input" class="input" accept="image/*" type="file" required="true" multiple="true" hidden="true">
-              <!--저장된 모든 값은 이 input file에 모두 저장되는 듯?-->
-              <!--올린거 여기다가 아래 div는 포지션으로 정렬 프리뷰는 옮기면 안돼-->
-              <div class="postLeft">
-                <div class="preview" id="preview"></div>
-                <label for="input">
-                  <img src="./icon/post.png" class="postPlus">
-                </label>
-              </div>
-
-              <div class="postRight">
-                
-                <div class="rightTop">
-                  <div class="rightTop2">
-                    <img src="./즐겁다 짤.jpg" class="profile">
-                    <span class="nickname">tester123</span>
-                  </div>
-                  <textarea class="replyTextarea" id="replyTextarea" placeholder="문구를 입력하세요..." onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
-                  <span class="replyTextareaCount" id="replyTextareaCount">0
-                  </span>
-                  <span class="replyTextareaCount2">/2200</span>
-                </div>
-
-                <div class="rightBottom">
-                  <h4>설정</h4>
-                  <ul class="righrToggle">
-                    <li>
-                      <span>게시물 공개</span>
-                      <input type='checkbox' id='toggle' class='tgl' />
-                      <label for='toggle'></label>
-                    </li>
-                    <li>
-                      <span>좋아요 공개</span>
-                      <input type='checkbox' id='toggle2' class='tgl'  />
-                      <label for='toggle2'></label>
-                    </li>
-                    <li>
-                      <span>댓글 기능 허용</span>
-                      <input type='checkbox' id='toggle3' class='tgl' />
-                      <label for='toggle3'></label>
-                    </li>
-                  </ul>
-                </div>
-
-              </div>
-              <input type="submit" value="공유하기" class="dropBoxSubmit" id="dropBoxSubmit" disabled/>
-            </form>
-
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- Modal2 -->
+    <!-- 게시글 수정 -->
     <div class="modal fade" id="modifyPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -295,7 +223,8 @@
             <h5 class="modal-title" id="exampleModalLongTitle">게시글 수정하기</h5>
           </div>
           <div class="modal-body">
-
+			<form class="container" action="<%=request.getContextPath()%>/board/postModifyOk.jsp" method="post" name="modifyfrm">
+			<input type="hidden" value="" name="modifyBno" id="modifyBno">
                 <div class="dropBox" id="dropBox">
 
                   <div class="slideShow"> <!--메인 동영상과 사진 슬라이드-->
@@ -321,8 +250,8 @@
                     <img src="./즐겁다 짤.jpg" class="profile">
                     <span class="nickname">tester123</span>
                   </div>
-                  <textarea class="replyTextarea" id="replyTextarea" placeholder="문구를 입력하세요..." onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
-                  <span class="replyTextareaCount" id="replyTextareaCount">0
+                  <textarea class="replyTextarea" id="modifyTextarea" name="modifyReply" placeholder="문구를 입력하세요..." onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
+                  <span class="replyTextareaCount" id="modifyTextareaCount">0
                   </span>
                   <span class="replyTextareaCount2">/2200</span>
                 </div>
@@ -332,24 +261,24 @@
                   <ul class="righrToggle">
                     <li>
                       <span>게시물 공개</span>
-                      <input type='checkbox' id='toggle' class='tgl' />
-                      <label for='toggle'></label>
+                      <input type='checkbox' id='toggle21' class='tgl' name="mboardOpen" value="y" />
+                      <label for='toggle21'></label>
                     </li>
                     <li>
                       <span>좋아요 공개</span>
-                      <input type='checkbox' id='toggle2' class='tgl'  />
-                      <label for='toggle2'></label>
+                      <input type='checkbox' id='toggle22' class='tgl' name="mfavoriteOpen" value="y" />
+                      <label for='toggle22'></label>
                     </li>
                     <li>
                       <span>댓글 기능 허용</span>
-                      <input type='checkbox' id='toggle3' class='tgl' />
-                      <label for='toggle3'></label>
+                      <input type='checkbox' id='toggle23' class='tgl' name="mreplyOpen" value="y" />
+                      <label for='toggle23'></label>
                     </li>
                   </ul>
                 </div>
 
               </div>
-              <input type="submit" value="수정하기" class="dropBoxSubmit2" >
+              <input type="submit" value="수정하기" class="dropBoxSubmit">
             </form>
 
 

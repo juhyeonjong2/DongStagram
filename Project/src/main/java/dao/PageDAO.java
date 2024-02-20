@@ -164,12 +164,12 @@ public class PageDAO {
 			try(DBManager db = new DBManager();){
 				if(db.connect(true)){
 					
-					System.out.println("삭제시작");
+					//System.out.println("삭제시작");
 					// 댓글을  지운다. (댓글은 반드시 존재, (댓글이 없다는 댓글이 달리는듯))
 						String sql = " delete from reply WHERE bno = ? and mno = ?";
 						if(db.prepare(sql).setInt(bno).setInt(mno).update(true) <= 0){
 							isSuccess = false;
-							System.out.println("삭제실패1");
+							//System.out.println("삭제실패1");
 						} 
 					 
 					// 댓글을 지웠다면 이미지파일을 제거한다 (이미지는 반드시 존재)
@@ -177,7 +177,7 @@ public class PageDAO {
 							sql = " delete from boardattach WHERE bno = ?";
 							if(db.prepare(sql).setInt(bno).update(true) <= 0){
 								isSuccess = false; 
-								System.out.println("삭제실패2");
+								//System.out.println("삭제실패2");
 							} 
 						} 
 					
@@ -193,7 +193,7 @@ public class PageDAO {
 							sql = " delete from favorite WHERE bno = ? and mno = ?";
 							if(db.prepare(sql).setInt(bno).setInt(mno).update(true) <= 0){
 								isSuccess = false; 
-								System.out.println("삭제실패3");
+								//System.out.println("삭제실패3");
 							} 
 						 }
 					}
@@ -202,13 +202,13 @@ public class PageDAO {
 						sql = " delete from board WHERE bno = ? and mno = ?";
 						if(db.prepare(sql).setInt(bno).setInt(mno).update(true) <= 0){
 							isSuccess = false;
-							System.out.println("삭제실패4");
+							//System.out.println("삭제실패4");
 						} 
 					}
 					// 모두 성공인경우
 					if(isSuccess) {
 						db.txCommit(); // 커밋.
-						System.out.println("커밋함");
+						//System.out.println("커밋함");
 					}	
 				}
 			}

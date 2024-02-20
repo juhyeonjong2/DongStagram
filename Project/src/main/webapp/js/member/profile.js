@@ -321,15 +321,6 @@ function load(o){
 			});
 	}
 	
-	//스크롤 기능
-		
-	$(window).scroll(function(){
-		console.log("스크롤");
-});
-
-	$('.popupviewMain').scroll(function(){
-		console.log("스크롤2");
-});
 
 	
 	
