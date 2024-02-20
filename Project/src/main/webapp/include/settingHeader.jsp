@@ -305,14 +305,14 @@
                   <img src="<%=request.getContextPath()%>/icon/profile.png">
                   <span>프로필 편집</span>
                 </a>
-                <a class="settingBt" href="./settingPW.html">
+                <a class="settingBt" href="<%=request.getContextPath()%>/member/SettingPW.jsp">
                   <img src="<%=request.getContextPath()%>/icon/key.png" class="imgSize">
                   <span>비밀번호 변경</span>
                 </a>
                 </div>
               <div class="settingBottom">
                 <p>내 콘텐츠를 볼 수 있는 사람</p>
-                <a class="settingBt"  href="./setting2.html">
+                <a class="settingBt"  href="<%=request.getContextPath()%>/member/openyn.jsp">
                   <img src="<%=request.getContextPath()%>/icon/lock.png">
                   <span>계정 공개 범위</span>
                 </a>
