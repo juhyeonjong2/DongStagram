@@ -47,3 +47,17 @@ CREATE TABLE joinCert (
 );
 
 ALTER TABLE joincert ADD COLUMN verifyyn char(1) comment '인증유무';
+
+# 2024.02.20 변경 - 메세지 삭제 및 검색기록 추가
+# 1. 메세지 테이블 제거 
+set FOREIGN_KEY_CHECKS = 0;
+DROP TABLE room;
+DROP TABLE message;
+set FOREIGN_KEY_CHECKS = 1;
+# 2. 검색어 히스토리 테이블 생성
+CREATE TABLE searchHisotry (
+	mno int unsigned not null comment '회원번호',
+    type char(1) not null comment '타입',
+    words text not null comment '검색어',
+    foreign key(mno) references member(mno)
+);
