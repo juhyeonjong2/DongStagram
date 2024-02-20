@@ -22,7 +22,7 @@
 															 // const는 상수 선언하는 키워드 checkbox라는 친구 상수로만든다음 toggle2라는 매개변수 값 넣음
  		
 		// 2. checked 속성값을 확인합니다.
-		const is_checked = checkbox.checked; // ?? 상수 is_ckecke는  모르겠다
+		const is_checked = checkbox.checked; // 상수 is_ckecke는 checkbox라는 애의 자식인 ckecked라는 친구의 값을 받음 맞는지 모르겠다 
 		
 		
 		let checkdata =  'n'; // 체크 데이터라는 변수의 기본값은 n
@@ -39,10 +39,10 @@
 			data : { // 데이터는 openyn 라는 컬럼 의 변수 체크데이터 를 보낼것임
 				openyn : checkdata
 			},
-			success : function(result) { // 아모르겠다
-				console.log(result);
+			success : function(result) { // 리절트라는 함수띄우기? 모르겠다
+				console.log(result); // 콘솔에 result 띄우기
 			},
-			error : function(error) {	
+			error : function(error) {	//아모르겠다
 				console.error(error)
 			}
 		});

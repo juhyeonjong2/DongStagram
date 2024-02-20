@@ -6,8 +6,8 @@
 
 <%
 	MemberVO member = (MemberVO)session.getAttribute("login"); //로그인정보를 얻어온다
-	int mno = member.getMno();						// 
-	String openyn = request.getParameter("openyn");
+	int mno = member.getMno();						// 숫자열 mn0 는 member라는 ? mno를 받아온다
+	String openyn = request.getParameter("openyn");	// 문자열 openyn은 getParameter
 	
 
 	//db연결
