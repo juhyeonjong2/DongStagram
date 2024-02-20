@@ -74,6 +74,18 @@
 	}
 	
 	
+	String delBnoParam = request.getParameter("delBno"); 
+	int bno3 = 0;
+	if(delBnoParam != null  && !delBnoParam.equals("")){
+		bno3 = (int)HashMaker.Base62Decoding(delBnoParam);
+	}
+	
+	//게시글 지우기
+	if(bno3 != 0){
+		boolean isSuccess = PageDAO.deleteBoard(bno3, member.getMno()); 
+		out.print(isSuccess);
+	}
+	
 	
 	
 	

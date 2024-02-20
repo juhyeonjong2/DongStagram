@@ -7,10 +7,22 @@ public class BoardVO {
 	private String shorturi; //짧은 경로 인데 어디에 쓰는지 잘 모르겠다.
 	private String wdate; //작성일
 	private int bfavorite; //좋아요 수
+	private int cdate; //접속날짜-작성날짜 
+	private int rcnt; //댓글 수
 	
-	//전 프로젝트에는 생성자도 있었지만 아마 글 보기에 사용되는거 같아 일단 안 만듬 만약 필요하면 그때 만드는 작업 필요
 	
-	
+	public int getRcnt() {
+		return rcnt;
+	}
+	public void setRcnt(int rcnt) {
+		this.rcnt = rcnt;
+	}
+	public int getCdate() {
+		return cdate;
+	}
+	public void setCdate(int cdate) {
+		this.cdate = cdate;
+	}
 	public int getBno() {
 		return bno;
 	}

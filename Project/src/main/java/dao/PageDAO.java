@@ -84,7 +84,7 @@ public class PageDAO {
 						ReplyVO rootReply = new ReplyVO();
 						rootReply.setRname(db.getString("mnick"));
 						int Rnow = db.getInt("rdate");
-						rootReply.setPreviousDate(Tnow - Rnow);
+						rootReply.setPdate(Tnow - Rnow);
 						rootReply.setRcontent(db.getString("rcontent"));
 						vo.rootReply.add(rootReply);
 					}
@@ -100,12 +100,28 @@ public class PageDAO {
 							reply.setRname(db.getString("mnick"));
 							reply.setRno(db.getInt("r.rno"));
 							int Rnow = db.getInt("rdate");
-							reply.setPreviousDate(Tnow - Rnow);
+							reply.setPdate(Tnow - Rnow);
 							reply.setRcontent(db.getString("rcontent"));
 							vo.replylist.add(reply);
 						}
-				 }	 
+				 }	
 				 
+				 // 좋아요 수를 가져온다
+				 sql = "SELECT COUNT(*) as cnt FROM favorite WHERE bno= ?";
+				 if( db.prepare(sql).setInt(bno).read()){
+						if(db.next()){ //next로 차근차근 전부 가져온다.	
+							vo.setBfavorite(db.getInt("cnt"));
+						}
+				 }
+				 
+				 // 가공된 날짜를 가져온다
+				 sql = "SELECT replace(SUBSTRING(wdate, 1, 10), '-', '') as wdate FROM board WHERE bno = ?";
+				 if( db.prepare(sql).setInt(bno).read()){
+						if(db.next()){ //next로 차근차근 전부 가져온다.
+							int Rnow = db.getInt("wdate");
+							vo.setCdate(Tnow - Rnow);
+						}
+				 }
 			}
 		}
 		catch(Exception e) {
@@ -126,7 +142,7 @@ public class PageDAO {
 				if(db.connect()){
 					
 					// 댓글을  지운다.
-					String sql = " delete from reply WHERE rno = ? and mno = ?;";
+					String sql = " delete from reply WHERE rno = ? and mno = ?";
 					if( db.prepare(sql).setInt(rno).setInt(mno).update() > 0){
 						isSuccess = true; 
 					}  
@@ -139,6 +155,69 @@ public class PageDAO {
 			return isSuccess; 
 		}
 	
+		
+		// 게시글을 삭제하는 메소드
+		public static boolean deleteBoard(int bno, int mno) {
+			
+			boolean isSuccess = true;
+
+			try(DBManager db = new DBManager();){
+				if(db.connect(true)){
+					
+					System.out.println("삭제시작");
+					// 댓글을  지운다. (댓글은 반드시 존재, (댓글이 없다는 댓글이 달리는듯))
+						String sql = " delete from reply WHERE bno = ? and mno = ?";
+						if(db.prepare(sql).setInt(bno).setInt(mno).update(true) <= 0){
+							isSuccess = false;
+							System.out.println("삭제실패1");
+						} 
+					 
+					// 댓글을 지웠다면 이미지파일을 제거한다 (이미지는 반드시 존재)
+						if(isSuccess){
+							sql = " delete from boardattach WHERE bno = ?";
+							if(db.prepare(sql).setInt(bno).update(true) <= 0){
+								isSuccess = false; 
+								System.out.println("삭제실패2");
+							} 
+						} 
+					
+					// 이미지 파일도 지웠다면 좋아요도 지운다. (셀렉트로 검사 후 존재한다면 삭제)
+					if(isSuccess){
+						 int testBno = 1;
+						sql = " SELECT bno FROM favorite WHERE bno = ? and mno = ?";
+						 if( db.prepare(sql).setInt(bno).setInt(mno).read()){
+							 testBno = db.getInt("bno");
+						 }
+						 //찾은 값이 없지 않다면 
+						 if(testBno != 0 && testBno != 1) {
+							sql = " delete from favorite WHERE bno = ? and mno = ?";
+							if(db.prepare(sql).setInt(bno).setInt(mno).update(true) <= 0){
+								isSuccess = false; 
+								System.out.println("삭제실패3");
+							} 
+						 }
+					}
+					// 모두 지웠으면 게시물도 지워준다.
+					if(isSuccess){
+						sql = " delete from board WHERE bno = ? and mno = ?";
+						if(db.prepare(sql).setInt(bno).setInt(mno).update(true) <= 0){
+							isSuccess = false;
+							System.out.println("삭제실패4");
+						} 
+					}
+					// 모두 성공인경우
+					if(isSuccess) {
+						db.txCommit(); // 커밋.
+						System.out.println("커밋함");
+					}	
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return isSuccess; 
+		}
 	
 	
 }

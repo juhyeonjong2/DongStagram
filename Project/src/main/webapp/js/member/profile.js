@@ -5,7 +5,6 @@
 function load(o){
 		let bno = $(o).data('id');
 		$('#inputBno').attr('value',bno);
-		console.log(bno)
 		// 가상경로로 수정(페이지 컨트롤러)
 		// 파일 이미지 넣기
 		$.ajax({
@@ -58,7 +57,7 @@ function load(o){
 								  + '<a href="#" class="main1name">' + resData.rootReply[0].rname + '</a> '
 								  + '<div class="popupViewReply">' + resData.rootReply[0].rcontent + '</div> '
 								  + '</div>'
-								  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].previousDate + '일 전</span>'
+								  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].pdate + '일 전</span>'
 								  + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
 						$('.popupviewMain').append(rootReply)
 				}
@@ -70,7 +69,7 @@ function load(o){
 								 + '<a href="#" class="main1name">' + resData.replylist[i].rname + '</a> '
 								 + '<div class="popupViewReply">' + resData.replylist[i].rcontent + '</div> '
 								 + '</div>'
-								 + '<span class="popupviewMainSpan1">' + resData.replylist[i].previousDate + '일 전</span>'
+								 + '<span class="popupviewMainSpan1">' + resData.replylist[i].pdate + '일 전</span>'
 								 + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
 								 + '<a data-toggle="modal" data-id="'+ resData.replylist[i].rno +'" onclick="deleteOpen(this)" class="popupviewMainSpan2">· · ·</a>'
 						$('.popupviewMain').append(html)
@@ -80,8 +79,8 @@ function load(o){
 					 $('.popupviewBottom2').empty();
 					 
 					 let html = '<img src="#" class="profile"> '
-						 + '  <span class="popupviewBottomSpan1">좋아요 11개</span> '
-						 + '  <span class="popupviewBottomSpan2">5일 전</span> '
+						 + '  <span class="popupviewBottomSpan1">좋아요'+ resData.bfavorite +' 개</span> '
+						 + '  <span class="popupviewBottomSpan2">'+ resData.cdate +'일 전</span> '
 
 					$('.popupviewBottom2').append(html)	
 				 
@@ -141,7 +140,7 @@ function load(o){
 												  + '<a href="#" class="main1name">' + resData.rootReply[0].rname + '</a> '
 												  + '<div class="popupViewReply">' + resData.rootReply[0].rcontent + '</div> '
 												  + '</div>'
-												  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].previousDate + '일 전</span>'
+												  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].pdate + '일 전</span>'
 												  + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
 										$('.popupviewMain').append(rootReply)	
 								}
@@ -152,7 +151,7 @@ function load(o){
 											 + '<a href="#" class="main1name">' + resData.replylist[i].rname + '</a> '
 											 + '<div class="popupViewReply">' + resData.replylist[i].rcontent + '</div> '
 											 + '</div>'
-											 + '<span class="popupviewMainSpan1">' + resData.replylist[i].previousDate + '일 전</span>'
+											 + '<span class="popupviewMainSpan1">' + resData.replylist[i].pdate + '일 전</span>'
 											 + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
 											 + '<a data-toggle="modal" data-id="'+ resData.replylist[i].rno +'" onclick="deleteOpen(this)" class="popupviewMainSpan2">· · ·</a>'
 									$('.popupviewMain').append(html)
@@ -219,7 +218,7 @@ function load(o){
 										  + '<a href="#" class="main1name">' + resData.rootReply[0].rname + '</a> '
 										  + '<div class="popupViewReply">' + resData.rootReply[0].rcontent + '</div> '
 										  + '</div>'
-										  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].previousDate + '일 전</span>'
+										  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].pdate + '일 전</span>'
 										  + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
 								$('.popupviewMain').append(rootReply)
 							
@@ -229,7 +228,7 @@ function load(o){
 										 + '<a href="#" class="main1name">' + resData.replylist[i].rname + '</a> '
 										 + '<div class="popupViewReply">' + resData.replylist[i].rcontent + '</div> '
 										 + '</div>'
-										 + '<span class="popupviewMainSpan1">' + resData.replylist[i].previousDate + '일 전</span>'
+										 + '<span class="popupviewMainSpan1">' + resData.replylist[i].pdate + '일 전</span>'
 										 + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
 										 + '<a data-toggle="modal" data-id="'+ resData.replylist[i].rno +'" onclick="deleteOpen(this)" class="popupviewMainSpan2">· · ·</a>'
 								$('.popupviewMain').append(html)
@@ -248,14 +247,49 @@ function load(o){
 		 });
 	}
 	
-	
+	// 좋아요 누를경우 색변환 + 페이지 다시 그리기
 	function setFavorite(className, toggle) {
+		let bno = $('#inputBno').attr('value');
 		if(toggle == 'y'){
 			$("." + className).attr("src", "/Dongstagram/icon/clickheart.png");
 		}
 		else {
 			$("." + className).attr("src", "/Dongstagram/icon/heart.png");
 		}
+		//좋아요 다시 그리기
+		$.ajax({
+			url:"/Dongstagram/board/detailBoard.jsp", 
+			type:"post",
+			data : {shortUrlReply : bno},
+			dataType : "json",
+			success:function(resData){
+					 // 하단부분 그리기
+					 $('.popupviewBottom2').empty();
+					 
+					 let html = '<img src="#" class="profile"> '
+						 + '  <span class="popupviewBottomSpan1">좋아요'+ resData.bfavorite +' 개</span> '
+						 + '  <span class="popupviewBottomSpan2">'+ resData.cdate +'일 전</span> '
+
+					$('.popupviewBottom2').append(html)	
+			} //success
+	 	});
+			
+		//swiper 생성
+		var swiper = new Swiper(".mySwiper", {
+			spaceBetween: 30,
+			centeredSlides: true,
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+			},
+			navigation: {
+		 		nextEl: ".swiper-button-next",
+				prevEl: ".swiper-button-prev",
+			},
+		});
+				
+		// 팝업 열기
+	     $('#detailBoard').modal('show');
 	}
 	
 	
@@ -286,5 +320,22 @@ function load(o){
 				}
 			});
 	}
+	
+	//스크롤 기능
+		
+	$(window).scroll(function(){
+		console.log("스크롤");
+});
+
+	$('.popupviewMain').scroll(function(){
+		console.log("스크롤2");
+});
+
+	
+	
+	
+	
+	
+	
 	
 			        

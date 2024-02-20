@@ -10,14 +10,14 @@ public class ReplyVO {
 	private int mno; // 회원번호
 	private int bno; // 글 번호
 	private String rcontent; //글 내용
-	private int previousDate; //접속날짜-작성날짜
+	private int pdate; //접속날짜-작성날짜
 	
 	
-	public int getPreviousDate() {
-		return previousDate;
+	public int getPdate() {
+		return pdate;
 	}
-	public void setPreviousDate(int previousDate) {
-		this.previousDate = previousDate;
+	public void setPdate(int pdate) {
+		this.pdate = pdate;
 	}
 	public String getRcontent() {
 		// 개행문자를 <br>로 변경해서 리턴
