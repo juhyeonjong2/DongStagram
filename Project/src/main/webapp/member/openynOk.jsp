@@ -5,8 +5,8 @@
 <%@ page import="ezen.db.DBManager" %>
 
 <%
-	MemberVO member = (MemberVO)session.getAttribute("login");
-	int mno = member.getMno();
+	MemberVO member = (MemberVO)session.getAttribute("login"); //로그인정보를 얻어온다
+	int mno = member.getMno();						// 
 	String openyn = request.getParameter("openyn");
 	
 
@@ -19,8 +19,7 @@
 	
 		int result = db.prepare(sql).setString(openyn).setInt(mno).update();
 		
-		db.release();
-		db.close();
+		db.disconnect();
 		
 		out.print(result);
 	}else{

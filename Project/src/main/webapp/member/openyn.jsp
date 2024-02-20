@@ -14,33 +14,35 @@
 	type="text/css" rel="stylesheet">
 <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <script>
-	function sendData(e) {
+	function sendData(e) { //sendData 라는 함수 선언 e라는 매개 변수
 		// 진짜가는지 확인
-		console.log("!");
+		console.log("!");	
 		// 1. checkbox element를 찾습니다.
-		const checkbox = document.getElementById('toggle2');
-		
+		const checkbox = document.getElementById('toggle2'); // getElementById는 document 객체의 내장함수 이므로 앞에 document가 붙었다
+															 // const는 상수 선언하는 키워드 checkbox라는 친구 상수로만든다음 toggle2라는 매개변수 값 넣음
+ 		
 		// 2. checked 속성값을 확인합니다.
-		const is_checked = checkbox.checked;
+		const is_checked = checkbox.checked; // ?? 상수 is_ckecke는  모르겠다
 		
-		let checkdata =  'n';
 		
-		if(is_checked == true ){
-			checkdata = 'y';
+		let checkdata =  'n'; // 체크 데이터라는 변수의 기본값은 n
+		
+		if(is_checked == true ){ //만약  is_Ckecked가 진실이면
+			checkdata = 'y';		// 체크 데이터는 y이다
 		}
 		
 
-		// 프론트에서 어카운트의 
+		// 에이잭스통신문
 		$.ajax({
-			url : "openynOk.jsp",
-			type : "post",
-			data : {
+			url : "openynOk.jsp", // openYnOK.jsp 의주소로 이동시킨다
+			type : "post", //포스트방식으로 안전하게 보낸다
+			data : { // 데이터는 openyn 라는 컬럼 의 변수 체크데이터 를 보낼것임
 				openyn : checkdata
 			},
-			success : function(result) {
+			success : function(result) { // 아모르겠다
 				console.log(result);
 			},
-			error : function(error) {
+			error : function(error) {	
 				console.error(error)
 			}
 		});
