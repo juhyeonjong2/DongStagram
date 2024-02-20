@@ -196,16 +196,18 @@
 
                 <input type="radio" name="tab_radio" id="tab1"/>
                 <label for="tab1" class="tab3"><img src="<%=request.getContextPath()%>/icon/search.png">검색</label>
+<!-- 아쉽지만 빠이 
 
                 <input type="radio" name="tab_radio" id="tab2"/>
                 <label for="tab2" class="tab3"><a href="./message.html"><img src="<%=request.getContextPath()%>/icon/message.png">메세지</a></label>
+-->
 
                 <input type="radio" name="tab_radio" id="tab3"/>
                 <label for="tab3" class="tab3"><img src="<%=request.getContextPath()%>/icon/notice.png">알림</label>
-
+<!-- 아쉽지만 빠이 
                 <input type="radio" name="tab_radio" id="tab4"/>
                 <label for="tab4" class="tab3"><a href="./navigation.html"><img src="<%=request.getContextPath()%>/icon/scan.png">탐색 탭</a></label>
-
+-->
                 <input type="radio" name="tab_radio" id="tab5"/>
                 <label for="tab5" class="tab3"><a data-toggle="modal" href="#postPopup"><img src="<%=request.getContextPath()%>/icon/post.png">만들기</a></label>
                 
@@ -239,13 +241,12 @@
                 </a>
               </div>
             </section>
-      
+   <!--     
             <section id="nav2" class="clearfix">
+           
               <div id="nickname">자기 닉네임</div>
               <a data-toggle="modal" href="#messagePopup" id="messageLink"><img src="./icon/massagewrite.png" ></a>
               <h5>메세지</h5>
-              <!--for문으로 div안에 데이터 집어넣음-->
-
               <div class="massage">
                 <a href="#">
                   <img src="./자산 4.png" class="profile">
@@ -255,7 +256,7 @@
                 </a>
               </div>
             </section>
-      
+      -->
             <section id="nav3">
               <h4>알림</h4>
               <h5>오늘</h5>
