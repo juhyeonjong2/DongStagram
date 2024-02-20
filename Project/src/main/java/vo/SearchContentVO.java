@@ -7,7 +7,6 @@ public class SearchContentVO {
 	// userInfo
 	private String name;
 	private String profileImage;
-	private String intro;
 	private int followers;
 	
 	// hashTagInfo
@@ -43,14 +42,6 @@ public class SearchContentVO {
 
 	public void setProfileImage(String profileImage) {
 		this.profileImage = profileImage;
-	}
-
-	public String getIntro() {
-		return intro;
-	}
-
-	public void setIntro(String intro) {
-		this.intro = intro;
 	}
 
 	public int getFollowers() {

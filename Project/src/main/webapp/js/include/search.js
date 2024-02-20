@@ -103,7 +103,6 @@ function addUserContent(parent, data){
 	
 	let userName = data.name;
 	let followers = data.followers;
-	//let intro = data.intro; // 인트로 필요없다.
 	
 	let html  = '<div class="search">';
 		html += '	<a href="'+profileLink+'">';

@@ -14,7 +14,7 @@ public class SearchContentDAO {
 		{
 			if(db.connect()) {
 				//1. 블럭되지 않은 유저들이면서 자신은 아니고 swearchWords가 nickname에 포함되는 유저들을 검색 
-				String sql = "SELECT intro, mnick, mname, mfrealname, "
+				String sql = "SELECT mnick, mname, mfrealname, "
 						+ "(SELECT count(*) FROM follow WHERE tommo=M.mno AND state='ack') as followers "
 						+ "FROM member as M "
 						+ "INNER JOIN account as A ON M.mno=A.mno "
@@ -28,7 +28,6 @@ public class SearchContentDAO {
 						SearchContentVO vo = new SearchContentVO();
 						vo.setType("nick");// 타입설정
 						vo.setSearchWords(db.getString("mnick"));
-						vo.setIntro(db.getString("intro"));
 						vo.setName(db.getString("mname"));
 						vo.setProfileImage(db.getString("mfrealname"));
 						vo.setFollowers(db.getInt("followers"));
