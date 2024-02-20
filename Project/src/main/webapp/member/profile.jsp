@@ -32,17 +32,22 @@
 	DBManager db = new DBManager();
 	
 	if(db.connect()) {
-		// 나의 게시글을 전부 찾는다.
-		String sql = "SELECT bno, bfavorite FROM board WHERE mno=?";
+		// 나의 게시글, 좋아요 수, 댓글 수를 전부 찾는다.
+		String sql = "select b.bno ,"
+				   + " (select count(*) from favorite f where f.bno = b.bno) as fcnt,"
+				   + " (SELECT COUNT(*) FROM reply r where r.bno = b.bno) as rcnt"
+				   + " from board b WHERE b.mno = ?";
 		
 		if(db.prepare(sql).setInt(mno).read()) {
 			  while(db.next()){
 				BoardViewVO board = new BoardViewVO();
 				board.setBno(db.getInt("bno"));
-				board.setBfavorite(db.getInt("bfavorite"));
+				board.setBfavorite(db.getInt("fcnt"));
+				board.setRcnt(db.getInt("rcnt"));
 				boardList.add(board);
 			  }
 		}
+		
 		//그후 나의 게시글들에서 추출한 bno의 썸네일을 추출한다.
 		sql = "SELECT bfrealname, bforeignname FROM boardAttach WHERE bno=? AND bfidx=0 ";
 
@@ -124,8 +129,8 @@
                   <input type="hidden" value="<%=saveDir %>" class="mnick">
                     <span class="scanimgHover">
                       <span>
-                        <img src="<%=request.getContextPath()%>/icon/whiteHeart.png"><%=b.getBfavorite() %>
-                        <img src="<%=request.getContextPath()%>/icon/whiteMessage.png">9
+                        <img src="<%=request.getContextPath()%>/icon/whiteHeart.png"> <%=b.getBfavorite() %>
+                        <img src="<%=request.getContextPath()%>/icon/whiteMessage.png"> <%=b.getRcnt() %>
                       </span>
                     </span>
                   </a>

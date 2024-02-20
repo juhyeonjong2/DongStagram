@@ -19,15 +19,14 @@ public class PageVO extends BoardVO{
 
 	// 이미지 받아올 리스트
 	 public ArrayList<BoardAttachVO> imglist = new ArrayList<BoardAttachVO>();
-	 
-	 
-	 
-	 
-	 // 글 작성시 쓴 글을 받아올 필드
+
+	 // 글 작성시 쓴 글을 받아올 리스트
 	 public ArrayList<ReplyVO> rootReply = new ArrayList<ReplyVO>();
 
 	// 댓글 받아올 리스트
 	 public ArrayList<ReplyVO> replylist = new ArrayList<ReplyVO>();
+	 
+	 
 	 
 	 
 	

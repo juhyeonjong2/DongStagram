@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="<%=request.getContextPath()%>/js/include/popup.js"></script>
 </head>
 <body>
  <!-- Modal -->
@@ -40,7 +41,7 @@
                                 <img src="./자산 4.png" class="profile">
                                 <a href="#" class="main1name">닉네임</a>
                                 <button>팔로우</button>
-                                <a data-toggle="modal" href="#morePopup2" class="popupviewMainSpan2">· · ·</a>
+                                <a data-toggle="modal" class="popupviewMainSpan2" onclick="boardModify()">· · ·</a>
                             </div> <!--상단 태그-->
 
                             <!--댓글 창-->
@@ -137,9 +138,10 @@
           <div class="modal-content">
             <div class="modal-body">
               <div class="morePopupMain">
-                <div class="morePopupBox1"><a data-toggle="modal" href="#modifyPopup">수정<a></div>
+                <div class="morePopupBox1"><a data-toggle="modal" onclick="modifyOk()">수정<a></div>
+                <div class="morePopupBox1"><a data-toggle="modal" onclick="deleteOk()">삭제<a></div>
                 <button type="button" class="morePopupBox3" data-dismiss="modal">취소</button>
-                
+                <input type="hidden" id="boardBno" value="">  
               </div>
             </div>
           </div>
@@ -297,12 +299,17 @@
                 <div class="dropBox" id="dropBox">
 
                   <div class="slideShow"> <!--메인 동영상과 사진 슬라이드-->
-                    <ul class="bxslider">
-                      <li><img src="./즐겁다 짤.jpg" ></li>
-                      <li><img src="./인스타 탑로고.png" ></li>
-                      <li><img src="./즐겁다 짤.jpg" ></li>
-                  </ul> 
-          
+                  
+       				<div class="swiper mySwiper">
+				      <div class="swiper-wrapper">
+				      <!-- 받아온 bno의있는 모든 이미지를 가져온다 -> 순서대로 나열한다  -->
+				        
+				      </div>
+				      <div class="swiper-button-next"></div>
+				      <div class="swiper-button-prev"></div>
+				      <div class="swiper-pagination"></div>
+				    </div>
+				    
                   </div> <!--메인 동영상과 사진 슬라이드-->
 
                 </div>
