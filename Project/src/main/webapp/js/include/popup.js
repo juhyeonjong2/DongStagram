@@ -29,7 +29,7 @@ function deleteOk(){
 					alert("게시글을 삭제하였습니다.");
 					$('#morePopup2').modal('hide');
 					$('#detailBoard').modal('hide');
-					location.href = "'/Dongstagram/user/'"+nick; //동스타그램/유저/유저닉
+					location.href = "/Dongstagram/user/"+nick; 
 				}else{
 					alert("게시글 삭제에 실패하셨습니다.");
 					$('#morePopup2').modal('hide');
