@@ -41,7 +41,13 @@ public class DataController implements SubController {
 		 case "search":
 			 isSuccess = search(uris, request, response);
 			 break;
-		
+		 case "remove":
+			 isSuccess = remove(uris, request, response);
+			 break;
+		 case "add":
+			 isSuccess = add(uris, request, response);
+			 break;
+			 
 		 }
 		 
 		 if(isSuccess == false) {
@@ -117,6 +123,46 @@ public class DataController implements SubController {
 		switch(uris[2]) {
 		case "content": // /Dongstagram/data/search/content
 			request.getRequestDispatcher("/content/searchOk.jsp").forward(request, response);
+			isSuccess = true;
+			break;
+		case "history": // /Dongstagram/data/search/history/
+			request.getRequestDispatcher("/content/searchHistoryOk.jsp").forward(request, response);
+			isSuccess = true;
+			break;
+		
+		}
+		return isSuccess;
+	}
+	
+	protected boolean remove(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(uris.length < 3)
+		{
+			return false;
+		}
+		
+		boolean isSuccess = false;
+		switch(uris[2]) {
+		case "history": // /Dongstagram/data/remove/history
+			request.getRequestDispatcher("/content/searchHistoryRemoveOk.jsp").forward(request, response);
+			isSuccess = true;
+			break;
+		
+		}
+		return isSuccess;
+	}
+	
+	protected boolean add(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(uris.length < 3)
+		{
+			return false;
+		}
+		
+		boolean isSuccess = false;
+		switch(uris[2]) {
+		case "history": // /Dongstagram/data/add/history
+			request.getRequestDispatcher("/content/searchHistoryAddOk.jsp").forward(request, response);
 			isSuccess = true;
 			break;
 		

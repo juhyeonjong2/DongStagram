@@ -40,7 +40,7 @@
    
 	String json = mapper.writeValueAsString(root);
 	
-	System.out.println(json);
+	//System.out.println(json);
 	out.print(json);
 
 %>

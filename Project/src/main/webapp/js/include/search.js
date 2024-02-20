@@ -2,7 +2,7 @@
  * 
  */
  $(window).on("load", function() {
- 	loadSearchHistory();
+ 	requestHistory();
 });
 
  
@@ -23,9 +23,9 @@ function searchContent(o){
 }
 
 function requestSearch(value){
-	console.log("requestSearch :" + value);
+	//console.log("requestSearch :" + value);
 	if(value == null || value==""){
-		loadSearchHistory();
+		requestHistory();
 	}
 	else {
 		// 아작스 통신
@@ -57,7 +57,7 @@ function drawSearchContentFail(){
 }
 
 function drawSearchContentSuccess(contentList){
-	console.log(contentList);
+	//console.log(contentList);
 	
 	$("#searchBody").empty();
 	
@@ -86,10 +86,8 @@ function addContent(parent, content){
 
 function addUserContent(parent, data){
 	
-	console.log("addUserContent");
-	console.log(data);
-	
-	
+	//console.log("addUserContent");
+	//console.log(data);
 	// DB에 검색 정보를 남기자. 쿠키가 더귀찮다. (searchHistory)
 	let userNick = data.searchWords;
 	let contextPath = "/Dongstagram";
@@ -104,8 +102,13 @@ function addUserContent(parent, data){
 	let userName = data.name;
 	let followers = data.followers;
 	
+	let onclickHtml = 'onclick="addSearchHistory(';
+	    onclickHtml+= "'n', this, '" + profileLink + "')";
+	    onclickHtml+= '">';
+	
 	let html  = '<div class="search">';
-		html += '	<a href="'+profileLink+'">';
+		html += '	<input type="hidden" class="words" value="'+userNick+'">';
+		html += '	<a href="#"' + 'onclick="addSearchHistory(' + "'n', this, '" + profileLink + "')" + '">';
 		html += '		<img src="'+profileImagePath+'" class="profile">';
 		html += '		<span class="span">'+ userNick +'</span>';
 		html += '		<span class="span2">'+ userName +' · 팔로워 '+  numberToKorean(followers) +'명</span>';
@@ -117,32 +120,51 @@ function addUserContent(parent, data){
 
 function addHashContent(parent, data){
 	
-	
 	// 미사용.
-	console.log("addHashContent");
-	console.log(data);
+	//console.log("addHashContent");
+	//console.log(data);
 	
-	let html =  '<div class="search">';
-		html += '	<a href="./search.html">';
-		html += '		<img src="/Dongstagram/icon/hashtag.png" class="profile">';
-		html += '		<span class="span">검색 한 것</span>';
-		html += '		<span class="span2">게시물 500만</span>';
-		html += '	</a>';
-		html += '</div>';
+	//let html =  '<div class="search">';
+		//html += '	<a href="./search.html">';
+		//html += '		<img src="/Dongstagram/icon/hashtag.png" class="profile">';
+		//html += '		<span class="span">검색 한 것</span>';
+		//html += '		<span class="span2">게시물 500만</span>';
+		//html += '	</a>';
+		//html += '</div>';
 		
-	parent.append(html);
+	//parent.append(html);
 }
 
-function loadSearchHistory() {
-	// 검색 기록을 로드함.
-	// 최근 검색항목은 검색하고 엔터가 아니라 검색하고 클릭시에 해당 페이지를 로드할때 기록한다.
-	$("#searchBody").empty();
+function requestHistory(){
+
+	// 아작스 통신
+	$.ajax(
+	{
+		url: "/Dongstagram/data/search/history",
+		type: "post",
+		success: function(resData) {
+			let obj =JSON.parse(resData.trim());	
+			if(obj.result =="SUCCESS")
+			{ 
+				drawSearchHistory(obj.contents);
+			}
+		},
+		error: function() {
+			//consloe.log("FAIL");
+			
+		}
+	});	
+}
+
+function drawSearchHistory(contentList){
+	//console.log(contentList);
 	
+	$("#searchBody").empty();
 	
 	let html = '<hr>';
 		html += '<div style="margin-bottom:20px">';
 		html += '	<span style="margin-left:40px">최근 검색 항목</span>';
-		html += '	<span onclick="alert(1111)" style="margin-left:100px">모두지우기</span>';
+		html += '	<span onclick="removeSearchHistory(this)" style="margin-left:100px">모두지우기</span>';
 		html += '</div>';
 		html += '<div class="searchContainer" style="overflow-x:hidden; width:380px; height:700px;">';
 		html += '</div>';
@@ -151,38 +173,55 @@ function loadSearchHistory() {
 	
 	let parent = $("#searchBody .searchContainer");
 	
-	for(let i=0;i<2;i++){
-		addUserContent(parent, "");
+	for(let i=0;i<contentList.length;i++){
+		addContent(parent, contentList[i]);
+	}
+}
+
+function removeSearchHistory(o) {
+	
+	$(o).attr("disabled",true);
+	
+	$.ajax(
+	{
+		url: "/Dongstagram/data/remove/history",
+		type: "post",
+		success: function(resData) {
+			if(resData.trim() == "OK"){
+				requestHistory();
+			}
+			$(o).removeAttr("disabled"); 
+		},
+		error: function() {
+			//consloe.log("FAIL");
+			$(o).removeAttr("disabled"); 
+		}
+	});
+}
+
+function addSearchHistory(t, o, url){
+	
+	let parent = $(o).closest(".search");
+	let words = parent.find(".words");
+	let sValue = words.val();
+	let sType = 'nick';
+	if(t == 't'){ // tag
+		sType = 'tag';
 	}
 	
-	for(let i=0;i<2;i++){
-		addHashContent(parent, "");
-	}
-	
-	
-	/*
-	let html = '<hr>';
-		html += '<div>';
-		html += '	<span>최근 검색 항목</span>';
-		html += '	<span onclick="alert(1111)">모두지우기</span>';
-		html += '</div>';
-		html += '<div class="searchContainer" style="overflow:auto;">';
-		html += '	<div class="search">';
-		html += '		<a href="./search.html">';
-		html += '			<img src="./icon/hashtag.png" class="profile">';
-		html += '			<span class="span">검색 한 것</span>';
-		html += '			<span class="span2">게시물 500만</span>';
-		html += '		</a>';
-		html += '	</div>';
-		html += '	<div class="search">';
-		html += '		<a href="./search2.html">';
-		html += '			<img src="./즐겁다 짤.jpg" class="profile">';
-		html += '			<span class="span">abc마트</span>';
-		html += '			<span class="span2">abc마트 · 팔로워 24.7만명</span>';
-		html += '		</a>';
-		html += '	</div>';
-		html += '</div>';
-		*/
-		
+	$.ajax(
+	{
+		url: "/Dongstagram/data/add/history",
+		type: "post",
+		data: {searchWords : sValue, searchType : sType },
+		success: function(resData) {
+			//if(resData.trim() == "OK"){ }
+			 location.href = url; // 저장후 페이지 이동
+		},
+		error: function() {
+			//consloe.log("FAIL");
+			 location.href = url; // 실패해도 페이지 이동
+		}
+	});
 	
 }
