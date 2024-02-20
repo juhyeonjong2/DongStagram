@@ -55,7 +55,7 @@ DROP TABLE room;
 DROP TABLE message;
 set FOREIGN_KEY_CHECKS = 1;
 # 2. 검색어 히스토리 테이블 생성
-CREATE TABLE searchHisotry (
+CREATE TABLE searchHistory (
 	mno int unsigned not null comment '회원번호',
     type varchar(10) not null comment '타입',
     words text not null comment '검색어',
