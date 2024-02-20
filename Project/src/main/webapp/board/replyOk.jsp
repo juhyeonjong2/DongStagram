@@ -13,8 +13,15 @@
 	}
 	
 	String replyText = request.getParameter("reply");
+	if(replyText == null || replyText.equals("")){
+%>
+		<script>
+			alert("권한이 없습니다.");
+			location.href="<%=request.getContextPath()%>";
+		</script>
+<%	
+	}
 	String nick = request.getParameter("nick");
-	
 	boolean isSuccess = ReplyDAO.replyWrite(bno, replyText, nick);
 	
 	out.print(isSuccess);
