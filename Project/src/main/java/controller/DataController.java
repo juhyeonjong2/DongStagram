@@ -12,12 +12,13 @@ public class DataController implements SubController {
 	public void doAction(String[] uris, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		 
-		 System.out.println("DataController::doAction");
-		 
+		 //System.out.println("DataController::doAction");
+		 /*
 		 for(String uri : uris) { 
 			 System.out.println(uri); 
 		 }
-		 
+		 */
+		
 		 if(uris.length < 2) {
 			 response.sendRedirect(request.getContextPath());
 			 return;
@@ -36,6 +37,9 @@ public class DataController implements SubController {
 			 break;
 		 case "reply":
 			 isSuccess = reply(uris, request, response);
+			 break;
+		 case "search":
+			 isSuccess = search(uris, request, response);
 			 break;
 		
 		 }
@@ -95,6 +99,24 @@ public class DataController implements SubController {
 		switch(uris[2]) {
 		case "hot": // /Dongstagram/data/reply/hot
 			request.getRequestDispatcher("/board/hotReplyOk.jsp").forward(request, response);
+			isSuccess = true;
+			break;
+		
+		}
+		return isSuccess;
+	}
+	
+	protected boolean search(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(uris.length < 3)
+		{
+			return false;
+		}
+		
+		boolean isSuccess = false;
+		switch(uris[2]) {
+		case "content": // /Dongstagram/data/search/content
+			request.getRequestDispatcher("/content/searchOk.jsp").forward(request, response);
 			isSuccess = true;
 			break;
 		

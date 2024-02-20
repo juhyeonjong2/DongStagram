@@ -28,35 +28,29 @@
    <link href="<%=request.getContextPath()%>/css/post/post.css" type="text/css" rel="stylesheet">
    <!-- footer css도 포함 -->
    <link href="<%=request.getContextPath()%>/css/base.css" type="text/css" rel="stylesheet">
+   <script src="<%=request.getContextPath()%>/js/util/number.js"></script>
    <script src="<%=request.getContextPath()%>/js/include/header.js"></script>
+   <script src="<%=request.getContextPath()%>/js/include/search.js"></script>
 </head>
 <body>
 <header>
 
     <nav id="nav">
           <h1 id="logo">
-          	<a href="#">
+          	<a href="<%=request.getContextPath()%>">
           		<img src="<%=request.getContextPath()%>/icon/logo.png">
           	</a>
           </h1>
           <div id="tabmenu">
             <input type="radio" name="tab_radio" id="tab">
-              <label for="tab" class="tab3"><a href="./base.html"><img src="<%=request.getContextPath()%>/icon/home.png">홈</a></label>
+              <label for="tab" class="tab3"><a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/icon/home.png">홈</a></label>
 
                 <input type="radio" name="tab_radio" id="tab1"/>
                 <label for="tab1" class="tab3"><img src="<%=request.getContextPath()%>/icon/search.png">검색</label>
-<!-- 아쉽지만 빠이 
-
-                <input type="radio" name="tab_radio" id="tab2"/>
-                <label for="tab2" class="tab3"><a href="./message.html"><img src="<%=request.getContextPath()%>/icon/message.png">메세지</a></label>
--->
 
                 <input type="radio" name="tab_radio" id="tab3"/>
                 <label for="tab3" class="tab3"><img src="<%=request.getContextPath()%>/icon/notice.png">알림</label>
-<!-- 아쉽지만 빠이 
-                <input type="radio" name="tab_radio" id="tab4"/>
-                <label for="tab4" class="tab3"><a href="./navigation.html"><img src="<%=request.getContextPath()%>/icon/scan.png">탐색 탭</a></label>
--->
+
                 <input type="radio" name="tab_radio" id="tab5"/>
                 <label for="tab5" class="tab3"><a data-toggle="modal" href="#postPopup"><img src="<%=request.getContextPath()%>/icon/post.png">만들기</a></label>
                 
@@ -68,44 +62,13 @@
             
             <section id="nav1">
               <h4>검색</h4>
-              <form action="#"> 
-                <input type="text" placeholder="  검색" id="hdsearch">
+              <form class="searchFrm" onsubmit="return false;">
+                <input type="text" name="serach" placeholder="  검색" id="hdsearch" onkeyup="searchContent(this);">
               </form>
-              <hr>
-              <h5>최근 검색 항목</h5>
-              <!--for문으로 div안에 데이터 집어넣음-->
-              <div class="search">
-                <a href="./search.html">
-                  <img src="./icon/hashtag.png" class="profile">
-                  <span class="span">검색 한 것</span>
-                  <span class="span2">게시물 500만</span>
-                </a>
-              </div>
+              <div id="searchBody">
+             </div>
+            </section>
 
-              <div class="search">
-                <a href="./search2.html">
-                  <img src="./즐겁다 짤.jpg" class="profile">
-                  <span class="span">abc마트</span>
-                  <span class="span2">abc마트 · 팔로워 24.7만명</span>
-                </a>
-              </div>
-            </section>
-   <!--     
-            <section id="nav2" class="clearfix">
-           
-              <div id="nickname">자기 닉네임</div>
-              <a data-toggle="modal" href="#messagePopup" id="messageLink"><img src="./icon/massagewrite.png" ></a>
-              <h5>메세지</h5>
-              <div class="massage">
-                <a href="#">
-                  <img src="./자산 4.png" class="profile">
-                  <span class="span">###님에게 메세지가 도착하였습니다.
-                    <span class="span2">10분전</span>
-                  </span>
-                </a>
-              </div>
-            </section>
-      -->
             <section id="nav3">
               <h4>알림</h4>
               <h5>오늘</h5>
@@ -148,7 +111,7 @@
             <section id="nav4">
               <ul>
                 <li><a href="<%=request.getContextPath()%>/accounts/logout">로그아웃</a></li> <!--일단 로그인 가는 경로가 없어 수정 안함-->
-                <li><a href="<%=request.getContextPath()%>/member/profileModify.jsp">설정</a></li> <!--만약 관리자라면 href를 adminSetting로 변경-->
+                <li><a href="<%=request.getContextPath()%>/accounts/setting/profile">설정</a></li> <!--만약 관리자라면 href를 adminSetting로 변경-->
               </ul>
             </section>
         </div><!--tabmenu-->
