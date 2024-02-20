@@ -13,7 +13,7 @@ public class HomeViewDAO {
 	// 2.내가 팔로우한 유저들의 게시물 들고오기
 	// 3.내가 팔로우한 유저들의 게시물 중 최근 3일내의 게시물만 들고오기.
 	// 4.내가 팔로우한 유저들의 게시물 중 최근 3일내의 게시물 중에 확인을 안했거나 확인한지 1일이 지나지 않은 게시물만 가져오기
-	public static ArrayList<HomeViewVO> list(int mno){
+	public static ArrayList<HomeViewVO> list(int mno, int start, int count){
 		ArrayList<HomeViewVO> list = new ArrayList<HomeViewVO>();
 		
 		// mno가 좋아요 한 것인지도 조사.
@@ -26,10 +26,12 @@ public class HomeViewDAO {
 						+ "LEFT JOIN member as M ON B.mno = M.mno "
 						+ "LEFT JOIN memberattach as A ON M.mno = A.mno "
 						+ "LEFT JOIN favorite as F ON F.bno = B.bno "
-						+ "WHERE (B.blockyn is null or B.blockyn = 'n') ";
+						+ "WHERE B.mno <> ? AND (B.blockyn is null or B.blockyn = 'n') "  // 내가 작성한 글이 아니어야한다.
+						+ "ORDER BY B.bno DESC "  // 역순정렬
+						+ "LIMIT ?, ? ";// 페이징
 				
 				
-				if(db.prepare(sql).read()) {
+				if(db.prepare(sql).setInt(mno).setInt(start).setInt(count).read()) {
 					while(db.next()) {
 						HomeViewVO vo = new HomeViewVO();
 						vo.setBno(db.getInt("bno"));
@@ -105,6 +107,32 @@ public class HomeViewDAO {
 		return list;
 	}
 	 
+	public static int count(int mno) {
+		
+		int count = 0;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) {
+				//
+				String sql = "SELECT count(*) as cnt "
+						+ "FROM board as B "
+						+ "LEFT JOIN member as M ON B.mno = M.mno "
+						+ "LEFT JOIN memberattach as A ON M.mno = A.mno "
+						+ "LEFT JOIN favorite as F ON F.bno = B.bno "
+						+ "WHERE B.mno <> ? AND (B.blockyn is null or B.blockyn = 'n') "; // 내가 작성한글이 아닌것만.
+				
+				 if(db.prepare(sql).setInt(mno).read()) {
+					 if(db.next()) {
+						 count = db.getInt("cnt");
+					 }
+				 }
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 	
 	// fulldata (reply, medialist) 
 	public static HomeViewVO findOne(String pageUrl) {
