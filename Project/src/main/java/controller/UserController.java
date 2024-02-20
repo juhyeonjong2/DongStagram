@@ -44,7 +44,7 @@ public class UserController implements SubController {
 				 request.getRequestDispatcher("/member/profile.jsp?mno="+member.getMno()).forward(request, response);
 				 return true;
 			}else { // 타인 프로필 페이지 구현 시 수정
-				 request.getRequestDispatcher("/member/profile.jsp").forward(request, response);
+				 request.getRequestDispatcher("/member/anotherProfile.jsp?mnick="+uris[1]).forward(request, response);
 				 return true;
 			}
 		}

@@ -115,7 +115,7 @@
             </div>
 <!-- Modal -->
 
-  <!-- Modal2 -->
+  <!-- 댓글 ... -->
       <div class="modal fade" id="morePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -131,8 +131,23 @@
           </div>
         </div>
       </div>
+      
+   <!-- 타인 게시물 ... -->
+      <div class="modal fade" id="bPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="morePopupMain">
+                <div class="morePopupBox1"><a href="#">신고</a></div>
+                <button type="button" class="morePopupBox3" data-dismiss="modal">취소</button>
+                <input type="hidden" id="inputRno" value="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <!-- Modal3 -->
+  <!--게시물 보기 안 ... -->
       <div class="modal fade" id="morePopup2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -148,7 +163,7 @@
         </div>
       </div>
 
-      <!-- Modal4 -->
+      <!-- 팔로워 -->
       <div class="modal fade" id="morePopup3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -182,7 +197,7 @@
         </div>
       </div>
 
-        <!-- Modal5 -->
+        <!-- 팔로잉 -->
         <div class="modal fade" id="morePopup4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">

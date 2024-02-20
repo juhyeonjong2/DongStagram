@@ -9,13 +9,7 @@
 <%
 	MemberVO member = (MemberVO)session.getAttribute("login");
 
-	String mnoParam = request.getParameter("mno");
-	int mno=0;
-	
-	if(mnoParam != null && !mnoParam.equals("")){
-		mno = Integer.parseInt(mnoParam);
-	}
-	
+	String mnick = request.getParameter("mnick");
 	
 	ArrayList<BoardViewVO> boardList = new ArrayList<BoardViewVO>();
 	
@@ -26,9 +20,9 @@
 		String sql = "select b.bno ,"
 				   + " (select count(*) from favorite f where f.bno = b.bno) as fcnt,"
 				   + " (SELECT COUNT(*) FROM reply r where r.bno = b.bno) as rcnt"
-				   + " from board b WHERE b.mno = ?";
+				   + " from board b inner join member as m on b.mno = m.mno WHERE m.mnick = ?";
 		
-		if(db.prepare(sql).setInt(mno).read()) {
+		if(db.prepare(sql).setString(mnick).read()) {
 			  while(db.next()){
 				BoardViewVO board = new BoardViewVO();
 				board.setBno(db.getInt("bno"));
@@ -85,7 +79,7 @@
                   <button class="btn btn-secondary">언팔로우</button>
                 -->
                 <a class="btn btn-secondary">메세지 보내기</a>
-                <a data-toggle="modal" href="#morePopup" class="popupviewMainSpan2">· · ·</a>
+                <a data-toggle="modal" href="#bPopup" class="popupviewMainSpan2">· · ·</a>
               </span>
               <span class="searchSpan2">
                 <span>게시물 5899</span>
@@ -107,7 +101,7 @@
 <%
                 	for(BoardViewVO b : boardList)
                 	{
-                		String saveDir = member.getMnick();
+                		String saveDir = mnick;
                 		String upload = "upload/";
     					String foreignFileName = b.getRealFileName();
                 		String realFileName = b.getRealFileName();

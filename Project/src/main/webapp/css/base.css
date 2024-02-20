@@ -24,7 +24,7 @@ a{text-decoration: none; color: #000;}
 #logo a{
   display: inline-block; width: 120px; height: 50px; margin-top: 30px; margin-left: 20px;
 }
-#logo a img{width: 120px; height:50px}
+#logo a img{width: 120px;}
 
 
 /*탭메뉴 메인에 z인덱스 -2아래로 설정*/ /*z-인덱스는 nav에만 -1준 상태*/

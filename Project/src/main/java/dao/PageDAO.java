@@ -34,17 +34,21 @@ public class PageDAO {
 				
 				
 				// 이미지는 while문 써야해서 일단 두개로 나눔
-				 sql = "SELECT bfrealname FROM boardAttach WHERE bno=?";	//보드를 메인으로 다른거 조인
+				 sql = "SELECT bfrealname, bfidx FROM boardAttach WHERE bno=?";	//보드를 메인으로 다른거 조인
 				 if( db.prepare(sql).setInt(bno).read())
 				 {
 						while(db.next()){ //next로 차근차근 전부 가져온다.
 							BoardAttachVO attach = new BoardAttachVO(); 
 							attach.setBfrealname(db.getString("bfrealname"));
+							attach.setBfidx(db.getInt("bfidx"));
 							vo.imglist.add(attach);
-						}
+						} 
 				 }
 				 
-				 
+		 		 vo.imglist.sort((a,b)->{
+		 		 	return a.getBfidx() - b.getBfidx();
+		 		 });
+		 		 
 			}
 		}
 		catch(Exception e) {

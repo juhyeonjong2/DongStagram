@@ -71,6 +71,21 @@ li{margin: 0; padding: 0;}
 #morePopup .morePopupBox1 a{color: red;}
 #morePopup .morePopupBox2 a{color: red;}
 
+
+
+/*타인의 게시물*/
+
+#bPopup .modal-dialog{max-width: 435px;} /*넓이는 여기서*/
+#bPopup .morePopupMain{height: auto; position: relative;} /*높이는 여기서*/
+#bPopup .morePopupBox1{width: 400px; height: 50px; text-align: center; line-height: 50px; border-bottom: 1px solid #d1d0d0;}
+/*#bPopup .morePopupBox2{width: 400px; height: 50px; border-bottom: 1px solid #d1d0d0; border-top: 1px solid #d1d0d0; text-align: center; line-height: 50px;}*/
+#bPopup .morePopupBox3{width: 400px; height: 50px; border: 0px; background-color: #fff; border-top: 1px solid #d1d0d0;}
+
+#morePopup .morePopupBox1 a{color: red;}
+#morePopup .morePopupBox2 a{color: red;}
+
+
+
 /*작은 팝업2*/
 #morePopup2 .modal-dialog{max-width: 435px;} /*넓이는 여기서*/
 #morePopup2 .morePopupMain{height: auto; position: relative;} /*높이는 여기서*/
@@ -78,6 +93,7 @@ li{margin: 0; padding: 0;}
 #morePopup2 .morePopupBox3{width: 400px; height: 50px; border: 0px; background-color: #fff;}
 
 #morePopup2 .morePopupBox1 a{color: red;}
+
 
 /*작은 팝업6*/
 #morePopup5 .modal-dialog{max-width: 435px;} /*넓이는 여기서*/
