@@ -19,7 +19,7 @@ import vo.MemberVO;
 // 따라서 패턴으로 매칭해서 디폴트 서블릿을 오버라이딩 하지 않아야함.
 // (참고 : https://devpanda.tistory.com/95)
 //@WebServlet("/")
-@WebServlet(urlPatterns = { "/page/*", "/direct/*", "/user/*", "/accounts/*", "/data/*", "/explore" }) // 가상경로만 여기에 넣기. 실제 경로는 이 가상경로를 포함하면 안됨. (무한루프걸림)
+@WebServlet(urlPatterns = { "/page/*", "/user/*", "/accounts/*", "/data/*" }) // 가상경로만 여기에 넣기. 실제 경로는 이 가상경로를 포함하면 안됨. (무한루프걸림)
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -50,10 +50,6 @@ public class MainController extends HttpServlet {
 			PageController pageContoller = new PageController();
 			pageContoller.doAction(uris, request, response);
 			break;
-		case "direct": // 실제경로 message/*
-			DirectController directContoller = new DirectController();
-			directContoller.doAction(uris, request, response);
-			break;
 		case "user": // 유저의 프로필 페이지로 이동. (실제경로 member/profile.jsp)
 			UserController userContoller = new UserController();
 			userContoller.doAction(uris, request, response);
@@ -66,9 +62,7 @@ public class MainController extends HttpServlet {
 			DataController dataController = new DataController();
 			dataController.doAction(uris, request, response);
 			break;
-		case "explore": // 탐색인데 기능 제거함 (없어질 운명)
-			break;
-
+		
 		default: // 그외에 모든 경로는 루트로 리다이렉트 시킴(홈 or 로그인페이지)
 			response.sendRedirect(request.getContextPath());
 		}
