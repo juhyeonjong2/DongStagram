@@ -43,7 +43,7 @@ function load(o){
 				// 댓글 부분
 				$('.popupviewMain').empty();
 				
-				if(resData.rootReply[0].rcontent == "" && resData.replylist.length == 0){
+				if( resData.replylist.length == 0){
 					let noneReply = '<div class="notReply">'
 	                    		 + '<p>아직 댓글이 없습니다.</p>'
 	                    		 + '<h6>댓글을 남겨보세요</h6>'
