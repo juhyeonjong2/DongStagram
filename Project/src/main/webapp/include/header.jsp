@@ -38,7 +38,7 @@
     <nav id="nav">
           <h1 id="logo">
           	<a href="<%=request.getContextPath()%>">
-          		<img src="<%=request.getContextPath()%>/icon/logo.png">
+          		<img src="<%=request.getContextPath()%>/icon/logo2.png">
           	</a>
           </h1>
           <div id="tabmenu">
@@ -55,7 +55,7 @@
                 <label for="tab5" class="tab3"><a data-toggle="modal" href="#postPopup"><img src="<%=request.getContextPath()%>/icon/post.png">만들기</a></label>
                 
                 <input type="radio" name="tab_radio" id="tab6"/>
-                <label for="tab6" class="tab3"><a href="<%=request.getContextPath()%>/member/profile.jsp?mno=<%=memberHeader.getMno()%>"><img src="<%=request.getContextPath()%>/icon/profile.png">프로필</a></label>
+                <label for="tab6" class="tab3"><a href="<%=request.getContextPath()%>/user/<%=memberHeader.getMnick()%>"><img src="<%=request.getContextPath()%>/icon/profile.png">프로필</a></label>
 
                 <input type="radio" name="tab_radio" id="tab7"/>
                 <label for="tab7" class="tab3"><img src="<%=request.getContextPath()%>/icon/more.png">더 보기</label>

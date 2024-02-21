@@ -190,17 +190,19 @@
 				
 				// 쓴 글 댓글로
 				if(isSuccess){
-					sql = " INSERT INTO reply(mno, bno, ridx, rpno, rdate, rcontent ) VALUES(?, ?, ?, ?, now(), ?) ";
-					if(db.prepare(sql)
-							 .setInt(mno)
-							 .setInt(bno)
-							 .setInt(0) 
-							 .setInt(0) //이 두가지는 처음 게시글의 글이니까 둘다 0
-							 .setString(boardReply)
-							 .update(true) <= 0) {
-							 isSuccess = false;
-							}
-					
+					// 댓글이 빈문자열이면 저장하지 않는다.
+					if(boardReply != null && !boardReply.equals("")){	
+						sql = " INSERT INTO reply(mno, bno, ridx, rpno, rdate, rcontent ) VALUES(?, ?, ?, ?, now(), ?) ";
+						if(db.prepare(sql)
+								 .setInt(mno)
+								 .setInt(bno)
+								 .setInt(0) 
+								 .setInt(0) //이 두가지는 처음 게시글의 글이니까 둘다 0
+								 .setString(boardReply)
+								 .update(true) <= 0) {
+								 	isSuccess = false;
+								}
+					}	
 				}
 				
 				// 모두 성공인경우
