@@ -15,11 +15,6 @@ public class UserController implements SubController {
 	public void doAction(String[] uris, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		 
-		System.out.println("UserController::doAction");
-		 
-		 for(String uri : uris) { 
-			 System.out.println(uri); 
-		 }
 		 
 		 boolean isSuccess = user(uris, request, response);
 		 

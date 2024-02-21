@@ -42,7 +42,6 @@
 	if(bnoParamReply != null  && !bnoParamReply.equals("")){
 		bno2 = (int)HashMaker.Base62Decoding(bnoParamReply);
 	}
-	
 	//댓글 가져오기
 	if(bno2 != 0){
 		PageVO vo = PageDAO.findReply(bno2); 
@@ -52,7 +51,7 @@
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);	
 
 		String json = mapper.writeValueAsString(vo);
-
+		//System.out.println(json);
 		out.print(json);
 	}
 	
@@ -82,7 +81,7 @@
 	
 	//게시글 지우기
 	if(bno3 != 0){
-		boolean isSuccess = PageDAO.deleteBoard(bno3, member.getMno()); 
+		boolean isSuccess = PageDAO.deleteBoard(bno3, member.getMno());
 		out.print(isSuccess);
 	}
 	
