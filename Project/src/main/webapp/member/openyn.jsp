@@ -1,6 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="vo.MemberVO"%>
+<%@ page import="ezen.db.DBManager" %>
+<%
+MemberVO member = (MemberVO)session.getAttribute("login");
+	int mno = member.getMno();
 	
+	DBManager db = new DBManager();
+	
+	String getopenyn="";												
+	if(db.connect()) {
+		String sql = "SELECT openyn from account where mno = ? "; //(조회) (컬럼명)어디에서 ()
+		
+	
+		if (db.prepare(sql).setInt(mno).read()) { //이친구들은 물음를 채우는 친구들 내가 하고자 하는 것이 무엇인지 항상 쿼리문 생각할것
+												  // 
+			if (db.next()) {
+				getopenyn = db.getString("openyn");
+			}
+		}
+		
+		db.disconnect();
+		
+	}
+	
+%>	
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,10 +48,10 @@
 		// 2. checked 속성값을 확인합니다.
 		const is_checked = checkbox.checked; // 상수 is_ckecke는 checkbox라는 애의 자식인 ckecked라는 친구의 값을 받음 맞는지 모르겠다 
 		
-		let checkdata =  'n'; // 체크 데이터라는 변수의 기본값은 n
+		let checkdata =  'y'; // 체크 데이터라는 변수의 기본값은 y
 		
 		if(is_checked == true ){ //만약  is_Ckecked가 진실이면
-			checkdata = 'y';		// 체크 데이터는 y이다
+			checkdata = 'n';		// 체크 데이터는 n이다
 		}
 		
 
@@ -42,11 +66,24 @@
 				console.log(result); // 콘솔에 result 띄우기
 			},
 			error : function(error) {	//아모르겠다
-				console.error(error)
+				console.error(error)	//
 			}
 		});
 
 	}
+	
+	$(function(){
+		let currentOpenYn = '<%=getopenyn%>';
+		
+		
+		if(currentOpenYn == 'n'){
+			$("#togglecheck").prop("checked",true);
+		}else{
+			$("#togglecheck").prop("checked",false);
+		}
+		
+	});
+	
 </script>
 </head>
 <body>

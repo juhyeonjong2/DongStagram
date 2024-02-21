@@ -117,7 +117,7 @@
                   <img src="<%=request.getContextPath()%>/icon/profile.png">
                   <span>프로필 편집</span>
                 </a>
-                <a class="settingBt" href="<%=request.getContextPath()%>/member/SettingPW.jsp">
+                <a class="settingBt" href="<%=request.getContextPath()%>/member/SettingPw.jsp">
                   <img src="<%=request.getContextPath()%>/icon/key.png" class="imgSize">
                   <span>비밀번호 변경</span>
                 </a>
