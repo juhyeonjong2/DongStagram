@@ -9,8 +9,8 @@
 		response.sendRedirect(request.getContextPath());
 	}
 	
-	System.out.println(searchWords);
-	System.out.println(searchType);
+	//System.out.println(searchWords);
+	//System.out.println(searchType);
 	
 	if(!SearchHistoryDAO.isExist(member.getMno(), searchType, searchWords) &&  // 검색했던 기록이 없고
 		SearchHistoryDAO.insert(member.getMno(), searchType, searchWords))	   // 추가에 성공한 경우.
