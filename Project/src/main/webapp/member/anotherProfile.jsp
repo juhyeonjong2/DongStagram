@@ -13,6 +13,10 @@
 	
 	ArrayList<BoardViewVO> boardList = new ArrayList<BoardViewVO>();
 	
+	String intro ="";
+	String name = "";
+	
+	
 	DBManager db = new DBManager();
 	
 	if(db.connect()) {
@@ -43,6 +47,19 @@
 				}
 			}
 		}
+		
+		
+		sql = "SELECT a.intro, m.mname FROM member as m left join account as a on m.mno = a.mno where m.mnick = ?";
+		if(db.prepare(sql).setString(mnick).read()) {
+			if(db.next()){
+				intro = db.getString("intro");
+				name = db.getString("mname");
+			}
+		}
+		
+		
+		
+		
 	 	db.disconnect(); //try안에 DB매니저사용 시 disconnect안해도됨
 	} //db connect
 %>   
@@ -73,7 +90,7 @@
             <div class="searchField2">
               <img src="./즐겁다 짤.jpg" class="searchProfile">
               <span class="searchSpan1">
-                abc마트
+                <%=mnick %>
                 <button class="btn btn-primary">팔로우</button>
                 <!-- 팔로우 버튼 누르면 바뀌는 거
                   <button class="btn btn-secondary">언팔로우</button>
@@ -82,15 +99,14 @@
                 <a data-toggle="modal" href="#bPopup" class="popupviewMainSpan2">· · ·</a>
               </span>
               <span class="searchSpan2">
-                <span>게시물 5899</span>
+                <span>게시물 <%=boardList.size()%></span>
                 <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2">팔로워 4.9만</a></span>
                 <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2">팔로우 16</a></span>
               </span>
-              <span class="searchSpan3">abc마트</span>
+              <span class="searchSpan3"><%=name %></span>
               <!--span태그 였지만 띄어쓰기때문에 pre태그로 변경-->
               <pre class="searchSpan4">
-제품/서비스
-세상의 모든 신발
+<%=intro %>
               </pre>
               <hr>
             </div>
