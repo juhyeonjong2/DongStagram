@@ -21,7 +21,6 @@
 	String PsaveDir = mnick;
 	String Pupload = "upload/";
 	
-	
 	boolean isFollow = FollowDAO.isFollow(member.getMno(), mnick);
 	int followerCount = FollowDAO.getFollowerCount(mnick);
 	int followingCount = FollowDAO.getFollowingCount(mnick);
@@ -121,11 +120,11 @@ $(function(){
                 <%
                 if(isFollow){
                 %>
-                  <button class="btn btn-secondary follow" onclick="requestUnfollow(this)">언팔로우</button>
+                  <button class="btn btn-secondary" id="btn-follow" onclick="requestFollow()">언팔로우</button>
                 <%
                 }else { 
                 %>            
-	                <button class="btn btn-primary follow" onclick="requestFollow(this)">팔로우</button>
+	                <button class="btn btn-primary" id="btn-follow" onclick="requestFollow()">팔로우</button>
                 <%
                 }
                 %>
@@ -134,8 +133,8 @@ $(function(){
               </span>
               <span class="searchSpan2">
                 <span>게시물 <%=boardList.size()%></span>
-                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2" id="followerCount">팔로워 4.9만</a></span>
-                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2" id="followCount">팔로우 16</a></span>
+                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2" id="followerCount" onclick="requestFollowerList()">팔로워 4.9만</a></span>
+                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2" id="followCount" onclick="requestFollowList()">팔로우 16</a></span>
               </span>
               <span class="searchSpan3"><%=name %></span>
               <!--span태그 였지만 띄어쓰기때문에 pre태그로 변경-->

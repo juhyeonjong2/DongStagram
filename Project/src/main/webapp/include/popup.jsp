@@ -172,9 +172,10 @@
             </div>
             <div class="modal-body">
               <div class="spanBox">
-                <span>abc마켓 님만 모든 팔로워를 볼 수 있습니다</span>
+              <!--    <span>abc마켓 님만 모든 팔로워를 볼 수 있습니다</span> -->
               </div>
-              <!--팔로우가 늘 때 복사될 페이지-->
+              <div id="followerList">
+               <!--팔로우가 늘 때 복사될 페이지-->
               <div class="search">
                   <img src="./인스타 탑로고.png" class="profile">
                   <span class="span">tester1</span>
@@ -192,6 +193,8 @@
                   <button class="btn btn-primary">팔로우</button>
               </div>
               <!--임시 페이지-->
+              </div>
+             
             </div>
           </div>
         </div>
@@ -205,6 +208,7 @@
                 <h5 class="modal-title" id="exampleModalLongTitle">팔로잉</h5>
               </div>
               <div class="modal-body">
+              <div id="followingList">
                 <!--팔로우가 늘 때 복사될 페이지-->
                 <div class="search">
                     <img src="./인스타 탑로고.png" class="profile">
@@ -223,6 +227,8 @@
                     <button class="btn btn-secondary">언팔로우</button>
                 </div>
                 <!--임시 페이지-->
+                
+                </div>
               </div>
               </div>
             </div>

@@ -1,8 +1,11 @@
 package dao;
 
+import java.util.ArrayList;
+
 import ezen.FollowType;
 import ezen.NotificationCodeType;
 import ezen.db.DBManager;
+import vo.FollowVO;
 import vo.MemberVO;
 
 public class FollowDAO {
@@ -20,7 +23,7 @@ public class FollowDAO {
 		boolean isFollow = false;
 		try(DBManager db = new DBManager();)
 		{
-			if(db.connect(true)) // 트렌젝션 활성화.
+			if(db.connect()) // 트렌젝션 활성화.
 			{
 				
 				String sql = "SELECT count(*) as cnt FROM follow WHERE frommno=? AND tommo =?";
@@ -39,9 +42,21 @@ public class FollowDAO {
 		return isFollow;
 	}
 	
+	public static boolean follow(int mno, String targetNick) {
+		MemberVO targetMember = MemberDAO.findOneByNick(targetNick);
+		if(targetMember == null)
+			return false;
+		
+		return follow(mno, targetMember.getMno());
+	}
 	
 	// 팔로우 요청 (mno가 targetMno를 팔로우 요청함)
 	public static boolean follow(int mno, int targetMno) {
+		
+		// 자신은 팔로우 할수 없음.
+		if(mno == targetMno) {
+			return false;
+		}
 		
 		boolean isSuccess = true;
 		try(DBManager db = new DBManager();)
@@ -113,6 +128,14 @@ public class FollowDAO {
 		return isSuccess;
 	}
 	
+	public static boolean unFollow(int mno, String targetNick) {
+		MemberVO targetMember = MemberDAO.findOneByNick(targetNick);
+		if(targetMember == null)
+			return false;
+		
+		return unFollow(mno, targetMember.getMno());
+	}
+	
 	// 언팔로우 (팔로우 요청 상태인 경우 취소 : 어쨋든 삭제, 알람도 삭제처리됨)
 	public static boolean unFollow(int mno, int targetMno) {
 		
@@ -172,22 +195,199 @@ public class FollowDAO {
 		return isSuccess;
 	}
 	
-	// 팔로잉 목록 (mno가 팔로우한 목록중 ack상태인 것만)
 	
-	
-	
-	// 팔로워 먹록(mno를 팔로우 한 목록중 ack상태인 것만.)
-	
-	
-	
-	
-	// 간단한 카운트 구하기.
-	public static int getFollowerCount(String nick) {
-		return 9999;
+	public static ArrayList<FollowVO> getFollowerList(String nick, int mymno){
+		MemberVO targetMember = MemberDAO.findOneByNick(nick);
+		if(targetMember == null)
+			return new ArrayList<FollowVO>();
+		
+		return getFollowerList(targetMember.getMno(), mymno);	
 	}
 	
+	// 팔로워 목록(mno를 팔로우 한 목록중, 로그인한 사용자(mymno)가 팔로우 했는지 여부도 검사)
+	public static ArrayList<FollowVO> getFollowerList(int mno, int mymno) {
+		ArrayList<FollowVO> list = new ArrayList<FollowVO>();
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) // 트렌젝션 활성화.
+			{
+				// 1. mno기준으로 follower목록을 찾는다. (ack 상태인 것만)
+				//    찾은 frommno의 nick과 프로필 이미지 경로를 가져온다.
+				String sql = "SELECT F.frommno as mno, M.mnick as nick ,mfrealname "
+						+ "FROM follow as F "
+						+ "INNER JOIN member as M ON F.frommno = M.mno "
+						+ "INNER JOIN account as A ON M.mno = A.mno "
+						+ "LEFT JOIN memberattach as MA ON A.mno = MA.mno "
+						+ "WHERE tommo =? AND state=? AND (A.blockyn is null or A.blockyn = 'n')";
+				
+				if(db.prepare(sql).setInt(mno).setString(FollowType.ACK.name()).read()) {
+					while(db.next()) 
+					{
+						FollowVO vo = new FollowVO();
+						vo.setMno(db.getInt("mno"));
+						vo.setNick(db.getString("nick"));
+						vo.setProfileImage(db.getString("mfrealname"));
+						list.add(vo);
+					}
+				}
+
+				// 2. 그중 mymno가 follow요청을 보냈다면 true. 아니라면 false로 처리한다.
+				// mymno가 frommno를 팔로우했는지 확인.
+				sql = "SELECT count(*) as cnt FROM follow WHERE frommno=? AND tommo =?";
+				for(FollowVO vo : list)
+				{
+					if(vo.getMno() == mymno) {
+						vo.setFollowState(-1);
+					}else{
+						if(db.prepare(sql).setInt(mymno).setInt(vo.getMno()).read()) {
+							if(db.next()) {
+								if(db.getInt("cnt") > 0)
+								{
+									vo.setFollowState(1);
+								}
+								else {
+									vo.setFollowState(0);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	public static ArrayList<FollowVO> getFollowingList(String nick, int mymno){
+		MemberVO targetMember = MemberDAO.findOneByNick(nick);
+		if(targetMember == null)
+			return new ArrayList<FollowVO>();
+		
+		return getFollowingList(targetMember.getMno(), mymno);	
+	}
+	
+	// 팔로잉 목록(mno가 팔로우 한 목록중, 로그인한 사용자(mymno)가 팔로우 했는지 여부도 검사)
+	public static ArrayList<FollowVO> getFollowingList(int mno, int mymno) {
+		ArrayList<FollowVO> list = new ArrayList<FollowVO>();
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) // 트렌젝션 활성화.
+			{
+				// 1. mno기준으로 follower목록을 찾는다. (ack 상태인 것만)
+				//    찾은 tommo의 nick과 프로필 이미지 경로를 가져온다.
+				String sql = "SELECT F.tommo as mno, M.mnick as nick ,mfrealname "
+						+ "FROM follow as F "
+						+ "INNER JOIN member as M ON F.tommo = M.mno "
+						+ "INNER JOIN account as A ON M.mno = A.mno "
+						+ "LEFT JOIN memberattach as MA ON A.mno = MA.mno "
+						+ "WHERE frommno =? AND state=? AND (A.blockyn is null or A.blockyn = 'n')";
+				
+				if(db.prepare(sql).setInt(mno).setString(FollowType.ACK.name()).read()) {
+					while(db.next()) 
+					{
+						FollowVO vo = new FollowVO();
+						vo.setMno(db.getInt("mno"));
+						vo.setNick(db.getString("nick"));
+						vo.setProfileImage(db.getString("mfrealname"));
+						list.add(vo);
+					}
+				}
+
+				// 2. 그중 mymno가 follow요청을 보냈다면 true. 아니라면 false로 처리한다.
+				// mymno가 frommno를 팔로우했는지 확인.
+				sql = "SELECT count(*) as cnt FROM follow WHERE frommno=? AND tommo =?";
+				for(FollowVO vo : list)
+				{
+					if(vo.getMno() == mymno) {
+						vo.setFollowState(-1);
+					}else{
+						if(db.prepare(sql).setInt(mymno).setInt(vo.getMno()).read()) {
+							if(db.next()) {
+								if(db.getInt("cnt") > 0)
+								{
+									vo.setFollowState(1);
+								}
+								else {
+									vo.setFollowState(0);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public static int getFollowerCount(String nick) {
+		MemberVO targetMember = MemberDAO.findOneByNick(nick);
+		if(targetMember == null)
+			return 0;
+		
+		return getFollowerCount(targetMember.getMno());
+	}
+	
+	// mno에게 팔로우 요청을 보내서 ACK된 숫자. tomno를 기준으로 검색한다. (tomno를 검색하면 됨)
+	public static int getFollowerCount(int mno) {
+		int count = 0;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) 
+			{
+				
+				String sql = "SELECT count(*) as cnt FROM follow WHERE tommo =? AND state=?";
+				if(db.prepare(sql).setInt(mno).setString(FollowType.ACK.name()).read()) {
+					if(db.next()) 
+					{
+						count = db.getInt("cnt");
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+	
 	public static int getFollowingCount(String nick) {
-		return 7777777;
+		MemberVO targetMember = MemberDAO.findOneByNick(nick);
+		if(targetMember == null)
+			return 0;
+		
+		return getFollowingCount(targetMember.getMno());
+	}
+	
+	// mno가 요청을 보낸 카운트 (ACK가 된상태의 카운터)
+	public static int getFollowingCount(int mno) {
+		int count = 0;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) // 트렌젝션 활성화.
+			{
+				
+				String sql = "SELECT count(*) as cnt FROM follow WHERE frommno =? AND state=?";
+				if(db.prepare(sql).setInt(mno).setString(FollowType.ACK.name()).read()) {
+					if(db.next()) 
+					{
+						count = db.getInt("cnt");
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return count;
 	}
 	
 }

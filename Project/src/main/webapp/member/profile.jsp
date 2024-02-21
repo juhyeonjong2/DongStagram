@@ -122,8 +122,8 @@
               </span>
               <span class="searchSpan2">
                 <span>게시물 <%=boardList.size()%></span>
-                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2" id="followerCount">팔로워 4.9만</a></span>
-                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2" id="followCount">팔로우 16</a></span>
+                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2" id="followerCount" onclick="requestFollowerList()">팔로워 4.9만</a></span>
+                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2" id="followCount" onclick="requestFollowList()">팔로우 16</a></span>
               </span>
               <span class="searchSpan3"><%=member.getMname() %></span>
               <!--span태그 였지만 띄어쓰기때문에 pre태그로 변경-->

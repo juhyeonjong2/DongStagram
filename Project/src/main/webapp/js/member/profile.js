@@ -324,47 +324,186 @@ function load(o){
 			});
 	}
 	
+	function changeFollowButton(isFollow){
+		
+		let me = $("#btn-follow");
+		
+		if(isFollow){
+			me.text("언팔로우");
+			me.removeClass(); // 클래스를 모두 지우고.
+			me.addClass('btn btn-secondary');
+			
+		}
+		else {
+			me.text("팔로우");
+			me.removeClass(); // 클래스를 모두 지우고.
+			me.addClass('btn btn-primary');
+		}
+	}
 
-function setFollowerCount(followerCount) {
+	function setFollowerCount(followerCount) {
+		
+		let msg  = '팔로워 ';
+		    msg += numberToKorean(followerCount);
+		    msg += '명';
+		
+		 $('#followerCount').html(msg);
+	}
+	function setFollowCount(follwingCount) {
+		let msg  = '팔로우 ';
+		    msg += numberToKorean(follwingCount);
+		    msg += '명';
+		
+		 $('#followCount').html(msg);
+	}
 	
-	let msg  = '팔로워 ';
-	    msg += numberToKorean(followerCount);
-	    msg += '명';
-	
-	 $('#followerCount').html(msg);
-}
-function setFollowCount(follwingCount) {
-	let msg  = '팔로우 ';
-	    msg += numberToKorean(follwingCount);
-	    msg += '명';
-	
-	 $('#followCount').html(msg);
-}
+	function requestFollow(o){
+		
+		let value = $("#profile_nick").val();
+		$.ajax(
+			{
+				url: "/Dongstagram/data/follow/request",
+				type: "post",
+				data: {target:value},
+				success: function(resData) {
+					let obj =JSON.parse(resData.trim());	
+					if(obj.result =="SUCCESS")
+					{
+						// 팔로우/언팔로우 성공시 대상의 팔로워 숫자의 변동이 있을수 있음.
+						setFollowerCount(obj.targetFollowerCount);
+						
+						// 버튼도 갱신할 것.
+						changeFollowButton(obj.isRequestFollow);
+					}
+				},
+				error: function() {
+					//consloe.log("FAIL");
+				}
+			});
+	}
 
-function requestFollow(o){
 	
-	let button = $(o);
+function requestFollowerList(){
+	
+	// id = profile_nick 을찾아 nick을 얻는다.
 	let value = $("#profile_nick").val();
-	
-
-	console.log(value);
-	
-	
-	
-	
-	
-	
+	$.ajax(
+	{
+		url: "/Dongstagram/data/follow/followers",
+		type: "post",
+		data: {target:value},
+		success: function(resData) {
+			let obj =JSON.parse(resData.trim());	
+			if(obj.result =="SUCCESS")
+			{
+				// id = followerList 를 찾아서 비운뒤에.
+				let parent = $("#followerList");
+				parent.empty();
+				
+				for(let i=0;i<obj.followers.length;i++){
+					addFollowObject(parent, obj.followers[i]);
+				}
+			}
+		},
+		error: function() {
+			//consloe.log("FAIL");
+		}
+	});
 }
 
-function requestUnfollow(o){
-	
-	
-	
+function requestFollowList(){
+	// id = profile_nick 을찾아 nick을 얻는다.
+	let value = $("#profile_nick").val();
+	$.ajax(
+	{
+		url: "/Dongstagram/data/follow/followings",
+		type: "post",
+		data: {target:value},
+		success: function(resData) {
+			let obj =JSON.parse(resData.trim());	
+			if(obj.result =="SUCCESS")
+			{
+				// id = followerList 를 찾아서 비운뒤에.
+				let parent = $("#followingList");
+				parent.empty();
+				
+				for(let i=0;i<obj.followings.length;i++){
+					addFollowObject(parent, obj.followings[i]);
+				}
+			}
+		},
+		error: function() {
+			//consloe.log("FAIL");
+		}
+	});
 }
-  
+
+function addFollowObject(parent, obj){
+	
+	let userNick = obj.nick;
+	let contextPath = "/Dongstagram";
+	let mediaFolder = contextPath + "/upload/" + userNick + "/";
+	let profileImagePath = contextPath +"/icon/profile.png";
+	if(obj.profileImage !=null){
+		profileImagePath = mediaFolder + data.profileImage;
+	}
+	let profileLink = contextPath + "/user/" + userNick;
 	
 	
+	let html = '<div class="search">';
+        html+= '	<img src="'+profileImagePath+'" class="profile">';
+		html+= '	<a href="'+ profileLink +'"><span class="span">'+ userNick +'</span></a>';
+		if(obj.followState==1){
+		html+= '	<button class="btn btn-secondary" onclick="requestObjectFollow(this)")>언팔로우</button>';
+		} else if(obj.followState==0){
+		html+= '	<button class="btn btn-primary" onclick="requestObjectFollow(this)")>팔로우</button>';
+		}
+		html+= '</div>';
+              
+       
+	parent.append(html);
+}
+
+function changeObjectFollowButton(o, isFollow){
+	let me = $(o);
 	
+	if(isFollow){
+		me.text("언팔로우");
+		me.removeClass(); // 클래스를 모두 지우고.
+		me.addClass('btn btn-secondary');
+		
+	}
+	else {
+		me.text("팔로우");
+		me.removeClass(); // 클래스를 모두 지우고.
+		me.addClass('btn btn-primary');
+	}
+}
+
+function requestObjectFollow(o){
+	
+	let parentObj = $(o).closest(".search");
+	let nickObj = parentObj.find("span.span");
+	let nick = nickObj.text();
+	
+	$.ajax(
+	{
+		url: "/Dongstagram/data/follow/request",
+		type: "post",
+		data: {target:nick},
+		success: function(resData) {
+			let obj =JSON.parse(resData.trim());	
+			if(obj.result =="SUCCESS")
+			{
+				// 버튼도 갱신할 것.
+				changeObjectFollowButton(o, obj.isRequestFollow);
+			}
+		},
+		error: function() {
+			//consloe.log("FAIL");
+		}
+	});
+}	
 	
 	
 	
