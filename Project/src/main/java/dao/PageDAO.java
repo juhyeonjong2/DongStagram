@@ -95,9 +95,9 @@ public class PageDAO {
 				}
 	
 				// 가공된 날짜, 쓴 사람 닉네임, 댓글내용을 가져온다
-			 	 sql = " SELECT r.rcontent, m.mnick, r.rno, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate FROM board as b"
-			 		 + " inner join member as m on b.mno = m.mno inner join reply as r on b.bno = r.bno"
-			 		 + " WHERE b.bno = ? and r.ridx = 1 ";	
+			 	 sql = " select m.mnick, rcontent, (select bno from board b where r.bno = ?) as bno,"
+			 	 	 + " r.rno, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate"
+			 	 	 + " from member as m inner join reply as r on m.mno = r.mno";	
 				 if( db.prepare(sql).setInt(bno).read()){
 						while(db.next()){ //next로 차근차근 전부 가져온다.	
 							ReplyVO reply = new ReplyVO(); 
@@ -108,7 +108,8 @@ public class PageDAO {
 							reply.setRcontent(db.getString("rcontent"));
 							vo.replylist.add(reply);
 						}
-				 }	
+				 }
+				 		 
 				 
 				 // 좋아요 수를 가져온다
 				 sql = "SELECT COUNT(*) as cnt FROM favorite WHERE bno= ?";
@@ -170,8 +171,8 @@ public class PageDAO {
 					
 					//System.out.println("삭제시작");
 					// 댓글을  지운다. (댓글은 반드시 존재, (댓글이 없다는 댓글이 달리는듯))
-						String sql = " delete from reply WHERE bno = ? and mno = ?";
-						if(db.prepare(sql).setInt(bno).setInt(mno).update(true) <= 0){
+						String sql = " delete from reply WHERE bno = ?";
+						if(db.prepare(sql).setInt(bno).update(true) <= 0){
 							isSuccess = false;
 							//System.out.println("삭제실패1");
 						} 

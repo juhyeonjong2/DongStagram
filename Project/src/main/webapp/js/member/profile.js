@@ -42,16 +42,17 @@ function load(o){
 			success:function(resData){
 				// 댓글 부분
 				$('.popupviewMain').empty();
-				
-				if( resData.replylist.length == 0){
+				console.log(resData);
+				if( resData.replylist.length == 0 && resData.rootReply.length == 0){
 					let noneReply = '<div class="notReply">'
 	                    		 + '<p>아직 댓글이 없습니다.</p>'
 	                    		 + '<h6>댓글을 남겨보세요</h6>'
                 				 + '</div>'
-                	$('.popupviewMain').append(noneReply)		 
+                	$('.popupviewMain').append(noneReply)	
+                	console.log(1);	 
 				}
 				
-				if(resData.rootReply[0].rcontent != ""){
+				if(resData.rootReply[0] != undefined){
 					// 여기서 맨위의 루트댓글을 그려준다.
 					let rootReply = '<div class="mainTop"><img src="#" class="profile"> '
 								  + '<a href="#" class="main1name">' + resData.rootReply[0].rname + '</a> '
@@ -60,10 +61,12 @@ function load(o){
 								  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].pdate + '일 전</span>'
 								  + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
 						$('.popupviewMain').append(rootReply)
+						console.log(3);
 				}
 					
 				
 					for(let i = 0; i<resData.replylist.length; i++){
+						console.log(12)
 						
 						let html = '<div class="mainTop"><img src="#" class="profile"> '
 								 + '<a href="#" class="main1name">' + resData.replylist[i].rname + '</a> '
@@ -134,7 +137,7 @@ function load(o){
 								// 댓글 부분
 								$('.popupviewMain').empty();
 								
-								if(resData.rootReply[0].rcontent != ""){
+								if(resData.rootReply[0] != undefined){
 									// 여기서 맨위의 루트댓글을 그려준다.
 									let rootReply = '<div class="mainTop"><img src="#" class="profile"> '
 												  + '<a href="#" class="main1name">' + resData.rootReply[0].rname + '</a> '
