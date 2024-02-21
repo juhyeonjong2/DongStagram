@@ -29,6 +29,7 @@
     <script src="<%=request.getContextPath()%>/js/util/number.js"></script>
 	<script src="<%=request.getContextPath()%>/js/include/header.js"></script>
 	<script src="<%=request.getContextPath()%>/js/include/search.js"></script>
+	<script src="<%=request.getContextPath()%>/js/include/notification.js"></script>
 </head>
 <body>
   <header>
