@@ -7,6 +7,17 @@
 <title>Error</title>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/css/error.css" type="text/css" rel="stylesheet">  
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
+<script>
+ $(function(){
+	 setTimeout('goRoot()',1000)
+ })
+ 
+ function goRoot(){
+	 location.href="<%=request.getContextPath()%>";
+ }
+ 
+</script>
 </head>
 <body>
 <div class="page-404">
