@@ -5,6 +5,7 @@
 <%@ page import="ezen.util.HashMaker" %>
 <%@ page import="vo.BoardViewVO"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="dao.FollowDAO" %>
     
 <%
 	MemberVO member = (MemberVO)session.getAttribute("login");
@@ -16,6 +17,9 @@
 	String intro ="";
 	String name = "";
 	
+	boolean isFollow = FollowDAO.isFollow(member.getMno(), mnick);
+	int followerCount = FollowDAO.getFollowerCount(mnick);
+	int followingCount = FollowDAO.getFollowingCount(mnick);
 	
 	DBManager db = new DBManager();
 	
@@ -57,9 +61,6 @@
 			}
 		}
 		
-		
-		
-		
 	 	db.disconnect(); //try안에 DB매니저사용 시 disconnect안해도됨
 	} //db connect
 %>   
@@ -71,7 +72,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로필</title>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="<%=request.getContextPath()%>/js/util/number.js"></script>
 <script src="<%=request.getContextPath()%>/js/member/profile.js"></script>
+
+<script>
+$(function(){
+	  setFollowerCount(<%= followerCount  %>);
+	  setFollowCount(<%= followingCount  %>);
+});
+
+</script>
 </head>
 <body>
     <!--header-->
@@ -89,19 +99,27 @@
           <div class="searchField">
             <div class="searchField2">
               <img src="./즐겁다 짤.jpg" class="searchProfile">
+              <input type="hidden" id="profile_nick" value="<%=mnick %>"> 
               <span class="searchSpan1">
                 <%=mnick %>
-                <button class="btn btn-primary">팔로우</button>
-                <!-- 팔로우 버튼 누르면 바뀌는 거
-                  <button class="btn btn-secondary">언팔로우</button>
-                -->
+                <%
+                if(isFollow){
+                %>
+                  <button class="btn btn-secondary follow" onclick="requestUnfollow(this)">언팔로우</button>
+                <%
+                }else { 
+                %>            
+	                <button class="btn btn-primary follow" onclick="requestFollow(this)">팔로우</button>
+                <%
+                }
+                %>
                 <a class="btn btn-secondary">메세지 보내기</a>
                 <a data-toggle="modal" href="#bPopup" class="popupviewMainSpan2">· · ·</a>
               </span>
               <span class="searchSpan2">
                 <span>게시물 <%=boardList.size()%></span>
-                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2">팔로워 4.9만</a></span>
-                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2">팔로우 16</a></span>
+                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2" id="followerCount">팔로워 4.9만</a></span>
+                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2" id="followCount">팔로우 16</a></span>
               </span>
               <span class="searchSpan3"><%=name %></span>
               <!--span태그 였지만 띄어쓰기때문에 pre태그로 변경-->
@@ -147,6 +165,7 @@
             </ul>
         </div>
 
+	
   
     <!--  popup -->
     <%@ include file="/include/popup.jsp"%>

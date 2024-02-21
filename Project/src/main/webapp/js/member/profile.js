@@ -325,7 +325,43 @@ function load(o){
 	}
 	
 
+function setFollowerCount(followerCount) {
 	
+	let msg  = '팔로워 ';
+	    msg += numberToKorean(followerCount);
+	    msg += '명';
+	
+	 $('#followerCount').html(msg);
+}
+function setFollowCount(follwingCount) {
+	let msg  = '팔로우 ';
+	    msg += numberToKorean(follwingCount);
+	    msg += '명';
+	
+	 $('#followCount').html(msg);
+}
+
+function requestFollow(o){
+	
+	let button = $(o);
+	let value = $("#profile_nick").val();
+	
+
+	console.log(value);
+	
+	
+	
+	
+	
+	
+}
+
+function requestUnfollow(o){
+	
+	
+	
+}
+  
 	
 	
 	

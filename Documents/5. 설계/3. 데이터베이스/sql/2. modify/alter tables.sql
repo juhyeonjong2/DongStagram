@@ -61,3 +61,14 @@ CREATE TABLE searchHistory (
     words text not null comment '검색어',
     foreign key(mno) references member(mno)
 );
+
+# 2024.02.21 변경 - 알림 확인 테이블의 자동삭제를 위한 외래키 조건 변경
+# 1. notificationview 테이블의 제약 조건 확인(CONSTRAINT_NAME 확인)
+SELECT * FROM information_schema.table_constraints WHERE table_name = 'notificationview';
+# 2. notificationview 테이블의 제약 조건 제거(외래키 제거)
+ALTER TABLE notificationview drop foreign key notificationview_ibfk_1;
+ALTER TABLE notificationview drop foreign key notificationview_ibfk_2;
+# 3. notificationview 테이블의 제약 조건 재설정(ON DELETE CASCADE 추가)
+ALTER TABLE notificationview ADD CONSTRAINT notificationview_ibfk_1 foreign key (nno) REFERENCES notification (nno) ON DELETE CASCADE;
+ALTER TABLE notificationview ADD CONSTRAINT notificationview_ibfk_2 foreign key (mno) REFERENCES member (mno) ON DELETE CASCADE;
+

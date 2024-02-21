@@ -230,6 +230,35 @@ public class MemberDAO {
 		return vo;
 	}
 	
+	public static MemberVO findOneByNick(String nick) {
+		
+		MemberVO vo = null;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) {
+				String sql = "SELECT mno, mid, email, mnick, mname, joindate FROM member " 
+						   + " WHERE mnick=? AND (delyn is null or delyn = 'n') ";
+				
+				if(db.prepare(sql).setString(nick).read()) {
+					if(db.next()) {
+						vo = new MemberVO();
+						vo.setMno(db.getInt("mno"));
+						vo.setEmail(db.getString("email"));
+						vo.setJoindate(db.getString("joindate"));
+						vo.setMid(db.getString("mid"));
+						vo.setMname(db.getString("mname"));
+						vo.setMnick(db.getString("mnick"));
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
+	
 	public static boolean isExistById(String id) {
 		
 		boolean result = false;
