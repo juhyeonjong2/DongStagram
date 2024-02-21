@@ -3,7 +3,8 @@
 <%@ page import="ezen.db.DBManager" %>
 
 <%
-
+	/*
+	
 	int mno = member.getMno();
 	String openyn = request.getParameter("mpassword");	
 
@@ -21,5 +22,5 @@
 		out.print(0);
 	}
 	
-
-%>
+	*/
+%>	
