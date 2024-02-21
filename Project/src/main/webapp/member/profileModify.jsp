@@ -1,11 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="vo.MemberVO"%>
+<%@ page import="vo.ProfileVO"%>
+<%@ page import="ezen.db.DBManager" %>
 <%
 	MemberVO member = (MemberVO)session.getAttribute("login");
+
+	ProfileVO vo = new ProfileVO();
+	String saveDir = member.getMnick();
+	String upload = "upload/";
+	try(DBManager db = new DBManager();)
+	{
+		if(db.connect()) {
+			// 나의 프로필 이미지, 성별번호, 내 소개를 전부 찾는다.
+			String sql = "select m.mfrealname, a.gender, a.intro from account a inner join memberattach m on a.mno = m.mno and m.mno = ?";
+			
+			if(db.prepare(sql).setInt(member.getMno()).read()) {
+				  if(db.next()){
+					vo.setRealFileName(db.getString("mfrealname"));
+					vo.setGender(db.getInt("gender"));
+					vo.setIntro(db.getString("intro"));
+				  }
+			}
+			
+		} //db connect	
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+
 %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,15 +36,29 @@
 <title>프로필 설정</title>
 <link href="<%=request.getContextPath()%>/css/base.css" type="text/css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/css/member/profileModify.css" type="text/css" rel="stylesheet">
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+		if(<%=vo.getGender()%> == 0){
+			$(".settingOp").val(0).prop("selected", true);
+		}else if(<%=vo.getGender()%> == 1){
+			$(".settingOp").val(1).prop("selected", true);
+		}else{
+			$(".settingOp").val(2).prop("selected", true);
+		}
+
+	});
+</script>
 </head>
 <body>
     <!--header-->
     <%@ include file="/include/settingHeader.jsp"%>
     <div class="inner2 clearfix">
       <h3>프로필 편집</h3>
-      <form action="<%=request.getContextPath()%>/member/profileModifyOk.jsp" name="frm" method="post">
+      <form action="<%=request.getContextPath()%>/member/profileModifyOk.jsp" name="frm" method="post" enctype=multipart/form-data>
         <div class="settingMain">
-            <img src="./자산 4.png" class="profile">
+            <img src="<%=request.getContextPath() +"/" + upload + saveDir + "/" + vo.getRealFileName()%>" class="profile">
             <span class="span"><%=member.getMnick() %>
               <span class="span2"><%=member.getMname() %></span>
             </span>
@@ -32,7 +69,7 @@
         <div class="settingMain2">
           <h5>소개</h5>
           <div class="textarea">
-            <textarea class="replyTextarea" id="replyTextarea" name="replyTextarea" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()">소개 문구가 여기에 입력되어있다.</textarea>
+            <textarea class="replyTextarea" id="replyTextarea" name="replyTextarea" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"><%=vo.getIntro()%></textarea>
           </div>
           <div class="textCnt">
             <span class="replyTextareaCount" id="replyTextareaCount">0</span>

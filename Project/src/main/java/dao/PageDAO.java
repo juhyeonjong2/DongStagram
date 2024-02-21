@@ -190,7 +190,9 @@ public class PageDAO {
 						 int testBno = 1;
 						sql = " SELECT bno FROM favorite WHERE bno = ? and mno = ?";
 						 if( db.prepare(sql).setInt(bno).setInt(mno).read()){
-							 testBno = db.getInt("bno");
+							 if(db.next()){
+								 testBno = db.getInt("bno"); 
+							 }
 						 }
 						 //찾은 값이 없지 않다면 
 						 if(testBno != 0 && testBno != 1) {
