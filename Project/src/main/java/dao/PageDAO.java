@@ -95,14 +95,13 @@ public class PageDAO {
 				}
 	
 				// 가공된 날짜, 쓴 사람 닉네임, 댓글내용을 가져온다
-			 	 sql = " select m.mnick, rcontent, (select bno from board b where r.bno = ?) as bno,"
-			 	 	 + " r.rno, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate"
-			 	 	 + " from member as m inner join reply as r on m.mno = r.mno";	
+			 	 sql = " select r.rcontent, r.rno, m.mnick, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate"
+			 	 	 + " from reply r, member m where r.mno = m.mno and r.bno = ? and r.ridx = 1";	
 				 if( db.prepare(sql).setInt(bno).read()){
 						while(db.next()){ //next로 차근차근 전부 가져온다.	
 							ReplyVO reply = new ReplyVO(); 
 							reply.setRname(db.getString("mnick"));
-							reply.setRno(db.getInt("r.rno"));
+							reply.setRno(db.getInt("rno"));
 							int Rnow = db.getInt("rdate");
 							reply.setPdate(Tnow - Rnow);
 							reply.setRcontent(db.getString("rcontent"));
