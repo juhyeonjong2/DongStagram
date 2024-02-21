@@ -15,6 +15,11 @@
     <error-code>404</error-code>
     <location>/</location>
   </error-page>
+  
+  <error-page>
+    <error-code>500</error-code>
+    <location>/errorPage.jsp</location>
+  </error-page>
 
  
  <!--  참고 : https://blog.naver.com/devstory/130035779193 쓰레드 풀  -->
