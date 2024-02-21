@@ -5,6 +5,7 @@
 <%@ page import="ezen.util.HashMaker" %>
 <%@ page import="vo.BoardViewVO"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="dao.FollowDAO" %>
     
 <%
 	MemberVO member = (MemberVO)session.getAttribute("login");
@@ -26,6 +27,9 @@
 		</script>
 <%	
 	}
+	
+	int followerCount = FollowDAO.getFollowerCount(member.getMnick());
+	int followingCount = FollowDAO.getFollowingCount(member.getMnick());
 	
 	ArrayList<BoardViewVO> boardList = new ArrayList<BoardViewVO>();
 	
@@ -71,6 +75,12 @@
     <title>프로필</title>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="<%=request.getContextPath()%>/js/member/profile.js"></script>
+<script>
+	$(function(){
+		  setFollowerCount(<%= followerCount  %>);
+		  setFollowCount(<%= followingCount  %>);
+	});
+</script>
 </head>
 <body>
     <!--header-->
@@ -88,14 +98,15 @@
           <div class="searchField">
             <div class="searchField2">
               <img src="./icon/home.png" class="searchProfile">
+              <input type="hidden" id="profile_nick" value="<%=member.getMnick() %>">
               <span class="searchSpan1">
                 <%=member.getMnick() %>
                 <a class="btn btn-secondary" href="<%=request.getContextPath()%>/member/profileModify.jsp">프로필 편집</a>
               </span>
               <span class="searchSpan2">
                 <span>게시물 <%=boardList.size()%></span>
-                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2">팔로워 4.9만</a></span>
-                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2">팔로우 16</a></span>
+                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2" id="followerCount">팔로워 4.9만</a></span>
+                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2" id="followCount">팔로우 16</a></span>
               </span>
               <span class="searchSpan3"><%=member.getMname() %></span>
               <!--span태그 였지만 띄어쓰기때문에 pre태그로 변경-->

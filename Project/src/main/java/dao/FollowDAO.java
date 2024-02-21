@@ -3,9 +3,43 @@ package dao;
 import ezen.FollowType;
 import ezen.NotificationCodeType;
 import ezen.db.DBManager;
+import vo.MemberVO;
 
 public class FollowDAO {
 
+	public static boolean isFollow(int mno, String targetNick) {
+		
+		MemberVO targetMember = MemberDAO.findOneByNick(targetNick);
+		if(targetMember == null)
+			return false;
+		
+		return isFollow(mno, targetMember.getMno());
+	}
+	
+	public static boolean isFollow(int mno, int targetMno) {
+		boolean isFollow = false;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect(true)) // 트렌젝션 활성화.
+			{
+				
+				String sql = "SELECT count(*) as cnt FROM follow WHERE frommno=? AND tommo =?";
+				if(db.prepare(sql).setInt(mno).setInt(targetMno).read()) {
+					if(db.next()) {
+						if(db.getInt("cnt") > 0) {
+							isFollow = true;
+						}
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return isFollow;
+	}
+	
+	
 	// 팔로우 요청 (mno가 targetMno를 팔로우 요청함)
 	public static boolean follow(int mno, int targetMno) {
 		
@@ -83,7 +117,7 @@ public class FollowDAO {
 	public static boolean unFollow(int mno, int targetMno) {
 		
 		boolean isSuccess = true;
-		/*
+		
 		try(DBManager db = new DBManager();)
 		{
 			if(db.connect(true)) // 트렌젝션 활성화.
@@ -113,15 +147,12 @@ public class FollowDAO {
 				// 알림  제거. 
 				if(isSuccess) 
 				{
-					// 우선 알림 확인했으면 그것부터 제거
-					
-					
-					
+					// 우선 알림 확인했으면 그것부터 제거 (ON DELETE CASCADE 옵션으로 자동삭제될 것)
 					
 					/// mno = targetMno, targetmno = mno (반대로 기록해야함)
 					//  알람 조회는 mno기준이므로 mno가 상대방 이어야 한다.
-					sql= "INSERT INTO notification(mno, code, targetmno) VALUES(?,?,?)";
-					if(db.prepare(sql).setInt(targetMno).setString(NotificationCodeType.FW.name()).setInt(mno).update() == 0) {
+					sql= "DELETE FROM notification WHERE mno =? AND targetmno =? ";
+					if(db.prepare(sql).setInt(targetMno).setInt(mno).update() == 0) {
 						isSuccess = false;
 					}
 				}
@@ -137,7 +168,7 @@ public class FollowDAO {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		*/
+		
 		return isSuccess;
 	}
 	
@@ -147,5 +178,16 @@ public class FollowDAO {
 	
 	// 팔로워 먹록(mno를 팔로우 한 목록중 ack상태인 것만.)
 	
+	
+	
+	
+	// 간단한 카운트 구하기.
+	public static int getFollowerCount(String nick) {
+		return 9999;
+	}
+	
+	public static int getFollowingCount(String nick) {
+		return 7777777;
+	}
 	
 }
