@@ -293,7 +293,7 @@
                 </div>
 
               </div>
-              <input type="submit" value="수정하기" class="dropBoxSubmit">
+              <input type="submit" value="수정하기" class="dropBoxReply">
             </form>
 
 

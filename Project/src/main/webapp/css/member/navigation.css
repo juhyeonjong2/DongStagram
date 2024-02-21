@@ -116,6 +116,12 @@ li{margin: 0; padding: 0;}
 .swiper-slide{ list-style: none; width: 650px; height: 750px; margin: 0 auto;background-color: #111; text-align: center;}
 .swiper-slide img{height: 100%;}
 
+/*게시글 수정 슬라이드*/
+#modifyPopup .mySwiper{
+	width: 950px;
+	height: 750px;
+	margin: 20px;
+ }
 
 /*게시글 호버시 효과*/
 #scanMain .scanimg{position: relative; border:3px solid #d1d0d0; padding:3px}

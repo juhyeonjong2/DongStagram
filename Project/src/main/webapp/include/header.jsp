@@ -38,7 +38,7 @@
     <nav id="nav">
           <h1 id="logo">
           	<a href="<%=request.getContextPath()%>">
-          		<img src="<%=request.getContextPath()%>/icon/logo3.png">
+          		<img src="<%=request.getContextPath()%>/icon/logo2.png">
           	</a>
           </h1>
           <div id="tabmenu">
