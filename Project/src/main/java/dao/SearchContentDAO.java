@@ -57,7 +57,7 @@ public class SearchContentDAO {
 						+ "FROM member as M "
 						+ "INNER JOIN account as A ON M.mno=A.mno "
 						+ "LEFT JOIN memberAttach as MA ON M.mno=MA.mno "
-						+ "WHERE (A.blockyn is null or A.blockyn='n') AND M.mnick=? ";
+						+ "WHERE M.mlevel=1 AND (A.blockyn is null or A.blockyn='n') AND M.mnick=? ";
 				
 				
 				if(db.prepare(sql).setString(nick).read()) {
