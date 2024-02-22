@@ -50,7 +50,11 @@
 		
 	});
 	
-	
+    //글자 수 세주는 코드
+    function calc2(){
+      document.getElementById('replyTextareaCount2').innerHTML =
+      document.getElementById('replyTextarea2').value.length;
+    }
 	
 	function checkPassword(){
 		let me = $("#pwModify");
@@ -63,13 +67,20 @@
 		if(value == ""){
 			errorP.text("필수입력입니다");
 			errorP.css("color", "red");
-			return false;
+			errorP.css("font-size", "13px");
 		}else if(!regRs){
 			errorP.text("영문 대소문자, 숫자, 특수문자 포함 8~20자입니다.");
 			errorP.css("color", "red");
-			return false;
+			errorP.css("font-size", "13px");
 		}
 	}
+	
+	$(document).ready(function() {
+		if(<%=vo.getIntro()%> == null){
+			$("#replyTextarea2").val("소개 문구가 없습니다.");
+		}
+		
+	});
 	
 </script>
 </head>
@@ -91,10 +102,10 @@
         <div class="settingMain2">
           <h5>소개</h5>
           <div class="textarea">
-            <textarea class="replyTextarea" id="replyTextarea2" name="replyTextarea" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"><%=vo.getIntro()%></textarea>
+            <textarea class="replyTextarea" id="replyTextarea2" name="replyTextarea" onkeydown="calc2()" onkeyup="calc2()" onkeypress="calc2()"><%=vo.getIntro()%></textarea>
           </div>
           <div class="textCnt">
-            <span class="replyTextareaCount" id="replyTextareaCount">0</span>
+            <span class="replyTextareaCount" id="replyTextareaCount2">12</span>
             <span class="replyTextareaCount2">/150</span>
           </div>
         </div>
@@ -159,14 +170,6 @@
 		}
 	}
 	
-	
-
-	$(document).ready(function() {
-		if(<%=vo.getIntro()%> == null){
-			$("#replyTextarea2").val("소개 문구가 없습니다.");
-		}
-		
-	});
 	
 </script>
     <!--footer-->

@@ -9,7 +9,7 @@ public class FavoriteDAO {
 		boolean isExist = false;
 		try(DBManager db = new DBManager();)
 		{
-			if(db.connect(true)) 
+			if(db.connect()) 
 			{
 				String sql = "SELECT * FROM favorite WHERE mno=? AND bno=?";
 				
@@ -40,6 +40,22 @@ public class FavoriteDAO {
 				if(db.prepare(sql).setInt(mno).setInt(bno).update()>0) {
 					isSuccess = true;
 				}
+				
+				if(isSuccess) {
+					sql = "UPDATE board SET bfavorite=bfavorite+1 WHERE bno=?";
+				
+					if(db.prepare(sql).setInt(bno).update() <=0) {
+						isSuccess = false;
+					}
+				}
+				
+				if(isSuccess) {
+					db.txCommit();
+				}
+				else {
+					db.txRollback();
+				}
+				
 			}
 		}
 		catch(Exception e) {
@@ -60,6 +76,23 @@ public class FavoriteDAO {
 				if(db.prepare(sql).setInt(mno).setInt(bno).update()>0) {
 					isSuccess = true;
 				}
+				
+				// 보드를 찾아서 좋아요 갯수 줄이기.
+				if(isSuccess) {
+					sql = "UPDATE board SET bfavorite=bfavorite-1 WHERE bno=?";
+				
+					if(db.prepare(sql).setInt(bno).update() <=0) {
+						isSuccess = false;
+					}
+				}
+				
+				if(isSuccess) {
+					db.txCommit();
+				}
+				else {
+					db.txRollback();
+				}
+				
 			}
 		}
 		catch(Exception e) {

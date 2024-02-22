@@ -21,24 +21,6 @@
       <h3>신고된 계정</h3>
       <div id="items">
       
-	     <div class="settingMain">
-	       <img src="./자산 4.png" class="profile">
-	       <span class="span">abcabcs123
-	         <span class="span2">abc마트</span>
-	         <span class="span3">신고횟수·11회</span>
-	       </span>
-	       <button class="blockBtn " id="label">차단</button>
-	     </div>
-	     
-	     <div class="settingMain">
-	       <img src="./자산 4.png" class="profile">
-	       <span class="span">abcabcs123
-	         <span class="span2">abc마트</span>
-	         <span class="span3">신고횟수·11회</span>
-	       </span>
-	       <button class="blockBtn " id="label">차단</button>
-	     </div>
-      
       </div>
 	</div>
 </main>
