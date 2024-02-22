@@ -230,8 +230,8 @@
                 
                 <div class="rightTop">
                   <div class="rightTop2">
-                    <img src="./즐겁다 짤.jpg" class="profile">
-                    <span class="nickname">tester123</span>
+                    <img src="<%=request.getContextPath() +"/" + Pupload + PsaveDir + "/" + vo.getRealFileName()%>" class="profile">
+                    <span class="nickname"></span>
                   </div>
                   <textarea class="replyTextarea" id="modifyTextarea" name="modifyReply" placeholder="문구를 입력하세요..." onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
                   <span class="replyTextareaCount" id="modifyTextareaCount">0
