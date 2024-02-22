@@ -162,7 +162,6 @@
 	
 
 	$(document).ready(function() {
-		console.log(<%=vo.getIntro()%>);
 		if(<%=vo.getIntro()%> == null){
 			$("#replyTextarea2").val("소개 문구가 없습니다.");
 		}
