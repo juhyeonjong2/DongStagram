@@ -84,7 +84,7 @@
             <p>기존 비밀번호 입력</p>
             <input type="password" id="p1" onblur="alpass(this)" >
             <p>변경할 비밀번호 입력</p>
-            <input type="password" id="p2" name="password">
+            <input type="password" id="p2" name="mpassword">
             <p>변경할 비밀번호 확인</p>
             <input type="password" id="p3">
         </div>
