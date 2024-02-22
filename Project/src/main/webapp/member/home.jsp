@@ -119,14 +119,6 @@
 					%>
 						<a href="<%=profileLink%>"><%=vo.getNick()%></a>
 						<span class="rootReply_<%=vo.getBno()%>"></span>
-						<div class="tabmore">
-							<div class="more"><a href="<%=boardPageLink%>">더보기</a></div> <!-- 원래 기능은 더보기하면 줄여진 글내용이 전부 보이는 것인데 시간없으니 페이지 열기로 변경함.--> 
-							<!--  
-							<section class="main4block">
-								<div class="main4block2">더보기누르면 display block할 곳</div>
-							</section>
-							-->
-						</div>
 					<%
 					   }
 					%>
