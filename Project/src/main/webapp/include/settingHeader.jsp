@@ -59,7 +59,11 @@
   <header>
 
     <nav id="nav">
-      <h1 id="logo"><a href="#"></a></h1>
+      <h1 id="logo">
+      	<a href="<%=request.getContextPath()%>">
+      		<img src="<%=request.getContextPath()%>/icon/logo5.png">
+      	</a>
+      </h1>
       <div id="tabmenu">
         <input type="radio" name="tab_radio" id="tab">
           <label for="tab" class="tab3"><a href="./base.html"><img src="<%=request.getContextPath()%>/icon/home.png">홈</a></label>

@@ -38,8 +38,8 @@
                         <div class="popupViewRight">
                             <!--상단 태그-->
                             <div class="mainTop">
-                                <img src="./자산 4.png" class="profile">
-                                <a href="#" class="main1name">닉네임</a>
+                                <img src="<%=request.getContextPath() +"/" + Pupload + PsaveDir + "/" + vo.getRealFileName()%>" class="profile">
+                                <a href="#" class="main1name"></a>
                                 <button>팔로우</button>
                                 <a data-toggle="modal" class="popupviewMainSpan2" onclick="boardModify()">· · ·</a>
                             </div> <!--상단 태그-->
@@ -230,8 +230,8 @@
                 
                 <div class="rightTop">
                   <div class="rightTop2">
-                    <img src="./즐겁다 짤.jpg" class="profile">
-                    <span class="nickname">tester123</span>
+                    <img src="<%=request.getContextPath() +"/" + Pupload + PsaveDir + "/" + vo.getRealFileName()%>" class="profile">
+                    <span class="nickname"></span>
                   </div>
                   <textarea class="replyTextarea" id="modifyTextarea" name="modifyReply" placeholder="문구를 입력하세요..." onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
                   <span class="replyTextareaCount" id="modifyTextareaCount">0
