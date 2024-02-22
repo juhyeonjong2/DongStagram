@@ -17,7 +17,7 @@
 		type: "post",
 		success: function(resData) {
 			let obj =JSON.parse(resData.trim());
-			console.log(obj);	
+			
 			if(obj.result =="SUCCESS")
 			{
 				let parent = $("#notificationBody");
@@ -81,8 +81,6 @@ function makeNotificationLinkHtml(obj)
 }
 
 function verifyNotificationFollow(o, nick){
-	console.log(o);
-	console.log(nick);
 	
 	// 여기서 아작스 통신을 하고. 원래는 o를 고쳐야하는데 그냥 리로드 시키자. (시간이 없음)
 	$.ajax(
@@ -107,8 +105,6 @@ function verifyNotificationFollow(o, nick){
 }
 
 function requestNotificationFollow(o, nick){
-	console.log(o);
-	console.log(nick);
 	
 	$.ajax(
 	{
