@@ -47,7 +47,7 @@
 		}else{
 			$(".settingOp").val(2).prop("selected", true);
 		}
-
+		
 	});
 	
 	
@@ -91,7 +91,7 @@
         <div class="settingMain2">
           <h5>소개</h5>
           <div class="textarea">
-            <textarea class="replyTextarea" id="replyTextarea" name="replyTextarea" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"><%=vo.getIntro()%></textarea>
+            <textarea class="replyTextarea" id="replyTextarea2" name="replyTextarea" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"><%=vo.getIntro()%></textarea>
           </div>
           <div class="textCnt">
             <span class="replyTextareaCount" id="replyTextareaCount">0</span>
@@ -158,6 +158,16 @@
 		   document.frm.submit();
 		}
 	}
+	
+	
+
+	$(document).ready(function() {
+		console.log(<%=vo.getIntro()%>);
+		if(<%=vo.getIntro()%> == null){
+			$("#replyTextarea2").val("소개 문구가 없습니다.");
+		}
+		
+	});
 	
 </script>
     <!--footer-->
