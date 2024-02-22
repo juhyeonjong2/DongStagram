@@ -29,6 +29,7 @@
    <!-- footer css도 포함 -->
    <link href="<%=request.getContextPath()%>/css/base.css" type="text/css" rel="stylesheet">
    <script src="<%=request.getContextPath()%>/js/util/number.js"></script>
+   <script src="<%=request.getContextPath()%>/js/util/time.js"></script>
    <script src="<%=request.getContextPath()%>/js/include/header.js"></script>
    <script src="<%=request.getContextPath()%>/js/include/search.js"></script>
    <script src="<%=request.getContextPath()%>/js/include/notification.js"></script>
@@ -73,7 +74,7 @@
             <section id="nav3">
               <h4>알림</h4>
               <!--  <h5>오늘</h5>-->              
-              <div id="notificationBody">
+              <div id="notificationBody" style="overflow-x:hidden; width:380px; height:700px;">
               
               </div>
             </section>

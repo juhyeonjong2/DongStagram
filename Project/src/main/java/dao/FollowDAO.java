@@ -390,4 +390,54 @@ public class FollowDAO {
 		return count;
 	}
 	
+	public static boolean verify(int mno, String targetNick) {
+		MemberVO targetMember = MemberDAO.findOneByNick(targetNick);
+		if(targetMember == null)
+			return false;
+		
+		return verify(mno, targetMember.getMno());
+	}
+	
+	
+	public static boolean verify(int mno, int targetMno) {
+		if(mno == targetMno) {
+			return false;
+		}
+		
+		boolean isSuccess = false;
+		try(DBManager db = new DBManager();)
+		{
+			if(db.connect()) 
+			{
+				// targetMno가 mno에게 팔로우한 상황이고 mno가 이를 승인하는 과정이다.
+		
+				// 팔로우 요청상태 확인.
+				String sql = "SELECT state FROM follow WHERE frommno=? AND tommo =?";
+				if(db.prepare(sql).setInt(targetMno).setInt(mno).read()) {
+					if(db.next()) {
+						if(db.getString("state").equals(FollowType.REQ.name())) {
+							isSuccess = true;
+						}
+					}
+				}
+				/// follow 승인 처리
+				if(isSuccess) 
+				{
+					// tommo는 오류임 tomno였어야함. 그냥 사용.
+					sql = "UPDATE follow SET state=? WHERE frommno=? AND tommo=?";
+					
+					if(db.prepare(sql).setString(FollowType.ACK.name()).setInt(targetMno).setInt(mno).update() <= 0) {
+						isSuccess = false;
+					}	
+				}
+				
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return isSuccess;
+	}
+	
 }

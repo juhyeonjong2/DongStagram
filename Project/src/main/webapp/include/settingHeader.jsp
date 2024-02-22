@@ -66,41 +66,9 @@
 
         <section id="nav3">
           <h4>알림</h4>
-          <h5>오늘</h5>
-          <!--for문으로 div안에 데이터 집어넣음 처음 이미지는 유저 프로필 다음이미지는 게시글 미리보기-->
-          <div class="notice">
-            <a href="#" class="atag">
-              <img src="./자산 4.png" class="profile">
-              <span class="span">###님이 회원님을 팔로우 하기 시작했습니다.
-                <span class="span2">10분전</span>
-              </span>
-              <a href="#" class="atag2">팔로우</a>
-            </a>
-          </div>
-
-          <!--임시 페이지 언팔로우는 class atag3으로 변경-->
-          <div class="notice">
-            <a href="#" class="atag">
-              <img src="./자산 4.png" class="profile">
-              <span class="span">###님이 회원님을 팔로우 하기 시작했습니다.
-                <span class="span2">10분전</span>
-              </span>
-              <a href="#" class="atag3">언팔로우</a>
-            </a>
-          </div>
-
-          <!--임시 페이지 언팔로우는 class atag3으로 변경-->
-          <div class="notice">
-            <a href="#" class="atag">
-              <img src="./자산 4.png" class="profile">
-              <span class="span">###님이 회원님께 메세지를 보냈습니다.
-                <span class="span2">10분전</span>
-              </span>
-              <a href="#" class="atag2">확인</a>
-            </a>
-          </div>
-          
-
+          <!-- <h5>오늘</h5> -->
+          <div id="notificationBody" style="overflow-x:hidden; width:380px; height:700px;">
+		  </div>
         </section>
 
         <section id="nav4">
