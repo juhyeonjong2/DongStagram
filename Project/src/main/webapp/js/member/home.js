@@ -119,9 +119,11 @@ function addPage(view) {
 		{
 		html += '			<a href="'+ profileLink +'">'+ view.nick +'</a>';
 		html += '			<span class="rootReply_'+ view.bno +'"></span>';
-		html += '			<div class="tabmore">';
-		html += '				<div class="more"><a href="'+ boardPageLink +'">더보기</a></div>';
-		html += '			</div>';
+		
+		// 제거
+		//html += '			<div class="tabmore">';
+		//html += '				<div class="more"><a href="'+ boardPageLink +'">더보기</a></div>';
+		//html += '			</div>';
 		}
 		html += '		</div>';
 		html += '		<div class="main5">';
@@ -181,7 +183,7 @@ function setFavoriteCount(className, number) {
 
 function setShortContent(className, text) {
 
-	$("." + className).html(textLengthOverCut(text, 20, "..."));
+	$("." + className).html(text);
 }
 
 function setReply(className, number) {

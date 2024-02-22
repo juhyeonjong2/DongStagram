@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.CertDAO;
+import vo.MemberVO;
+
 public class AccountsController implements SubController {
 
 	@Override
@@ -162,22 +165,63 @@ public class AccountsController implements SubController {
 		
 	protected boolean setting(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if(uris.length != 3)
+		if(uris.length < 3)
 		{
 			return false;
 		}
 		
-		if(uris[2].equals("profile"))
-		{
-			request.getRequestDispatcher("/member/profileModify.jsp").forward(request, response);
-			return true;
-		}
-		else if(uris[2].equals("openyn"))
-		{
-			request.getRequestDispatcher("/member/openynOk.jsp").forward(request, response);
-			return true;
+		boolean isAdmin = false;
+		MemberVO member = (MemberVO)request.getSession().getAttribute("login");
+		if(member != null) {
+			isAdmin = CertDAO.isAdmin(member.getMno(), member.getToken());
 		}
 		
+		if(isAdmin)  // 관리자인경우.
+		{
+			if(uris[2].equals("profile")) // 어드민 첫페이지로 이동.
+			{
+				request.getRequestDispatcher("/admin/settingBlockUserList.jsp").forward(request, response);
+				return true;
+			}
+			else if(uris[2].equals("block")) 
+			{
+				if(uris[3].equals("user")) 
+				{   //profile 경로랑 같음
+					request.getRequestDispatcher("/admin/settingBlockUserList.jsp").forward(request, response);
+					return true;
+				}
+				else if(uris[3].equals("board")) 
+				{
+					request.getRequestDispatcher("/admin/settingBlockBoardList.jsp").forward(request, response);
+					return true;
+				}
+			}
+			else if(uris[2].equals("report")) 
+			{
+				if(uris[3].equals("user")) {
+					request.getRequestDispatcher("/admin/settingReportUserList.jsp").forward(request, response);
+					return true;
+				}
+				else if(uris[3].equals("board")) {
+					request.getRequestDispatcher("/admin/settingReportBoardList.jsp").forward(request, response);
+					return true;
+				}
+			}
+		}
+		else // 관리자가 아닌경우 
+		{
+		
+			if(uris[2].equals("profile"))
+			{
+				request.getRequestDispatcher("/member/profileModify.jsp").forward(request, response);
+				return true;
+			}
+			else if(uris[2].equals("openyn"))
+			{
+				request.getRequestDispatcher("/member/openynOk.jsp").forward(request, response);
+				return true;
+			}
+		}
 		return false;
 	}
 

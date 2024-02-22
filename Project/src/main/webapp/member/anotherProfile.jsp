@@ -6,6 +6,7 @@
 <%@ page import="vo.BoardViewVO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="dao.FollowDAO" %>
+<%@ page import="vo.ProfileVO"%>
     
 <%
 	MemberVO member = (MemberVO)session.getAttribute("login");
@@ -16,6 +17,9 @@
 	
 	String intro ="";
 	String name = "";
+	ProfileVO vo = new ProfileVO();
+	String PsaveDir = mnick;
+	String Pupload = "upload/";
 	
 	boolean isFollow = FollowDAO.isFollow(member.getMno(), mnick);
 	int followerCount = FollowDAO.getFollowerCount(mnick);
@@ -52,7 +56,18 @@
 			}
 		}
 		
+		// 이사람의 프로필 이미지, 성별번호, 내 소개를 전부 찾는다.
+		sql = " select m.mfrealname, a.gender, a.intro from account a inner join memberattach m on a.mno = m.mno"
+			+ " inner join member e on a.mno = e.mno and e.mnick = ?";
 		
+		if(db.prepare(sql).setString(mnick).read()) {
+			  if(db.next()){
+				vo.setRealFileName(db.getString("mfrealname"));
+				vo.setGender(db.getInt("gender"));
+				vo.setIntro(db.getString("intro"));
+			  }
+		}
+
 		sql = "SELECT a.intro, m.mname FROM member as m left join account as a on m.mno = a.mno where m.mnick = ?";
 		if(db.prepare(sql).setString(mnick).read()) {
 			if(db.next()){
@@ -81,6 +96,13 @@ $(function(){
 	  setFollowCount(<%= followingCount  %>);
 });
 
+$(document).ready(function() {
+	if(<%=vo.getIntro()%> == null){
+		$(".searchSpan4").html("");
+	}
+	
+});
+
 </script>
 </head>
 <body>
@@ -98,18 +120,18 @@ $(function(){
 
           <div class="searchField">
             <div class="searchField2">
-              <img src="./즐겁다 짤.jpg" class="searchProfile">
+              <img src="<%=request.getContextPath() +"/" + Pupload + PsaveDir + "/" + vo.getRealFileName()%>" class="searchProfile">
               <input type="hidden" id="profile_nick" value="<%=mnick %>"> 
               <span class="searchSpan1">
                 <%=mnick %>
                 <%
                 if(isFollow){
                 %>
-                  <button class="btn btn-secondary follow" onclick="requestUnfollow(this)">언팔로우</button>
+                  <button class="btn btn-secondary" id="btn-follow" onclick="requestFollow()">언팔로우</button>
                 <%
                 }else { 
                 %>            
-	                <button class="btn btn-primary follow" onclick="requestFollow(this)">팔로우</button>
+	                <button class="btn btn-primary" id="btn-follow" onclick="requestFollow()">팔로우</button>
                 <%
                 }
                 %>
@@ -118,8 +140,8 @@ $(function(){
               </span>
               <span class="searchSpan2">
                 <span>게시물 <%=boardList.size()%></span>
-                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2" id="followerCount">팔로워 4.9만</a></span>
-                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2" id="followCount">팔로우 16</a></span>
+                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2" id="followerCount" onclick="requestFollowerList()">팔로워 4.9만</a></span>
+                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2" id="followCount" onclick="requestFollowList()">팔로우 16</a></span>
               </span>
               <span class="searchSpan3"><%=name %></span>
               <!--span태그 였지만 띄어쓰기때문에 pre태그로 변경-->

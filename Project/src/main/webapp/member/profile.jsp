@@ -6,6 +6,7 @@
 <%@ page import="vo.BoardViewVO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="dao.FollowDAO" %>
+<%@ page import="vo.ProfileVO"%>
     
 <%
 	MemberVO member = (MemberVO)session.getAttribute("login");
@@ -35,6 +36,10 @@
 	
 	DBManager db = new DBManager();
 	
+	ProfileVO vo = new ProfileVO();
+	String PsaveDir = member.getMnick();
+	String Pupload = "upload/";
+	
 	if(db.connect()) {
 		// 나의 게시글, 좋아요 수, 댓글 수를 전부 찾는다.
 		String sql = "select b.bno ,"
@@ -63,6 +68,18 @@
 				}
 			}
 		}
+		
+			// 나의 프로필 이미지, 성별번호, 내 소개를 전부 찾는다.
+			sql = "select m.mfrealname, a.gender, a.intro from account a inner join memberattach m on a.mno = m.mno and m.mno = ?";
+			
+			if(db.prepare(sql).setInt(mno).read()) {
+				  if(db.next()){
+					vo.setRealFileName(db.getString("mfrealname"));
+					vo.setGender(db.getInt("gender"));
+					vo.setIntro(db.getString("intro"));
+				  }
+			}
+
 	 	db.disconnect(); //try안에 DB매니저사용 시 disconnect안해도됨
 	} //db connect
 %>   
@@ -79,6 +96,14 @@
 	$(function(){
 		  setFollowerCount(<%= followerCount  %>);
 		  setFollowCount(<%= followingCount  %>);
+	});
+	
+	
+	$(document).ready(function() {
+		if(<%=vo.getIntro()%> == null){
+			$(".searchSpan4").html("");
+		}
+		
 	});
 </script>
 </head>
@@ -97,7 +122,7 @@
 
           <div class="searchField">
             <div class="searchField2">
-              <img src="./icon/home.png" class="searchProfile">
+              <img src="<%=request.getContextPath() +"/" + Pupload + PsaveDir + "/" + vo.getRealFileName()%>" class="searchProfile">
               <input type="hidden" id="profile_nick" value="<%=member.getMnick() %>">
               <span class="searchSpan1">
                 <%=member.getMnick() %>
@@ -105,14 +130,13 @@
               </span>
               <span class="searchSpan2">
                 <span>게시물 <%=boardList.size()%></span>
-                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2" id="followerCount">팔로워 4.9만</a></span>
-                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2" id="followCount">팔로우 16</a></span>
+                <span><a data-toggle="modal" href="#morePopup3" class="popupviewMainSpan2" id="followerCount" onclick="requestFollowerList()">팔로워 4.9만</a></span>
+                <span><a data-toggle="modal" href="#morePopup4" class="popupviewMainSpan2" id="followCount" onclick="requestFollowList()">팔로우 16</a></span>
               </span>
               <span class="searchSpan3"><%=member.getMname() %></span>
               <!--span태그 였지만 띄어쓰기때문에 pre태그로 변경-->
               <pre class="searchSpan4">
-제품/서비스
-세상의 모든 신발
+<%=vo.getIntro()%>
               </pre>
               <hr>
             </div>
