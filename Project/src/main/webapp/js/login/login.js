@@ -313,6 +313,8 @@
 		if(checkEmail() == false){
 			return;
 		}
+		resetVerifyCertNumber();
+		
 		
 		let me = $("#joinEmail");
 		let value = me.val();
@@ -394,10 +396,20 @@
 		else if(reason == "CERT_SUCCESS"){
 			errorSpan.text("인증되었습니다.");
 			errorSpan.css("color", "green");
+			isVerifyCertNumber= true;
+		}
+		else if(reason == "CERT_CHECK"){
+			errorSpan.text("인증번호를 확인하세요.");
+			errorSpan.css("color", "red");
 		}
 		else { // 이유 삭제.
 			errorSpan.text("");
 		}
+	}
+	
+	let isVerifyCertNumber = false;
+	function resetVerifyCertNumber(){
+		isVerifyCertNumber = false;
 	}
 	
 	function verifyCertNumber(o)
@@ -460,13 +472,23 @@
 		
 	}
 	
+	function checkVerifyCertNumber()
+	{
+		if(!isVerifyCertNumber)
+		{
+			printEmailCert("CERT_CHECK");
+			return false;
+		}
+		return true;
+	}
+	
 	
 	
 	
 	function submitValidation()
 	{
 		if(checkId() & checkPassword() & checkRepassword() &
-		   checkName() & checkNick() & checkEmail())
+		   checkName() & checkNick() & checkEmail() & checkVerifyCertNumber())
 		{
 			return true;
 		} else {
