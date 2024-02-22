@@ -16,6 +16,7 @@
 <%@ include file="/include/addminSettingHeader.jsp"%>
 
 	<main>
+	<!--  이번 프로젝트에는 보류함 -->
 		settingReportBoardList.jsp
 	</main>
 	

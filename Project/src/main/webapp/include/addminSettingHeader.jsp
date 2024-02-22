@@ -89,6 +89,8 @@
                   <span>신고된 계정</span>
                 </a>
                 </div>
+                <!-- 보류 -->
+               <!--      
               <div class="settingBottom">
                 <p>게시물 관리</p>
                 <a class="settingBt" href="<%=request.getContextPath()%>/accounts/setting/block/board">
@@ -98,6 +100,7 @@
                   <span>신고된 게시물</span>
                 </a>
               </div>
+               -->
             </section>
 
         </div><!--tabmenu-->
