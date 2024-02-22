@@ -120,10 +120,10 @@ public class HomeViewDAO {
 						+ "INNER JOIN account as AC ON B.mno=AC.mno "
 						+ "LEFT JOIN member as M ON B.mno = M.mno "
 						+ "LEFT JOIN memberattach as A ON M.mno = A.mno "
-						+ "LEFT JOIN favorite as F ON F.bno = B.bno "
+						+ "LEFT JOIN favorite as F ON F.bno = B.bno AND F.mno=? "
 						+ "WHERE B.mno <> ? AND (B.blockyn is null or B.blockyn = 'n') AND (AC.blockyn is null or AC.blockyn = 'n')"; // 내가 작성한글이 아닌것만.
 				
-				 if(db.prepare(sql).setInt(mno).read()) {
+				 if(db.prepare(sql).setInt(mno).setInt(mno).read()) {
 					 if(db.next()) {
 						 count = db.getInt("cnt");
 					 }
@@ -137,7 +137,9 @@ public class HomeViewDAO {
 	}
 	
 	// fulldata (reply, medialist) 
-	public static HomeViewVO findOne(String pageUrl) {
+	public static HomeViewVO findOne(String pageUrl, int mymno) {
+		
+		// 사용 못함. mno같이 넘어와야함.
 		HomeViewVO vo = null;
 		
 		try(DBManager db = new DBManager();)
@@ -151,10 +153,10 @@ public class HomeViewDAO {
 						+ "INNER JOIN account as AC ON B.mno=AC.mno "
 						+ "LEFT JOIN member as M ON B.mno = M.mno "
 						+ "LEFT JOIN memberattach as A ON M.mno = A.mno "
-						+ "LEFT JOIN favorite as F ON F.bno = B.bno "
+						+ "LEFT JOIN favorite as F ON F.bno = B.bno  AND F.mno=? "
 						+ "WHERE B.shorturi = ? AND (B.blockyn is null or B.blockyn = 'n') AND (AC.blockyn is null or AC.blockyn = 'n')";
 				
-				if(db.prepare(sql).setString(pageUrl).read()) {
+				if(db.prepare(sql).setInt(mymno).setString(pageUrl).read()) {
 					if(db.next()) {
 						vo = new HomeViewVO();
 						vo.setBno(db.getInt("bno"));
