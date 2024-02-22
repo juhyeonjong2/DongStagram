@@ -62,7 +62,7 @@ header #settingTab a{width: 250px;}
 .settingBottom .settingBt .imgSize{width: 35px; height: 35px; margin-top: 2px;}
 
 
-/*ºñ¹Ð¹øÈ£ º¯°æ ÆäÀÌÁö css*/
+/*ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ css*/
 .settingPW{margin-left: 120px;}
 .settingPW p{font-size: 17px; margin-left: 30px; margin-bottom: 10px; margin-top: 50px;}
 .settingPW input[type="password"]{width: 600px; height: 35px; border: 1px solid #aaa; border-radius: 10px;}
@@ -72,10 +72,13 @@ header #settingTab a{width: 250px;}
 
 
 
-/*È¸¿øÅ»Åð ÆË¾÷*/
-#deletePopup .modal-dialog{max-width: 350px;} /*³ÐÀÌ´Â ¿©±â¼­*/
-#deletePopup .deletePopupMain{height: 300px;} /*³ôÀÌ´Â ¿©±â¼­*/
+/*È¸ï¿½ï¿½Å»ï¿½ï¿½ ï¿½Ë¾ï¿½*/
+#deletePopup .modal-dialog{max-width: 350px;} /*ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½â¼­*/
+#deletePopup .deletePopupMain{height: 300px;} /*ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½â¼­*/
 #deletePopup .deletePopupMain p{font-size: 18px; margin-top: 30px; text-align: center; margin-bottom: 20px;}
 #deletePopup .deletePopupMain input[type="password"]{height: 30px; display: block; margin: 0 auto; margin-bottom: 50px;}
 #deletePopup .deletePopupMain input[type="text"]{height: 30px; display: block; margin: 0 auto; margin-bottom: 30px;}
 #deletePopup .deletePopupMain .deleteBtn{border: 0; width: 120px; height: 40px; line-height: 40px; margin-left: 98px;}
+
+
+#errorText{font-size: 13px}

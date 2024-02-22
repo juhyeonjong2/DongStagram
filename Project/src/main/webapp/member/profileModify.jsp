@@ -49,6 +49,28 @@
 		}
 
 	});
+	
+	
+	
+	function checkPassword(){
+		let me = $("#pwModify");
+		let errorP = $("#errorText");
+		let value = me.val();
+		
+		const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,20}$/; // 대소문자, 특문, 숫자 최소 한개씩 포함 8~20자 
+		let regRs = regex.test(value);
+		
+		if(value == ""){
+			errorP.text("필수입력입니다");
+			errorP.css("color", "red");
+			return false;
+		}else if(!regRs){
+			errorP.text("영문 대소문자, 숫자, 특수문자 포함 8~20자입니다.");
+			errorP.css("color", "red");
+			return false;
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -102,11 +124,12 @@
           <div class="modal-content">
             <div class="modal-body">
               <div class="deletePopupMain">
-                <form action="#">
+                <form action="<%=request.getContextPath()%>/member/deleteMember.jsp" method="post">
                   <p>비밀번호를 입력해주세요</p>
-                  <input type="password">
+                  <p id="errorText"></p>
+                  <input type="password" name="deletePw" id="pwModify" onblur="checkPassword()">
                   <p>회원탈퇴를 적어주세요</p>
-                  <input type="text" placeholder="회원탈퇴">
+                  <input type="text" placeholder="회원탈퇴" name="deleteText">
                   <input type="submit" value="회원탈퇴하기" class="deleteBtn">
                 </form>
               </div>

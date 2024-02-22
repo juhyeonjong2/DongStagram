@@ -132,7 +132,6 @@
 					location.href="<%=request.getContextPath()%>/accounts/setting/profile";
 				</script>
 				<%
-			}else{
 			}
 			
 			db.disconnect(); // disconnect에서 autocommit을 기존값으로 되돌려놓음. (disconnect는 반드시 해야함)
