@@ -19,8 +19,7 @@ public class SearchContentDAO {
 						+ "FROM member as M "
 						+ "INNER JOIN account as A ON M.mno=A.mno "
 						+ "LEFT JOIN memberAttach as MA ON M.mno=MA.mno "
-						+ "WHERE (A.blockyn is null or A.blockyn='n') AND M.mnick LIKE CONCAT('%',?,'%') ";
-				
+						+ "WHERE M.mlevel=1 AND (A.blockyn is null or A.blockyn='n') AND M.mnick LIKE CONCAT('%',?,'%') ";
 				
 				if(db.prepare(sql).setString(searchWords).read()) {
 					while(db.next()) {
