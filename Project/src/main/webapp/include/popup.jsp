@@ -138,7 +138,7 @@
           <div class="modal-content">
             <div class="modal-body">
               <div class="morePopupMain">
-                <div class="morePopupBox1"><a href="#">신고</a></div>
+                <div class="morePopupBox1"><a href="#" onclick="return reportPopupUser();")>신고</a></div>
                 <button type="button" class="morePopupBox3" data-dismiss="modal">취소</button>
                 <input type="hidden" id="inputRno" value="">
               </div>
