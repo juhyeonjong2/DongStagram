@@ -23,10 +23,11 @@ public class HomeViewDAO {
 				//1. 블럭되지 않은 모든 게시물 목록 가져오기
 				String sql = "SELECT B.bno as bno, B.mno as mno, shorturi, bhit, bfavorite, wdate, mnick, mfrealname, F.bno as favorite "
 						+ "FROM board as B "
+						+ "INNER JOIN account as AC ON B.mno=AC.mno "
 						+ "LEFT JOIN member as M ON B.mno = M.mno "
 						+ "LEFT JOIN memberattach as A ON M.mno = A.mno "
 						+ "LEFT JOIN favorite as F ON F.bno = B.bno "
-						+ "WHERE B.mno <> ? AND (B.blockyn is null or B.blockyn = 'n') "  // 내가 작성한 글이 아니어야한다.
+						+ "WHERE B.mno <> ? AND (B.blockyn is null or B.blockyn = 'n') AND (AC.blockyn is null or AC.blockyn = 'n')"  // 내가 작성한 글이 아니어야한다.
 						+ "ORDER BY B.bno DESC "  // 역순정렬
 						+ "LIMIT ?, ? ";// 페이징
 				
@@ -116,10 +117,11 @@ public class HomeViewDAO {
 				//
 				String sql = "SELECT count(*) as cnt "
 						+ "FROM board as B "
+						+ "INNER JOIN account as AC ON B.mno=AC.mno "
 						+ "LEFT JOIN member as M ON B.mno = M.mno "
 						+ "LEFT JOIN memberattach as A ON M.mno = A.mno "
 						+ "LEFT JOIN favorite as F ON F.bno = B.bno "
-						+ "WHERE B.mno <> ? AND (B.blockyn is null or B.blockyn = 'n') "; // 내가 작성한글이 아닌것만.
+						+ "WHERE B.mno <> ? AND (B.blockyn is null or B.blockyn = 'n') AND (AC.blockyn is null or AC.blockyn = 'n')"; // 내가 작성한글이 아닌것만.
 				
 				 if(db.prepare(sql).setInt(mno).read()) {
 					 if(db.next()) {
@@ -146,11 +148,11 @@ public class HomeViewDAO {
 				//1. 게시물 정보
 				String sql = "SELECT B.bno as bno, B.mno as mno, shorturi, bhit, bfavorite, wdate, mnick, mfrealname, F.bno as favorite "
 						+ "FROM board as B "
+						+ "INNER JOIN account as AC ON B.mno=AC.mno "
 						+ "LEFT JOIN member as M ON B.mno = M.mno "
 						+ "LEFT JOIN memberattach as A ON M.mno = A.mno "
 						+ "LEFT JOIN favorite as F ON F.bno = B.bno "
-						+ "WHERE B.shorturi = ? AND (B.blockyn is null or B.blockyn = 'n') ";
-				
+						+ "WHERE B.shorturi = ? AND (B.blockyn is null or B.blockyn = 'n') AND (AC.blockyn is null or AC.blockyn = 'n')";
 				
 				if(db.prepare(sql).setString(pageUrl).read()) {
 					if(db.next()) {
