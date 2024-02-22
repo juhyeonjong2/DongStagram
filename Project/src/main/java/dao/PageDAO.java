@@ -90,8 +90,8 @@ public class PageDAO {
 						int Rnow = db.getInt("rdate");
 						rootReply.setPdate(Tnow - Rnow);
 						rootReply.setRcontent(db.getString("rcontent"));
-						vo.rootReply.add(rootReply);
 						rootReply.setProfile(db.getString("profile"));
+						vo.rootReply.add(rootReply);
 					}
 				}
 	
