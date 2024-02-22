@@ -73,4 +73,24 @@ function postModify(){
 		 });
 }
 
+function reportPopupUser() {
+	
+	//유저 신고
+	let nick = $("#profile_nick").val();
+	let reason = '';
+	$.ajax({
+		url:"/Dongstagram/data/report/user", 
+		type:"post",
+		data : {target : nick, reason:reason},
+		success:function(resData){	
+			if(resData.trim() == "SUCCESS")
+			{
+				$('#bPopup').modal('hide');
+				alert("신고 완료");	
+			}
+		 } // success
+	 });
+	 
+	 return false;
+}
 

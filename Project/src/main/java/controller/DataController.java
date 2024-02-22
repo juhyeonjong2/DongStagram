@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.CertDAO;
+import vo.MemberVO;
+
 public class DataController implements SubController {
 
 	@Override
@@ -18,6 +21,7 @@ public class DataController implements SubController {
 			 System.out.println(uri); 
 		 }
 		 */
+		 
 		
 		 if(uris.length < 2) {
 			 response.sendRedirect(request.getContextPath());
@@ -53,6 +57,16 @@ public class DataController implements SubController {
 		 case "notification":
 			 isSuccess = notification(uris, request, response);
 			 break;
+		 case "report":
+			 isSuccess = report(uris, request, response);
+			 break;
+		 case "block":
+			 isSuccess = block(uris, request, response);
+			 break;
+		 case "unblock":
+			 isSuccess = unblock(uris, request, response);
+			 break;
+			 
 		 }
 		 
 		 if(isSuccess == false) {
@@ -222,6 +236,87 @@ public class DataController implements SubController {
 		return isSuccess;
 	}
 	
+	protected boolean report(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(uris.length < 3)
+		{
+			return false;
+		}
+		
+		boolean isSuccess = false;
+		switch(uris[2]) {
+		case "user": // /Dongstagram/data/report/user
+			request.getRequestDispatcher("/content/reportUserOk.jsp").forward(request, response);
+			isSuccess = true;
+			break;
+		case "userlist":// /Dongstagram/data/report/userlist
+			request.getRequestDispatcher("/content/reportUserListOk.jsp").forward(request, response);
+			isSuccess = true;
+			break;
+		}
+		return isSuccess;
+	}
 	
+	protected boolean block(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		if(uris.length < 3)
+		{
+			return false;
+		}
+		
+		boolean isAdmin = false;
+		MemberVO member = (MemberVO)request.getSession().getAttribute("login");
+		if(member != null) {
+			isAdmin = CertDAO.isAdmin(member.getMno(), member.getToken());
+		}
+		
+		boolean isSuccess = false;
+		
+		// 관리자인 경우에만 블럭 처리 가능.
+		if(isAdmin) 
+		{		
+		
+			switch(uris[2]) {
+			case "user": // /Dongstagram/data/block/user
+				request.getRequestDispatcher("/content/blockUserOk.jsp").forward(request, response);
+				isSuccess = true;
+				break;
+			case "userlist":// /Dongstagram/data/block/userlist
+				request.getRequestDispatcher("/content/blockUserListOk.jsp").forward(request, response);
+				isSuccess = true;
+				break;
+				}
+		}
+		return isSuccess;
+	}
+	
+	protected boolean unblock(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(uris.length < 3)
+		{
+			return false;
+		}
+		
+		boolean isAdmin = false;
+		MemberVO member = (MemberVO)request.getSession().getAttribute("login");
+		if(member != null) {
+			isAdmin = CertDAO.isAdmin(member.getMno(), member.getToken());
+		}
+		
+		boolean isSuccess = false;
+		
+		// 관리자인 경우에만 블럭 해제 처리 가능.
+		if(isAdmin) 
+		{		
+		
+			switch(uris[2]) {
+			case "user": // /Dongstagram/data/unblock/user
+				request.getRequestDispatcher("/content/unBlockUserOk.jsp").forward(request, response);
+				isSuccess = true;
+				break;
+				}
+		}
+		return isSuccess;
+	}
 
 }
