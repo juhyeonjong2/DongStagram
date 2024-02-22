@@ -11,9 +11,9 @@ public class DataController implements SubController {
 	@Override
 	public void doAction(String[] uris, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		 
-		 //System.out.println("DataController::doAction");
 		 /*
+		 System.out.println("DataController::doAction");
+		 
 		 for(String uri : uris) { 
 			 System.out.println(uri); 
 		 }
@@ -50,7 +50,9 @@ public class DataController implements SubController {
 		 case "add":
 			 isSuccess = add(uris, request, response);
 			 break;
-			 
+		 case "notification":
+			 isSuccess = notification(uris, request, response);
+			 break;
 		 }
 		 
 		 if(isSuccess == false) {
@@ -198,5 +200,28 @@ public class DataController implements SubController {
 		}
 		return isSuccess;
 	}
+	
+	protected boolean notification(String[] uris, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(uris.length < 3)
+		{
+			return false;
+		}
+		
+		boolean isSuccess = false;
+		switch(uris[2]) {
+		case "list": // /Dongstagram/data/notification/list
+			request.getRequestDispatcher("/content/notificationOk.jsp").forward(request, response);
+			isSuccess = true;
+			break;		
+		case "verify": // 팔로우 요청 승인 /Dongstagram/data/notification/verify
+			request.getRequestDispatcher("/member/followVerifyOk.jsp").forward(request, response);
+			isSuccess = true;
+			break;	
+		}
+		return isSuccess;
+	}
+	
+	
 
 }

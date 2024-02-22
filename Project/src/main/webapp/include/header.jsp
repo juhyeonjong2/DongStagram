@@ -1,8 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="vo.MemberVO"%>
+<%@ page import="ezen.db.DBManager" %>
+<%@ page import="vo.ProfileVO"%>
 <%
 	MemberVO memberHeader = (MemberVO)session.getAttribute("login"); //인덱스에 합쳐지는 헤드가 인덱스와 겹쳐서 이름 바꿔준다.
+	
+	ProfileVO voHD = new ProfileVO();
+	String PsaveDirHD = memberHeader.getMnick();
+	String PuploadHD = "upload/";
+	
+	try(DBManager dbHD = new DBManager();)
+	{
+		 if(dbHD.connect())
+		 {
+				// 나의 프로필 이미지를 찾는다.
+				String sql = "select mfrealname from memberattach where mno = ?";
+				
+				if(dbHD.prepare(sql).setInt(memberHeader.getMno()).read()) {
+					  if(dbHD.next()){
+						voHD.setRealFileName(dbHD.getString("mfrealname"));
+					  }
+				}
+		 } //커넥트 끝
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}	
 %>
 <!DOCTYPE html>
 <html>
@@ -29,6 +53,7 @@
    <!-- footer css도 포함 -->
    <link href="<%=request.getContextPath()%>/css/base.css" type="text/css" rel="stylesheet">
    <script src="<%=request.getContextPath()%>/js/util/number.js"></script>
+   <script src="<%=request.getContextPath()%>/js/util/time.js"></script>
    <script src="<%=request.getContextPath()%>/js/include/header.js"></script>
    <script src="<%=request.getContextPath()%>/js/include/search.js"></script>
    <script src="<%=request.getContextPath()%>/js/include/notification.js"></script>
@@ -73,7 +98,7 @@
             <section id="nav3">
               <h4>알림</h4>
               <!--  <h5>오늘</h5>-->              
-              <div id="notificationBody">
+              <div id="notificationBody" style="overflow-x:hidden; width:380px; height:700px;">
               
               </div>
             </section>
@@ -112,8 +137,8 @@
                     
                     <div class="rightTop">
                       <div class="rightTop2">
-                        <img src="./즐겁다 짤.jpg" class="profile">
-                        <span class="nickname">tester123</span>
+                        <img src="<%=request.getContextPath() +"/" + PuploadHD + PsaveDirHD + "/" + voHD.getRealFileName()%>" class="profile">
+                        <span class="nickname"><%=memberHeader.getMnick() %></span>
                       </div>
                       <textarea name="boardReply" class="replyTextarea" id="replyTextarea" placeholder="문구를 입력하세요..." onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
                       <span class="replyTextareaCount" id="replyTextareaCount">0
