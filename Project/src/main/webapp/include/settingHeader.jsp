@@ -82,7 +82,7 @@
               <h4>설정</h4>
               <div class="settingTop">
                 <p>내 Donstaram 사용 방식</p>
-                <a class="settingBt" href="./setting.html">
+                <a class="settingBt" href="<%=request.getContextPath()%>/accounts/setting/profile">
                   <img src="<%=request.getContextPath()%>/icon/profile.png">
                   <span>프로필 편집</span>
                 </a>
@@ -97,10 +97,12 @@
                   <img src="<%=request.getContextPath()%>/icon/lock.png">
                   <span>계정 공개 범위</span>
                 </a>
+                <!-- 
                 <a class="settingBt" href="./setting3.html">
                   <img src="<%=request.getContextPath()%>/icon/block.png" class="imgSize">
                   <span>차단된 계정</span>
                 </a>
+                 -->
               </div>
             </section>
 

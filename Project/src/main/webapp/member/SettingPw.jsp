@@ -69,7 +69,7 @@
   <%-- <script src="<%=request.getContextPath()%>/js/member/post.js"></script> --%>
 </head>
 <body>
-	<%@ include file="/include/header.jsp"%>
+	<%@ include file="/include/settingHeader.jsp"%>
 	 
 
      
