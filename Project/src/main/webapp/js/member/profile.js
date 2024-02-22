@@ -40,35 +40,39 @@ function load(o){
 			data : {shortUrlReply : bno},
 			dataType : "json",
 			success:function(resData){
+				$('.main1name').html(resData.rootReply[0].rname);
 				// 댓글 부분
 				$('.popupviewMain').empty();
-				console.log(resData);
+				let Dongstagram = "/Dongstagram";
+				let upload = "upload/";
+				
 				if( resData.replylist.length == 0 && resData.rootReply.length == 0){
 					let noneReply = '<div class="notReply">'
 	                    		 + '<p>아직 댓글이 없습니다.</p>'
 	                    		 + '<h6>댓글을 남겨보세요</h6>'
                 				 + '</div>'
-                	$('.popupviewMain').append(noneReply)	
-                	console.log(1);	 
+                	$('.popupviewMain').append(noneReply)	 
 				}
 				
 				if(resData.rootReply[0] != undefined){
 					// 여기서 맨위의 루트댓글을 그려준다.
-					let rootReply = '<div class="mainTop"><img src="#" class="profile"> '
+					let rootReply = '<div class="mainTop"><img src="'
+								  +  Dongstagram + '/' + upload + resData.rootReply[0].rname + '/' + resData.rootReply[0].profile
+								  + '" class="profile"> '
 								  + '<a href="#" class="main1name">' + resData.rootReply[0].rname + '</a> '
 								  + '<div class="popupViewReply">' + resData.rootReply[0].rcontent + '</div> '
 								  + '</div>'
 								  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].pdate + '일 전</span>'
 								  + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
 						$('.popupviewMain').append(rootReply)
-						console.log(3);
 				}
 					
 				
 					for(let i = 0; i<resData.replylist.length; i++){
-						console.log(12)
 						
-						let html = '<div class="mainTop"><img src="#" class="profile"> '
+						let html = '<div class="mainTop"><img src="'
+								 +  Dongstagram + '/' + upload + resData.replylist[i].rname + '/' + resData.replylist[i].profile
+								 + '" class="profile"> '
 								 + '<a href="#" class="main1name">' + resData.replylist[i].rname + '</a> '
 								 + '<div class="popupViewReply">' + resData.replylist[i].rcontent + '</div> '
 								 + '</div>'
@@ -126,42 +130,57 @@ function load(o){
 				success: function(data){
 					if(data.trim() == "true"){
 						$('#replyText').val("");
-						// 댓글 다시 그리기
+						//댓글 생성
 						$.ajax({
 							url:"/Dongstagram/board/detailBoard.jsp", 
 							type:"post",
-							//async:"false",
 							data : {shortUrlReply : bno},
 							dataType : "json",
 							success:function(resData){
+								$('.main1name').html(resData.rootReply[0].rname);
 								// 댓글 부분
 								$('.popupviewMain').empty();
+								let Dongstagram = "/Dongstagram";
+								let upload = "upload/";
+								
+								if( resData.replylist.length == 0 && resData.rootReply.length == 0){
+									let noneReply = '<div class="notReply">'
+					                    		 + '<p>아직 댓글이 없습니다.</p>'
+					                    		 + '<h6>댓글을 남겨보세요</h6>'
+				                				 + '</div>'
+				                	$('.popupviewMain').append(noneReply)	 
+								}
 								
 								if(resData.rootReply[0] != undefined){
 									// 여기서 맨위의 루트댓글을 그려준다.
-									let rootReply = '<div class="mainTop"><img src="#" class="profile"> '
+									let rootReply = '<div class="mainTop"><img src="'
+												  +  Dongstagram + '/' + upload + resData.rootReply[0].rname + '/' + resData.rootReply[0].profile
+												  + '" class="profile"> '
 												  + '<a href="#" class="main1name">' + resData.rootReply[0].rname + '</a> '
 												  + '<div class="popupViewReply">' + resData.rootReply[0].rcontent + '</div> '
 												  + '</div>'
 												  + '<span class="popupviewMainSpan1">' + resData.rootReply[0].pdate + '일 전</span>'
 												  + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
-										$('.popupviewMain').append(rootReply)	
+										$('.popupviewMain').append(rootReply)
 								}
-								
-								for(let i = 0; i<resData.replylist.length; i++){
 									
-									let html = '<div class="mainTop"><img src="#" class="profile"> '
-											 + '<a href="#" class="main1name">' + resData.replylist[i].rname + '</a> '
-											 + '<div class="popupViewReply">' + resData.replylist[i].rcontent + '</div> '
-											 + '</div>'
-											 + '<span class="popupviewMainSpan1">' + resData.replylist[i].pdate + '일 전</span>'
-											 + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
-											 + '<a data-toggle="modal" data-id="'+ resData.replylist[i].rno +'" onclick="deleteOpen(this)" class="popupviewMainSpan2">· · ·</a>'
-									$('.popupviewMain').append(html)
-								 } // for문
+								
+									for(let i = 0; i<resData.replylist.length; i++){
+										
+										let html = '<div class="mainTop"><img src="'
+												 +  Dongstagram + '/' + upload + resData.replylist[i].rname + '/' + resData.replylist[i].profile
+												 + '" class="profile"> '
+												 + '<a href="#" class="main1name">' + resData.replylist[i].rname + '</a> '
+												 + '<div class="popupViewReply">' + resData.replylist[i].rcontent + '</div> '
+												 + '</div>'
+												 + '<span class="popupviewMainSpan1">' + resData.replylist[i].pdate + '일 전</span>'
+												 + '<span class="popupviewMainSpan3">| 댓글달기 |</span>'
+												 + '<a data-toggle="modal" data-id="'+ resData.replylist[i].rno +'" onclick="deleteOpen(this)" class="popupviewMainSpan2">· · ·</a>'
+										$('.popupviewMain').append(html)
+									 } // for문				 
 							} //success
-			
-					 	}); //댓글 다시그리는 ajax
+				
+					 	});
 					} //트루 라면 실행
 				} //success
 				

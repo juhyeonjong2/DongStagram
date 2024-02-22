@@ -79,7 +79,7 @@ public class PageDAO {
 			if(db.connect()){
 				
 				// 루트댓글을 가져온다
-				String sql = " SELECT r.rcontent, m.mnick, r.ridx, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate"
+				String sql = " SELECT r.rcontent, m.mnick, r.ridx, (select mfrealname from memberattach t where t.mno = r.mno) as profile, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate"
 						+ " FROM board as b inner join member as m on b.mno = m.mno"
 						+ " inner join reply as r on b.bno = r.bno "
 						+ " WHERE b.bno = ? and r.ridx = 0;";
@@ -91,11 +91,12 @@ public class PageDAO {
 						rootReply.setPdate(Tnow - Rnow);
 						rootReply.setRcontent(db.getString("rcontent"));
 						vo.rootReply.add(rootReply);
+						rootReply.setProfile(db.getString("profile"));
 					}
 				}
 	
 				// 가공된 날짜, 쓴 사람 닉네임, 댓글내용을 가져온다
-			 	 sql = " select r.rcontent, r.rno, m.mnick, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate"
+			 	 sql = " select r.rcontent, r.rno, m.mnick, (select mfrealname from memberattach t where t.mno = r.mno) as profile, replace(SUBSTRING(r.rdate, 1, 10), '-', '') as rdate"
 			 	 	 + " from reply r, member m where r.mno = m.mno and r.bno = ? and r.ridx = 1";	
 				 if( db.prepare(sql).setInt(bno).read()){
 						while(db.next()){ //next로 차근차근 전부 가져온다.	
@@ -105,6 +106,7 @@ public class PageDAO {
 							int Rnow = db.getInt("rdate");
 							reply.setPdate(Tnow - Rnow);
 							reply.setRcontent(db.getString("rcontent"));
+							reply.setProfile(db.getString("profile"));
 							vo.replylist.add(reply);
 						}
 				 }

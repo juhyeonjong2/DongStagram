@@ -38,8 +38,8 @@
                         <div class="popupViewRight">
                             <!--상단 태그-->
                             <div class="mainTop">
-                                <img src="./자산 4.png" class="profile">
-                                <a href="#" class="main1name">닉네임</a>
+                                <img src="<%=request.getContextPath() +"/" + Pupload + PsaveDir + "/" + vo.getRealFileName()%>" class="profile">
+                                <a href="#" class="main1name"></a>
                                 <button>팔로우</button>
                                 <a data-toggle="modal" class="popupviewMainSpan2" onclick="boardModify()">· · ·</a>
                             </div> <!--상단 태그-->
