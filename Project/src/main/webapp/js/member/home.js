@@ -240,7 +240,7 @@ function sendFavorite(o){
 			type: "post",
 			data: params,
 			success: function(resData) {
-				console.log(resData);
+				
 				let obj =JSON.parse(resData.trim());	
 				if(obj.result =="SUCCESS")
 				{
