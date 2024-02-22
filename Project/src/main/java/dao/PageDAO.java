@@ -189,15 +189,16 @@ public class PageDAO {
 					
 					// 이미지 파일도 지웠다면 좋아요도 지운다. (셀렉트로 검사 후 존재한다면 삭제)
 					if(isSuccess){
-						 int testBno = 1;
+						 int testBno = 0;
 						sql = " SELECT bno FROM favorite WHERE bno = ? and mno = ?";
 						 if( db.prepare(sql).setInt(bno).setInt(mno).read()){
 							 if(db.next()){
 								 testBno = db.getInt("bno"); 
 							 }
 						 }
+						 System.out.println("삭제실패3");
 						 //찾은 값이 없지 않다면 
-						 if(testBno != 0 && testBno != 1) {
+						 if(testBno != 0) {
 							sql = " delete from favorite WHERE bno = ? and mno = ?";
 							if(db.prepare(sql).setInt(bno).setInt(mno).update(true) <= 0){
 								isSuccess = false; 
