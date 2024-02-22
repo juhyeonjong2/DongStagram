@@ -26,13 +26,13 @@ public class HomeViewDAO {
 						+ "INNER JOIN account as AC ON B.mno=AC.mno "
 						+ "LEFT JOIN member as M ON B.mno = M.mno "
 						+ "LEFT JOIN memberattach as A ON M.mno = A.mno "
-						+ "LEFT JOIN favorite as F ON F.bno = B.bno "
+						+ "LEFT JOIN favorite as F ON F.bno = B.bno AND F.mno=? "
 						+ "WHERE B.mno <> ? AND (B.blockyn is null or B.blockyn = 'n') AND (AC.blockyn is null or AC.blockyn = 'n')"  // 내가 작성한 글이 아니어야한다.
 						+ "ORDER BY B.bno DESC "  // 역순정렬
 						+ "LIMIT ?, ? ";// 페이징
 				
 				
-				if(db.prepare(sql).setInt(mno).setInt(start).setInt(count).read()) {
+				if(db.prepare(sql).setInt(mno).setInt(mno).setInt(start).setInt(count).read()) {
 					while(db.next()) {
 						HomeViewVO vo = new HomeViewVO();
 						vo.setBno(db.getInt("bno"));
