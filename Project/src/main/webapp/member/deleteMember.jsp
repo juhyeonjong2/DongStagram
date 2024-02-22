@@ -27,8 +27,8 @@
 	try(DBManager db = new DBManager();){
 		 if(db.connect(true)){
 			 // 이메일 인증 정보 확인.
-			 String sql = "UPDATE member SET delyn = 'y' WHERE mpassword = md5(?)";
-			 if(db.prepare(sql).setString(deletePw).update(true) <= 0) {
+			 String sql = "UPDATE member SET delyn = 'y' WHERE mpassword = md5(?) and mno = ?";
+			 if(db.prepare(sql).setString(deletePw).setInt(member.getMno()).update(true) <= 0) {
 				 isSuccess = false;
 			}
 			 
@@ -38,7 +38,7 @@
 				%>
 				<script>
 					alert("회원탈퇴 되었습니다.")
-					location.href="<%=request.getContextPath()%>";
+					location.href="<%=request.getContextPath()%>/accounts/logout";
 				</script>
 				<%
 			}else{

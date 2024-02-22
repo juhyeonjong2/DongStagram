@@ -14,7 +14,7 @@ li{margin: 0; padding: 0;}
 .popupViewLeft{ width: 750px; height: 100%; display: inline-block; margin-right: 10px;}
 .popupViewRight{ width: 500px; height: 100%; display: inline-block; position: absolute;}
 
-.mainTop button{left: 90px;}
+/*.mainTop button{left: 90px;}*/
 .mainTop{margin-left: 10px; margin-top: 20px;}
 .mainTop{border-bottom:1px solid #d1d0d0; margin-right: 10px;}
 .mainTop .popupviewMainSpan2{position: absolute; right: 10px; top: 10px;}

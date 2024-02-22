@@ -11,8 +11,15 @@ public class ReplyVO {
 	private int bno; // 글 번호
 	private String rcontent; //글 내용
 	private int pdate; //접속날짜-작성날짜
+	private String profile; //프로필
 	
 	
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	public int getPdate() {
 		return pdate;
 	}
