@@ -96,6 +96,13 @@ $(function(){
 	  setFollowCount(<%= followingCount  %>);
 });
 
+$(document).ready(function() {
+	if(<%=vo.getIntro()%> == null){
+		$(".searchSpan4").html("");
+	}
+	
+});
+
 </script>
 </head>
 <body>
