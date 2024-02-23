@@ -19,6 +19,7 @@ public class DBManager implements AutoCloseable{
 	private PreparedStatement psmt = null;
 	private ResultSet result = null;
 	private boolean useTx = false;
+	private boolean aleadyCommit = false;
 	// 내부용
 	private int orderCount = 1; // psmt setInt등에 쓰임
 	private boolean oldAutoCommitState = true;
@@ -81,9 +82,11 @@ public class DBManager implements AutoCloseable{
 			// 연결
 			this.conn =DriverManager.getConnection(host,userID,userPW);
 			this.oldAutoCommitState = conn.getAutoCommit();
-			this.useTx = useTx; 
+			this.useTx = useTx;
+			this.aleadyCommit = false;
 			if(this.useTx ) {
 				this.conn.setAutoCommit(false);
+				
 			}
 			
 		}catch(Exception e) {
@@ -123,6 +126,7 @@ public class DBManager implements AutoCloseable{
 		try {
 			if(useTx) {
 				conn.commit();
+				aleadyCommit = true;
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -145,6 +149,8 @@ public class DBManager implements AutoCloseable{
 		try {
 			
 			conn.rollback();
+			
+			aleadyCommit = true;
 				
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -330,6 +336,13 @@ public class DBManager implements AutoCloseable{
 	public boolean release()
 	{
 		try {
+			
+			if(useTx && !aleadyCommit) {
+				// tx를 사용하는데 커밋이나 롤백을 안했다?
+				// 롤백이 의도된상황이 아닌것으로 판단되므로 커밋해줌.
+				txCommit();
+			}
+			
 			
 			if(result != null)
 				result.close();

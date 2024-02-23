@@ -62,7 +62,7 @@ public class ReplyDAO {
 
 		try(DBManager db = new DBManager();)
 		{
-			if(db.connect(true)) 
+			if(db.connect()) 
 			{
 				String sql = "SELECT Count(*) as count FROM reply WHERE bno=? AND ridx>0";
 				
