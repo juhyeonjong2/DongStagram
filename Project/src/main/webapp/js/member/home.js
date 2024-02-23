@@ -11,9 +11,11 @@ $(window).on("load", function() {
 
 $(window).scroll(function(){
 	let scrT = $(window).scrollTop();
-	if(!_isScrollEventLock){
-		
-		if(scrT == $(document).height()-$(window).height()){
+	
+	if(!_isScrollEventLock){	
+		// 간혹 정확히 안맞는경우가 있다 98%쯤 도달하면 스크롤 끝에 도달했다고 판단한다.
+		let targetValue = $(document).height()-$(window).height();
+		if((scrT / targetValue) > 0.98){
 			// 스크롤이 끝에 도달 했음.
 			//console.log("스크롤이 끝에 도달");
 			requestNextPages(_nowPage);
